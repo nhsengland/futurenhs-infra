@@ -1,5 +1,5 @@
 # FutureNHS Infrastructure Platform 
-This repository contains artefacts pertinent to the hosting infrastructure for the new FutureNHS sharing platform
+This repository contains artefacts pertinent to the hosting infrastructure of the new FutureNHS sharing platform
 
 ## What is FutureNHS?
 The FutureNHS Collaboration platform is the only virtual collaboration platform from the NHS that supports people working in health and social care to make change, improve and transform across organisations, places and professions.
@@ -13,3 +13,7 @@ Unless otherwise specified, all content in this repository and any copies are su
 Any code is dual licensed under the [MIT license](./LICENSE) and the [Open Government License v3](./OPEN-GOVERNMENT-LICENSE). 
 
 Any new work added to this repository must conform to the conditions of these licenses. In particular this means that this project may not depend on GPL-licensed or AGPL-licensed libraries, as these would violate the terms of those libraries' licenses.
+
+## Current Build Status
+
+[![Build Status](https://cdsdigital.visualstudio.com/FutureNHS/_apis/build/status/FutureNHS-Infra?branchName=main)](https://cdsdigital.visualstudio.com/FutureNHS/_build/latest?definitionId=129&branchName=main)

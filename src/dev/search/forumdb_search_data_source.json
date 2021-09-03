@@ -1,0 +1,9 @@
+{
+  "name": "${search_data_source_name}",
+  "description": "Data source connection to the core Forum Database"
+  "type":  "azuresql",
+  "credentials": { "connectionString" : "${connection_string}" },
+  "container": { "name" : "${view_name}" },
+  "dataChangeDetectionPolicy" : { "@odata.type" : "#Microsoft.Azure.Search.HighWaterMarkChangeDetectionPolicy", "highWaterMarkColumnName" : "RowVersion" }
+  "dataDeletionDetectionPolicy" : { "@odata.type" : "#Microsoft.Azure.Search.SoftDeleteColumnDeletionDetectionPolicy", "softDeleteColumnName" : "IsDeleted", "softDeleteMarkerValue" : "true" }
+}
