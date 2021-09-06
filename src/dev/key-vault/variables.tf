@@ -24,7 +24,7 @@ variable log_storage_account_id { type = string }
 
 variable log_analytics_workspace_resource_id { type = string }
 
-variable appgw_tls_certificate_path { type = string }
+variable appgw_tls_certificate_base64 { type = string }
 
 variable appgw_tls_certificate_password { 
     type         = string

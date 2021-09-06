@@ -63,7 +63,7 @@ variable security_center_contact_phone {
   #sensitive = true
 }
 
-variable appgw_tls_certificate_path { type = string }
+variable appgw_tls_certificate_base64 { type = string }
 
 variable appgw_tls_certificate_password { 
     type         = string

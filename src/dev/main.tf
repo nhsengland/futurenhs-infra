@@ -107,7 +107,7 @@ module "key-vault" {
 
   log_analytics_workspace_resource_id                   = module.logging.log_analytics_workspace_resource_id
 
-  appgw_tls_certificate_path                            = var.appgw_tls_certificate_path
+  appgw_tls_certificate_base64                          = var.appgw_tls_certificate_base64
   appgw_tls_certificate_password                        = var.appgw_tls_certificate_password
 
   principal_id_forum_app_svc                            = module.app-services.principal_id_forum

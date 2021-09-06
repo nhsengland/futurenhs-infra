@@ -4,7 +4,7 @@
 # Variable 'azure.tfstatefile.resource_group' was defined in the Variables tab
 # Variable 'azure.tfstatefile.storage_account' was defined in the Variables tab
 # Variable 'terraform.appgw_tls_certificate_password' was defined in the Variables tab
-# Variable 'terraform.appgw_tls_certificate_path' was defined in the Variables tab
+# Variable 'terraform.appgw_tls_certificate_base64' was defined in the Variables tab
 # Variable 'terraform.configuration_directory' was defined in the Variables tab
 # Variable 'terraform.environment' was defined in the Variables tab
 # Variable 'terraform.location' was defined in the Variables tab
@@ -88,7 +88,7 @@ jobs:
     inputs:
       command: plan
       workingDirectory: $(Build.ArtifactStagingDirectory)/$(terraform.environment)
-      commandOptions: -no-color -out="$(terraform.plan.name).tfplan" -input=false -var="product_name=$(terraform.product_name)" -var="location=$(terraform.location)" -var="environment=$(terraform.environment)" -var="sqlserver_admin_email=$(terraform.sqlserver_admin_email)" -var="security_center_contact_email=$(terraform.security_center_contact_email)" -var="security_center_contact_phone=$(terraform.security_center_contact_phone)" -var="appgw_tls_certificate_password=$(terraform.appgw_tls_certificate_password)" -var="appgw_tls_certificate_path=$(terraform.appgw_tls_certificate_path)" -var="sqlserver_active_directory_administrator_login_name=$(terraform.sqlserver_active_directory_administrator_login_name)" -var="sqlserver_active_directory_administrator_objectid=$(terraform.sqlserver_active_directory_administrator_objectid)" -var="application_fqdn=$(terraform.application_fqdn)"
+      commandOptions: -no-color -out="$(terraform.plan.name).tfplan" -input=false -var="product_name=$(terraform.product_name)" -var="location=$(terraform.location)" -var="environment=$(terraform.environment)" -var="sqlserver_admin_email=$(terraform.sqlserver_admin_email)" -var="security_center_contact_email=$(terraform.security_center_contact_email)" -var="security_center_contact_phone=$(terraform.security_center_contact_phone)" -var="appgw_tls_certificate_password=$(terraform.appgw_tls_certificate_password)" -var="appgw_tls_certificate_base64=$(terraform.appgw_tls_certificate_base64)" -var="sqlserver_active_directory_administrator_login_name=$(terraform.sqlserver_active_directory_administrator_login_name)" -var="sqlserver_active_directory_administrator_objectid=$(terraform.sqlserver_active_directory_administrator_objectid)" -var="application_fqdn=$(terraform.application_fqdn)"
       environmentServiceNameAzureRM: $(azure.service_connection)
   - task: CmdLine@2
     displayName: Generate Reviewer Information File
