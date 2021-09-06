@@ -21,11 +21,6 @@ variable environment {
 variable product_name {
   type        = string
   description = "The product name to use"
-
-  validation {
-    condition     = contains(["cdsfnhs", "futurenhs"], lower(var.product_name))
-    error_message = "Unsupported product_name specified. Supported product_name include: cdsfnhs, futurenhs."
-  }
 }
 
 variable sqlserver_admin_email {
