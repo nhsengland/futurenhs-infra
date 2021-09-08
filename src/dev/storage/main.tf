@@ -165,12 +165,17 @@ resource "azurerm_storage_container" "files" {
 # TODO - Add immutability policy for Production
 #        https://docs.microsoft.com/en-us/cli/azure/storage/container/immutability-policy?view=azure-cli-latest
 
-  provisioner "local-exec" { 
-    command = <<-EOT
-              az login
-              az storage container policy create --account-name ${azurerm_storage_container.files.storage_account_name} --container-name ${azurerm_storage_container.files.name} --name sap-readonly --permissions r --auth-mode login
-    EOT
-  }
+# NB - This doesn't happen in CDS Azure environment but when trying to run on NHSi it results in a wait state in which no
+# progress is made even though the resource is deployed.  The policy isn't create so the issue lies in this bit of code.
+# Difficult to tell whether we fail to login or create the policy so commented out for now and will revisit when time allows 
+# or there is native terraform support for management of policies
+
+#  provisioner "local-exec" { 
+#    command = <<-EOT
+#              az login
+#              az storage container policy create --account-name ${azurerm_storage_container.files.storage_account_name} --container-name ${azurerm_storage_container.files.name} --name sap-readonly --permissions r --auth-mode login
+#    EOT
+#  }
 }
 
 # TODO - Should be able to remove this later and use a managed identity to connect to the storage account
