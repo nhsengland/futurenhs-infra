@@ -49,9 +49,9 @@ variable files_primary_blob_container_name { type = string }
 
 variable files_primary_blob_keyvault_connection_string_reference { type = string }
 
-variable forum_redis_primary_keyvault_connection_string_reference { type = string }
+#variable forum_redis_primary_keyvault_connection_string_reference { type = string }
 
-variable forum_redis_secondary_keyvault_connection_string_reference { type = string }
+#variable forum_redis_secondary_keyvault_connection_string_reference { type = string }
 
 variable forum_app_config_primary_endpoint { type = string }
 

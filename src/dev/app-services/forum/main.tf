@@ -219,17 +219,17 @@ resource "azurerm_app_service" "forum" {
     value                                   = var.files_primary_blob_keyvault_connection_string_reference
   }
 
-  connection_string {
-    name                                    = "AzureRedisConfiguration:PrimaryConnectionString"
-    type                                    = "Custom"
-    value                                   = var.forum_redis_primary_keyvault_connection_string_reference
-  }
+  #connection_string {
+  #  name                                    = "AzureRedisConfiguration:PrimaryConnectionString"
+  #  type                                    = "Custom"
+  #  value                                   = var.forum_redis_primary_keyvault_connection_string_reference
+  #}
 
-  connection_string {
-    name                                    = "AzureRedisConfiguration:SecondaryConnectionString"
-    type                                    = "Custom"
-    value                                   = var.forum_redis_secondary_keyvault_connection_string_reference
-  }
+  #connection_string {
+  #  name                                    = "AzureRedisConfiguration:SecondaryConnectionString"
+  #  type                                    = "Custom"
+  #  value                                   = var.forum_redis_secondary_keyvault_connection_string_reference
+  #}
 
   logs {
     detailed_error_messages_enabled         = true
@@ -481,17 +481,17 @@ resource "azurerm_app_service_slot" "forum" {
     value                                   = var.files_primary_blob_keyvault_connection_string_reference
   }
 
-  connection_string {
-    name                                    = "AzureRedisConfiguration:PrimaryConnectionString"
-    type                                    = "Custom"
-    value                                   = var.forum_redis_primary_keyvault_connection_string_reference
-  }
+  #connection_string {
+  #  name                                    = "AzureRedisConfiguration:PrimaryConnectionString"
+  #  type                                    = "Custom"
+  #  value                                   = var.forum_redis_primary_keyvault_connection_string_reference
+  #}
 
-  connection_string {
-    name                                    = "AzureRedisConfiguration:SecondaryConnectionString"
-    type                                    = "Custom"
-    value                                   = var.forum_redis_secondary_keyvault_connection_string_reference
-  }
+  #connection_string {
+  #  name                                    = "AzureRedisConfiguration:SecondaryConnectionString"
+  #  type                                    = "Custom"
+  #  value                                   = var.forum_redis_secondary_keyvault_connection_string_reference
+  #}
 
   logs {
     detailed_error_messages_enabled         = true

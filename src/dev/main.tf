@@ -12,7 +12,7 @@ terraform {
 provider "azurerm" {
   features {
     key_vault {
-      purge_soft_delete_on_destroy = true
+      purge_soft_delete_on_destroy = false
     }
   }
 }
@@ -32,8 +32,8 @@ locals {
   forum_db_keyvault_readwrite_connection_string_reference    = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/sqldb-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-forum-connection-string)"  
   forum_db_keyvault_readonly_connection_string_reference     = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/sqldb-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-forum-readonly-connection-string)"  
   forum_blob_keyvault_connection_string_reference            = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/blobs-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-forum-connection-string)"
-  forum_redis_primary_keyvault_connection_string_reference   = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/redis-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-forum-primary-connection-string)"
-  forum_redis_secondary_keyvault_connection_string_reference = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/redis-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-forum-secondary-connection-string)"
+  #forum_redis_primary_keyvault_connection_string_reference   = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/redis-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-forum-primary-connection-string)"
+  #forum_redis_secondary_keyvault_connection_string_reference = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/redis-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-forum-secondary-connection-string)"
 
   files_db_keyvault_readwrite_connection_string_reference    = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/sqldb-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-files-readwrite-connection-string)"
   files_db_keyvault_readonly_connection_string_reference     = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/sqldb-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-files-readonly-connection-string)"
@@ -284,8 +284,8 @@ module "app-services" {
   forum_db_keyvault_readwrite_connection_string_reference                 = local.forum_db_keyvault_readwrite_connection_string_reference
   forum_db_keyvault_readonly_connection_string_reference                  = local.forum_db_keyvault_readonly_connection_string_reference
   forum_primary_blob_keyvault_connection_string_reference                 = local.forum_blob_keyvault_connection_string_reference
-  forum_redis_primary_keyvault_connection_string_reference                = local.forum_redis_primary_keyvault_connection_string_reference
-  forum_redis_secondary_keyvault_connection_string_reference              = local.forum_redis_secondary_keyvault_connection_string_reference
+  #forum_redis_primary_keyvault_connection_string_reference                = local.forum_redis_primary_keyvault_connection_string_reference
+  #forum_redis_secondary_keyvault_connection_string_reference              = local.forum_redis_secondary_keyvault_connection_string_reference
 
   files_primary_blob_keyvault_connection_string_reference                 = local.files_blob_keyvault_connection_string_reference
   files_db_keyvault_readwrite_connection_string_reference                 = local.files_db_keyvault_readwrite_connection_string_reference

@@ -51,9 +51,9 @@ variable forum_app_config_secondary_endpoint { type = string }
 
 variable forum_primary_app_configuration_id { type = string }
 
-variable forum_redis_primary_keyvault_connection_string_reference { type = string }
+#variable forum_redis_primary_keyvault_connection_string_reference { type = string }
 
-variable forum_redis_secondary_keyvault_connection_string_reference { type = string }
+#variable forum_redis_secondary_keyvault_connection_string_reference { type = string }
 
 variable forum_app_insights_instrumentation_key { 
   type      = string 

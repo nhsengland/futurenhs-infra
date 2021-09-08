@@ -27,8 +27,8 @@ module "forum" {
   forum_app_config_secondary_endpoint                           = var.forum_app_config_secondary_endpoint
   forum_primary_app_configuration_id                            = var.forum_primary_app_configuration_id
 
-  forum_redis_primary_keyvault_connection_string_reference      = var.forum_redis_primary_keyvault_connection_string_reference
-  forum_redis_secondary_keyvault_connection_string_reference    = var.forum_redis_secondary_keyvault_connection_string_reference
+  #forum_redis_primary_keyvault_connection_string_reference      = var.forum_redis_primary_keyvault_connection_string_reference
+  #forum_redis_secondary_keyvault_connection_string_reference    = var.forum_redis_secondary_keyvault_connection_string_reference
 
   forum_db_keyvault_readwrite_connection_string_reference       = var.forum_db_keyvault_readwrite_connection_string_reference
   forum_db_keyvault_readonly_connection_string_reference        = var.forum_db_keyvault_readonly_connection_string_reference

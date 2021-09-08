@@ -161,12 +161,15 @@ resource "azurerm_storage_container" "files" {
 #        see https://github.com/terraform-providers/terraform-provider-azurerm/issues/3722
 #        https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-immutability-policies-manage?tabs=azure-portal
 #        https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-immutable-storage
+#        https://docs.microsoft.com/en-us/cli/azure/storage/container/policy?view=azure-cli-latest
+# TODO - Add immutability policy for Production
+#        https://docs.microsoft.com/en-us/cli/azure/storage/container/immutability-policy?view=azure-cli-latest
 
-  provisioner "local-exec" {
-    # https://docs.microsoft.com/en-us/cli/azure/storage/container/policy?view=azure-cli-latest
-    command = "az storage container policy create --account-name ${azurerm_storage_container.files.storage_account_name} --container-name ${azurerm_storage_container.files.name} --name sap-readonly --permissions r --auth-mode login"
-    # TOD - Add immutability policy for Production
-    # https://docs.microsoft.com/en-us/cli/azure/storage/container/immutability-policy?view=azure-cli-latest
+  provisioner "local-exec" { 
+    command = <<-EOT
+              az login
+              az storage container policy create --account-name ${azurerm_storage_container.files.storage_account_name} --container-name ${azurerm_storage_container.files.name} --name sap-readonly --permissions r --auth-mode login
+    EOT
   }
 }
 
