@@ -185,8 +185,8 @@ module "app-gateway" {
 
   managed_identity_app_gateway                          = module.identities.managed_identity_app_gateway
 
-  #key_vault_certificate_https_versionless_secret_id     = module.key-vault.key_vault_certificate_https_versionless_secret_id
-  #key_vault_certificate_https_name                      = module.key-vault.key_vault_certificate_https_name
+  key_vault_certificate_https_versionless_secret_id     = module.key-vault.key_vault_certificate_https_versionless_secret_id
+  key_vault_certificate_https_name                      = module.key-vault.key_vault_certificate_https_name
 
   log_storage_account_id                                = module.logging.log_storage_account_id
 
