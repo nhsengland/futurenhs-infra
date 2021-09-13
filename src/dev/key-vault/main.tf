@@ -181,29 +181,29 @@ resource "azurerm_monitor_diagnostic_setting" "main" {
 # The pfx file is of course safe (assuming it has appropriate password) to share in public repository
 # but I'd recommend you don't do so just for super peace of mind  
 
-resource "azurerm_key_vault_certificate" "app_forum_https" {
-  name                                   = "agw-certificate-tls-001"
-  key_vault_id                           = azurerm_key_vault.main.id
-
-  certificate {
-    contents = var.appgw_tls_certificate_base64     # filebase64("${path.module}/${var.appgw_tls_certificate_path}")
-    password = var.appgw_tls_certificate_password
-  }
-
-  certificate_policy {
-    issuer_parameters {
-      name = "Unknown"
-    }
-
-    key_properties {
-      exportable = true
-      key_size   = 2048
-      key_type   = "RSA"
-      reuse_key  = false
-    }
-
-    secret_properties {
-      content_type = "application/x-pkcs12"
-    }
-  }
-}
+#resource "azurerm_key_vault_certificate" "app_forum_https" {
+#  name                                   = "agw-certificate-tls-001"
+#  key_vault_id                           = azurerm_key_vault.main.id
+#
+#  certificate {
+#    contents = var.appgw_tls_certificate_base64     # filebase64("${path.module}/${var.appgw_tls_certificate_path}")
+#    password = var.appgw_tls_certificate_password
+#  }
+#
+#  certificate_policy {
+#    issuer_parameters {
+#      name = "Unknown"
+#    }
+#
+#    key_properties {
+#      exportable = true
+#      key_size   = 2048
+#      key_type   = "RSA"
+#      reuse_key  = false
+#    }
+#
+#    secret_properties {
+#      content_type = "application/x-pkcs12"
+#    }
+#  }
+#}
