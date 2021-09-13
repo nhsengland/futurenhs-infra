@@ -260,14 +260,14 @@ resource "azurerm_application_gateway" "default" {
     name                                         = "agw-443-listener"
     frontend_ip_configuration_name               = "agw-frontend-ipconfig-public"
     frontend_port_name                           = "agw-frontend-port-443"
-    protocol                                     = "Http" #"Https"
-    #ssl_certificate_name                         = var.key_vault_certificate_https_name
+    protocol                                     = "Https"
+    ssl_certificate_name                         = var.key_vault_certificate_https_name
   }
 
-  #ssl_certificate {
-  #  name                                         = var.key_vault_certificate_https_name
-  #  key_vault_secret_id                          = var.key_vault_certificate_https_versionless_secret_id
-  #}
+  ssl_certificate {
+    name                                         = var.key_vault_certificate_https_name
+    key_vault_secret_id                          = var.key_vault_certificate_https_versionless_secret_id
+  }
 
   # For images such as group header or avatars, we want to serve direct from blob storage but hidden behind 
   # a url that ties to our website.
