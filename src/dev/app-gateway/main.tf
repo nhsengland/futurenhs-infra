@@ -260,7 +260,7 @@ resource "azurerm_application_gateway" "default" {
     name                                         = "agw-443-listener"
     frontend_ip_configuration_name               = "agw-frontend-ipconfig-public"
     frontend_port_name                           = "agw-frontend-port-443"
-    protocol                                     = "Https"
+    protocol                                     = "Http" #"Https"
     #ssl_certificate_name                         = var.key_vault_certificate_https_name
   }
 
