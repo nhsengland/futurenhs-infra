@@ -359,11 +359,11 @@ resource "azurerm_subnet" "forum" {
 }
 
 # now we need to add the vnet integration by connecting the two resources together
-
-resource "azurerm_app_service_virtual_network_swift_connection" "forum" {
-  app_service_id                                 = azurerm_app_service.forum.id
-  subnet_id                                      = azurerm_subnet.forum.id
-}
+# TODO - temp removed to due to issue with deployment (gets stuck trying to create swift connections)
+#resource "azurerm_app_service_virtual_network_swift_connection" "forum" {
+#  app_service_id                                 = azurerm_app_service.forum.id
+#  subnet_id                                      = azurerm_subnet.forum.id
+#}
 
 # next piece is to hook up the subnet to use our network security group
 
@@ -580,8 +580,9 @@ resource "azurerm_monitor_diagnostic_setting" "forum_staging_slot" {
   }
 }
 
-resource "azurerm_app_service_slot_virtual_network_swift_connection" "forum_staging_slot" {
-  slot_name                                      = azurerm_app_service_slot.forum.name
-  app_service_id                                 = azurerm_app_service.forum.id
-  subnet_id                                      = azurerm_subnet.forum.id
-}
+# TODO - temp removed to due to issue with deployment (gets stuck trying to create swift connections)
+#resource "azurerm_app_service_slot_virtual_network_swift_connection" "forum_staging_slot" {
+#  slot_name                                      = azurerm_app_service_slot.forum.name
+#  app_service_id                                 = azurerm_app_service.forum.id
+#  subnet_id                                      = azurerm_subnet.forum.id
+#}
