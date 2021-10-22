@@ -7,6 +7,8 @@ module "forum" {
   environment                                                   = var.environment
   product_name                                                  = var.product_name
 
+  application_fqdn                                              = var.application_fqdn
+
   virtual_network_name                                          = var.virtual_network_name
   virtual_network_application_gateway_subnet_id                 = var.virtual_network_application_gateway_subnet_id
   virtual_network_security_group_id                             = var.virtual_network_security_group_id
@@ -26,6 +28,10 @@ module "forum" {
   forum_app_config_primary_endpoint                             = var.forum_app_config_primary_endpoint
   forum_app_config_secondary_endpoint                           = var.forum_app_config_secondary_endpoint
   forum_primary_app_configuration_id                            = var.forum_primary_app_configuration_id
+
+  forum_email_sendgrid_apikey                                   = var.forum_email_sendgrid_apikey
+  forum_email_smtp_from                                         = var.forum_email_smtp_from
+  forum_email_smpt_username                                     = var.forum_email_smpt_username
 
   #forum_redis_primary_keyvault_connection_string_reference      = var.forum_redis_primary_keyvault_connection_string_reference
   #forum_redis_secondary_keyvault_connection_string_reference    = var.forum_redis_secondary_keyvault_connection_string_reference

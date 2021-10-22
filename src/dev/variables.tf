@@ -13,8 +13,8 @@ variable environment {
   type = string
 
   validation {
-    condition     = contains(["dev", "test", "prod"], lower(var.environment))
-    error_message = "Unsupported environment specified. Supported environments include: devtest, uat, prod."
+    condition     = contains(["dev", "uat", "pre", "prod"], lower(var.environment))
+    error_message = "Unsupported environment specified. Supported environments include: dev, uat, pre, prod."
   }
 }
 
@@ -64,3 +64,17 @@ variable appgw_tls_certificate_password {
     type         = string
     sensitive    = true
 }
+
+variable appgw_tls_certificate_content_type { 
+  type = string 
+  validation {
+    condition     = contains(["application/x-pkcs12", "application/x-pem-file"], var.appgw_tls_certificate_content_type)
+    error_message = "Unsupported value specified for the certificate content type."
+  }
+}
+
+variable forum_email_sendgrid_apikey { type = string }
+
+variable forum_email_smtp_from { type = string }
+
+variable forum_email_smpt_username { type = string }

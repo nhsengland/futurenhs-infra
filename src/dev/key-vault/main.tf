@@ -177,9 +177,7 @@ resource "azurerm_monitor_diagnostic_setting" "main" {
 }
 
 
-# Upload a certificate that the application gateway can use for HTTPS management.  
-# The pfx file is of course safe (assuming it has appropriate password) to share in public repository
-# but I'd recommend you don't do so just for super peace of mind  
+# Upload a certificate that the application gateway can use for HTTPS management. 
 
 resource "azurerm_key_vault_certificate" "app_forum_https" {
   name                                   = "agw-certificate-tls-001"
@@ -187,7 +185,7 @@ resource "azurerm_key_vault_certificate" "app_forum_https" {
 
   certificate {
     contents = var.appgw_tls_certificate_base64     # filebase64("${path.module}/${var.appgw_tls_certificate_path}")
-    password = var.appgw_tls_certificate_password
+    password = var.appgw_tls_certificate_password == "no-password" ? "" : var.appgw_tls_certificate_password
   }
 
   certificate_policy {
@@ -203,7 +201,7 @@ resource "azurerm_key_vault_certificate" "app_forum_https" {
     }
 
     secret_properties {
-      content_type = "application/x-pkcs12"
+      content_type = var.appgw_tls_certificate_content_type // "application/x-pkcs12" | "application/x-pem-file"
     }
   }
 }

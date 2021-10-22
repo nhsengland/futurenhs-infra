@@ -161,9 +161,14 @@ resource "azurerm_app_service" "forum" {
     # TODO - Move the following settings to the azure config service for the forum once it has been integrated with the site
 
     "FeatureFlag_FilesAndFolders"           = true
+    "AzurePlatform:ApplicationGateway:FQDN" = var.application_fqdn
     "AzureBlobStorage:PrimaryEndpoint"      = var.forum_primary_blob_container_endpoint		# for storing avatar and group images
     "AzureBlobStorage:ContainerName"        = var.forum_primary_blob_container_name
     "AzureBlobStorage:Provider"             = "MvcForum.Plugins.Providers.AzureBlobStorageProvider"
+    "SendEmailService"                      = "SendGrid"
+    "Email_SendGridApiKey"                  = var.forum_email_sendgrid_apikey
+    "Email_SmtpFrom"                        = var.forum_email_smtp_from
+    "Email_SmtpUsername"                    = var.forum_email_smpt_username
 
     # TODO - Remove and move over to file server once MVC is no longer handling file uploads to blob storage
 
@@ -359,11 +364,11 @@ resource "azurerm_subnet" "forum" {
 }
 
 # now we need to add the vnet integration by connecting the two resources together
-# TODO - temp removed to due to issue with deployment (gets stuck trying to create swift connections)
-#resource "azurerm_app_service_virtual_network_swift_connection" "forum" {
-#  app_service_id                                 = azurerm_app_service.forum.id
-#  subnet_id                                      = azurerm_subnet.forum.id
-#}
+
+resource "azurerm_app_service_virtual_network_swift_connection" "forum" {
+  app_service_id                                 = azurerm_app_service.forum.id
+  subnet_id                                      = azurerm_subnet.forum.id
+}
 
 # next piece is to hook up the subnet to use our network security group
 
@@ -431,12 +436,17 @@ resource "azurerm_app_service_slot" "forum" {
     "AzureAppConfiguration:CacheExpirationIntervalInSeconds"      = "300" # 5 minutes       
     "AzureAppConfiguration:PrimaryRegionEndpoint"                 = var.forum_app_config_primary_endpoint		          
     "AzureAppConfiguration:SecondaryRegionEndpoint"               = var.forum_app_config_secondary_endpoint		          
-    "FeatureFlag_FilesAndFolders"           = true
-    "AzureBlobStorage:PrimaryEndpoint_TO_BE_RETIRED"      = var.files_blob_primary_endpoint
-    "AzureBlobStorage:FilesPrimaryEndpoint_TO_BE_RETIRED" = var.files_blob_primary_endpoint #Code using this value for wrong thing so temporarily setting to storage account endpoint but should really be files_primary_blob_container_endpoint		# for storing files
-    "AzureBlobStorage:FilesContainerName_TO_BE_RETIRED"   = var.files_primary_blob_container_name
-    "BlobContainer"                                       = var.forum_primary_blob_container_name
-    "StorageProvider"                                     = "MvcForum.Plugins.Providers.AzureBlobStorageProvider"
+    "FeatureFlag_FilesAndFolders"                                 = true
+    "AzurePlatform:ApplicationGateway:FQDN"                       = var.application_fqdn
+    "AzureBlobStorage:PrimaryEndpoint_TO_BE_RETIRED"              = var.files_blob_primary_endpoint
+    "AzureBlobStorage:FilesPrimaryEndpoint_TO_BE_RETIRED"         = var.files_blob_primary_endpoint #Code using this value for wrong thing so temporarily setting to storage account endpoint but should really be files_primary_blob_container_endpoint		# for storing files
+    "AzureBlobStorage:FilesContainerName_TO_BE_RETIRED"           = var.files_primary_blob_container_name
+    "BlobContainer"                                               = var.forum_primary_blob_container_name
+    "StorageProvider"                                             = "MvcForum.Plugins.Providers.AzureBlobStorageProvider"
+    "SendEmailService"                                            = "SendGrid"
+    "Email_SendGridApiKey"                                        = var.forum_email_sendgrid_apikey
+    "Email_SmtpFrom"                                              = var.forum_email_smtp_from
+    "Email_SmtpUsername"                                          = var.forum_email_smpt_username
   }
 
   # TODO - remove these once entity framework no longer used
@@ -580,9 +590,8 @@ resource "azurerm_monitor_diagnostic_setting" "forum_staging_slot" {
   }
 }
 
-# TODO - temp removed to due to issue with deployment (gets stuck trying to create swift connections)
-#resource "azurerm_app_service_slot_virtual_network_swift_connection" "forum_staging_slot" {
-#  slot_name                                      = azurerm_app_service_slot.forum.name
-#  app_service_id                                 = azurerm_app_service.forum.id
-#  subnet_id                                      = azurerm_subnet.forum.id
-#}
+resource "azurerm_app_service_slot_virtual_network_swift_connection" "forum_staging_slot" {
+  slot_name                                      = azurerm_app_service_slot.forum.name
+  app_service_id                                 = azurerm_app_service.forum.id
+  subnet_id                                      = azurerm_subnet.forum.id
+}

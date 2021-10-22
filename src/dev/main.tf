@@ -109,6 +109,7 @@ module "key-vault" {
 
   appgw_tls_certificate_base64                          = var.appgw_tls_certificate_base64
   appgw_tls_certificate_password                        = var.appgw_tls_certificate_password
+  appgw_tls_certificate_content_type                    = var.appgw_tls_certificate_content_type
 
   principal_id_forum_app_svc                            = module.app-services.principal_id_forum
   principal_id_forum_staging_app_svc                    = module.app-services.principal_id_forum_staging
@@ -242,6 +243,10 @@ module "app-services" {
   forum_primary_blob_container_endpoint                 = module.storage.forum_primary_blob_container_endpoint
   forum_primary_blob_container_resource_manager_id      = module.storage.forum_primary_blob_container_resource_manager_id
   forum_primary_blob_container_name                     = module.storage.forum_primary_blob_container_name
+
+  forum_email_sendgrid_apikey                           = var.forum_email_sendgrid_apikey
+  forum_email_smtp_from                                 = var.forum_email_smtp_from
+  forum_email_smpt_username                             = var.forum_email_smpt_username
 
   forum_app_config_primary_endpoint                     = module.app-configuration.primary_endpoint
   forum_app_config_secondary_endpoint                   = module.app-configuration.secondary_endpoint

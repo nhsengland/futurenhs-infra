@@ -9,7 +9,6 @@ variable product_name { type = string }
 variable resource_group_name { type = string }
 
 
-
 variable virtual_network_name { type = string }
 
 variable virtual_network_application_gateway_subnet_id { type = string }
@@ -54,6 +53,12 @@ variable forum_primary_app_configuration_id { type = string }
 #variable forum_redis_primary_keyvault_connection_string_reference { type = string }
 
 #variable forum_redis_secondary_keyvault_connection_string_reference { type = string }
+
+variable forum_email_sendgrid_apikey { type = string }
+
+variable forum_email_smtp_from { type = string }
+
+variable forum_email_smpt_username { type = string }
 
 variable forum_app_insights_instrumentation_key { 
   type      = string 

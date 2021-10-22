@@ -306,11 +306,11 @@ resource "azurerm_subnet" "files" {
 }
 
 # now we need to add the vnet integration by connecting the two resources together
-# TODO - temp removed to due to issue with deployment (gets stuck trying to create swift connections)
-#resource "azurerm_app_service_virtual_network_swift_connection" "files" {
-#  app_service_id                                 = azurerm_app_service.files.id
-#  subnet_id                                      = azurerm_subnet.files.id
-#}
+
+resource "azurerm_app_service_virtual_network_swift_connection" "files" {
+  app_service_id                                 = azurerm_app_service.files.id
+  subnet_id                                      = azurerm_subnet.files.id
+}
 
 # next piece is to hook up the subnet to use our network security group
 
@@ -478,9 +478,8 @@ resource "azurerm_monitor_diagnostic_setting" "files_staging_slot" {
   }
 }
 
-# TODO - temp removed to due to issue with deployment (gets stuck trying to create swift connections)
-#resource "azurerm_app_service_slot_virtual_network_swift_connection" "files_staging_slot" {
-#  slot_name                                      = azurerm_app_service_slot.files.name
-#  app_service_id                                 = azurerm_app_service.files.id
-#  subnet_id                                      = azurerm_subnet.files.id
-#}
+resource "azurerm_app_service_slot_virtual_network_swift_connection" "files_staging_slot" {
+  slot_name                                      = azurerm_app_service_slot.files.name
+  app_service_id                                 = azurerm_app_service.files.id
+  subnet_id                                      = azurerm_subnet.files.id
+}

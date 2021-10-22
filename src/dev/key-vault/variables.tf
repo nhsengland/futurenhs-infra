@@ -30,3 +30,5 @@ variable appgw_tls_certificate_password {
     type         = string
     sensitive    = true
 }
+
+variable appgw_tls_certificate_content_type { type = string }

@@ -1,3 +1,5 @@
+variable application_fqdn { type = string }
+
 variable location { type = string }
 
 variable environment { type = string }
@@ -52,6 +54,12 @@ variable files_primary_blob_keyvault_connection_string_reference { type = string
 #variable forum_redis_primary_keyvault_connection_string_reference { type = string }
 
 #variable forum_redis_secondary_keyvault_connection_string_reference { type = string }
+
+variable forum_email_sendgrid_apikey { type = string }
+
+variable forum_email_smtp_from { type = string }
+
+variable forum_email_smpt_username { type = string }
 
 variable forum_app_config_primary_endpoint { type = string }
 

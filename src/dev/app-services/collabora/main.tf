@@ -274,11 +274,11 @@ resource "azurerm_subnet" "collabora" {
 }
 
 # now we need to add the vnet integration by connecting the two resources together
-# TODO - temp removed to due to issue with deployment (gets stuck trying to create swift connections)
-#resource "azurerm_app_service_virtual_network_swift_connection" "collabora" {
-#  app_service_id                                 = azurerm_app_service.collabora.id
-#  subnet_id                                      = azurerm_subnet.collabora.id
-#}
+
+resource "azurerm_app_service_virtual_network_swift_connection" "collabora" {
+  app_service_id                                 = azurerm_app_service.collabora.id
+  subnet_id                                      = azurerm_subnet.collabora.id
+}
 
 # next piece is to hook up the subnet to use our network security group
 
@@ -418,9 +418,8 @@ resource "azurerm_monitor_diagnostic_setting" "collabora_staging_slot" {
   }
 }
 
-# TODO - temp removed to due to issue with deployment (gets stuck trying to create swift connections)
-#resource "azurerm_app_service_slot_virtual_network_swift_connection" "collabora_staging_slot" {
-#  slot_name                                      = azurerm_app_service_slot.collabora.name
-#  app_service_id                                 = azurerm_app_service.collabora.id
-#  subnet_id                                      = azurerm_subnet.collabora.id
-#}
+resource "azurerm_app_service_slot_virtual_network_swift_connection" "collabora_staging_slot" {
+  slot_name                                      = azurerm_app_service_slot.collabora.name
+  app_service_id                                 = azurerm_app_service.collabora.id
+  subnet_id                                      = azurerm_subnet.collabora.id
+}
