@@ -185,7 +185,7 @@ resource "azurerm_key_vault_certificate" "app_forum_https" {
 
   certificate {
     contents = var.appgw_tls_certificate_base64     # filebase64("${path.module}/${var.appgw_tls_certificate_path}")
-    password = var.appgw_tls_certificate_password == "no-password" ? "" : var.appgw_tls_certificate_password
+    password = var.appgw_tls_certificate_password == "no-password" ? null : var.appgw_tls_certificate_password
   }
 
   certificate_policy {
