@@ -320,11 +320,11 @@ module "databases" {
   log_analytics_workspace_resource_id                                     = module.logging.log_analytics_workspace_resource_id
 }
 
-module "security_centre" {
-  source                                                                  = "./security-centre"
+#module "security_centre" {
+#  source                                                                  = "./security-centre"
                   
-  security_center_contact_email                                           = var.security_center_contact_email
-  security_center_contact_phone                                           = var.security_center_contact_phone
+#  security_center_contact_email                                           = var.security_center_contact_email
+#  security_center_contact_phone                                           = var.security_center_contact_phone
 
-  log_analytics_workspace_resource_id                                     = module.logging.log_analytics_workspace_resource_id
-}
+#  log_analytics_workspace_resource_id                                     = module.logging.log_analytics_workspace_resource_id
+#}
