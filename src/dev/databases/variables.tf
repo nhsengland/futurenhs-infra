@@ -29,6 +29,13 @@ variable sqlserver_admin_email {
   #sensitive = true
 }
 
+variable sqlserver_admin_user_id { type = string }
+
+variable sqlserver_admin_password { 
+  type = string 
+  sensitive = true
+}
+
 variable sqlserver_active_directory_administrator_login_name {
   type = string
   #sensitive = true

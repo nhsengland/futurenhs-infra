@@ -310,6 +310,9 @@ module "databases" {
   key_vault_id                                                            = module.key-vault.key_vault_id
 
   sqlserver_admin_email                                                   = var.sqlserver_admin_email
+  sqlserver_admin_user_id                                                 = var.sqlserver_admin_user_id
+  sqlserver_admin_password                                                = var.sqlserver_admin_password
+
   sqlserver_active_directory_administrator_login_name                     = var.sqlserver_active_directory_administrator_login_name
   sqlserver_active_directory_administrator_objectid                       = var.sqlserver_active_directory_administrator_objectid
 

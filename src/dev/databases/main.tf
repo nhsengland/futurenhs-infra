@@ -10,53 +10,26 @@
 #  user_principal_name = var.sqlserver_active_directory_administrator_login_name
 #}
 
-resource "random_password" "sqlserver_admin_user" {
-  length                                        = 20
-  special                                       = true
-}
-
 resource "azurerm_key_vault_secret" "sqlserver_admin_user" {
   name                                          = "${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-sqlserver-adminuser"
-  value                                         = random_password.sqlserver_admin_user.result
+  value                                         = var.sqlserver_admin_user_id
   key_vault_id                                  = var.key_vault_id
 
   content_type                                  = "text/plain"
   expiration_date                               = timeadd(timestamp(), "87600h")   
-
-  lifecycle {
-    ignore_changes = [
-      value
-    ]
-  }
 }
 
-resource "random_password" "sqlserver_admin_pwd" {
-  length                                        = 20
-  special                                       = true
-  min_lower                                     = 1
-  min_upper                                     = 1
-  min_special                                   = 1
-  min_numeric                                   = 1
-}
-	
 resource "azurerm_key_vault_secret" "sqlserver_admin_pwd" {
   name                                          = "${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-sqlserver-adminpwd"
-  value                                         = random_password.sqlserver_admin_pwd.result
+  value                                         = var.sqlserver_admin_password
   key_vault_id                                  = var.key_vault_id
 
   content_type                                  = "text/plain"
   expiration_date                               = timeadd(timestamp(), "87600h")   
-
-  lifecycle {
-    ignore_changes = [
-      value
-    ]
-  }
 }
 
 
 # All Azure SQL databases are automatically backed up to RA-GRS by the server.
-
 resource "azurerm_mssql_server" "primary" {
   #checkov:skip=CKV_AZURE_23:The sql server configures auditing using a separate azurerm_mssql_server_extended_auditing_policy resource that Checkov doesn't seem to be considering
   #checkov:skip=CKV_AZURE_24:The sql server configures auditing using a separate azurerm_mssql_server_extended_auditing_policy resource that Checkov doesn't seem to be considering
