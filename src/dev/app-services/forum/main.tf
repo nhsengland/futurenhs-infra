@@ -160,15 +160,17 @@ resource "azurerm_app_service" "forum" {
 
     # TODO - Move the following settings to the azure config service for the forum once it has been integrated with the site
 
-    "FeatureFlag_FilesAndFolders"           = true
-    "AzurePlatform:ApplicationGateway:FQDN" = var.application_fqdn
-    "AzureBlobStorage:PrimaryEndpoint"      = var.forum_primary_blob_container_endpoint		# for storing avatar and group images
-    "AzureBlobStorage:ContainerName"        = var.forum_primary_blob_container_name
-    "AzureBlobStorage:Provider"             = "MvcForum.Plugins.Providers.AzureBlobStorageProvider"
-    "SendEmailService"                      = "SendGrid"
-    "Email_SendGridApiKey"                  = var.forum_email_sendgrid_apikey
-    "Email_SmtpFrom"                        = var.forum_email_smtp_from
-    "Email_SmtpUsername"                    = var.forum_email_smpt_username
+    "FeatureFlag_FilesAndFolders"             = true
+    "AzurePlatform:ApplicationGateway:FQDN"   = var.application_fqdn
+    "AzureBlobStorage:PrimaryEndpoint"        = var.forum_primary_blob_container_endpoint		# for storing avatar and group images
+    "AzureBlobStorage:ContainerName"          = var.forum_primary_blob_container_name
+    "AzureBlobStorage:Provider"               = "MvcForum.Plugins.Providers.AzureBlobStorageProvider"
+    "SendEmailService"                        = "SendGrid"
+    "Email_SendGridApiKey"                    = var.forum_email_sendgrid_apikey
+    "Email_SmtpFrom"                          = var.forum_email_smtp_from
+    "Email_SmtpUsername"                      = var.forum_email_smpt_username
+    "FileServer_TemplateUrl"                  = "${var.application_fqdn}/gateway/wopi/host/files/{fileId}/authorise-user?permission=view"
+    "FileServer_TemplateUrlFileIdPlaceholder" = "{fileId}"
 
     # TODO - Remove and move over to file server once MVC is no longer handling file uploads to blob storage
 
@@ -447,6 +449,8 @@ resource "azurerm_app_service_slot" "forum" {
     "Email_SendGridApiKey"                                        = var.forum_email_sendgrid_apikey
     "Email_SmtpFrom"                                              = var.forum_email_smtp_from
     "Email_SmtpUsername"                                          = var.forum_email_smpt_username
+    "FileServer_TemplateUrl"                                      = "${var.application_fqdn}/gateway/wopi/host/files/{fileId}/authorise-user?permission=view"
+    "FileServer_TemplateUrlFileIdPlaceholder"                     = "{fileId}"
   }
 
   # TODO - remove these once entity framework no longer used

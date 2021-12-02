@@ -97,7 +97,7 @@ resource "azurerm_app_service" "files" {
 
   site_config {
     always_on                               = true
-    dotnet_framework_version                = "v5.0"
+    dotnet_framework_version                = "v6.0"
     remote_debugging_enabled                = false
     remote_debugging_version                = "VS2019"
     ftps_state                              = "Disabled"
@@ -340,7 +340,7 @@ resource "azurerm_app_service_slot" "files" {
 
   site_config {
     always_on                               = false # important we don't have this on for slots because it can cause significant IO spike to production slot on service restart
-    dotnet_framework_version                = "v5.0"
+    dotnet_framework_version                = "v6.0"
     remote_debugging_enabled                = false
     remote_debugging_version                = "VS2019"
     ftps_state                              = "Disabled"

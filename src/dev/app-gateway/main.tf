@@ -321,6 +321,15 @@ resource "azurerm_application_gateway" "default" {
         query_string                             = "{var_query_string}" # https://github.com/terraform-providers/terraform-provider-azurerm/issues/11563
         reroute                                  = false
       }
+
+     # Set the Location header on requests bound for our file server.  This is because Collabora signs requests using the app gw url and not 
+     # the backend url of the consuming service.   The file server needs to know what Collabora used so it can verify the signature.  It checks
+     # for and uses the value in the Location header for this purpose (if it is present)
+
+      request_header_configuration {
+        header_name                              = "Location"
+        header_value                             = "https://{var_host}{var_request_uri}" 
+      }
     }    
   }
 

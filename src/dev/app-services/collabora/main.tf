@@ -127,10 +127,10 @@ resource "azurerm_app_service" "collabora" {
     # I toyed with doing this in the deployment pipeline using the Azure Web App for Containers task so we had a little
     # more control on when the container is updated, but I think this will be better managed longer term by us using our
     # own azure container registry and deploying a container to it.  For now (dev) we'll pull the latest version from 
-    # docker hub, albeit acknowldging this could break the environment so is not appropriate for prodction
+    # docker hub, albeit acknowledging this is not appropriate for production and requires a TODO
 
     app_command_line                        = "" # this bit is appended to the end of the docker run command after the container source
-    linux_fx_version                        = "DOCKER|richardcds/fnhs-wopi-client:${lower(var.environment)}-latest" 
+    linux_fx_version                        = "DOCKER|richardcds/fnhs-wopi-client:${lower(var.product_name)}-${lower(var.environment)}-latest" 
   }
 
   app_settings = {
@@ -158,14 +158,14 @@ resource "azurerm_app_service" "collabora" {
     "WEBSITE_DNS_SERVER"                    = "168.63.129.16"
 
     # configure the container stuff so we can pull down from docker hub noting we are pulling from the public repository
-    # so no need to provide authentication details
+    # so no need to provide authentication details - TODO : Move to private repo or ACR instance
 
     "WEBSITES_ENABLE_APP_SERVICE_STORAGE"   = false
     "WEBSITES_PORT"                         = "9980" # the port collabora is listening on
 
     "DOCKER_REGISTRY_SERVER_URL"            = "https://index.docker.io"
-#    "DOCKER_REGSITRY_SERVER_USERNAME"       = ""
-#    "DOCKER_REGSITRY_SERVER_PASSWORD"       = ""
+#    "DOCKER_REGISTRY_SERVER_USERNAME"       = ""
+#    "DOCKER_REGISTRY_SERVER_PASSWORD"       = ""
   }
 
   logs {
@@ -333,6 +333,8 @@ resource "azurerm_app_service_slot" "collabora" {
     min_tls_version                         = "1.2"
     use_32_bit_worker_process               = false
     websockets_enabled                      = true
+    app_command_line                        = "" 
+    linux_fx_version                        = "DOCKER|richardcds/fnhs-wopi-client:${lower(var.product_name)}-${lower(var.environment)}-latest" 
   }
 
   app_settings = {
@@ -345,8 +347,8 @@ resource "azurerm_app_service_slot" "collabora" {
     "WEBSITES_ENABLE_APP_SERVICE_STORAGE"   = false
     "WEBSITES_PORT"                         = "9980" # the port collabora is listening on
     "DOCKER_REGISTRY_SERVER_URL"            = "https://index.docker.io"
-#    "DOCKER_REGSITRY_SERVER_USERNAME"       = ""
-#    "DOCKER_REGSITRY_SERVER_PASSWORD"       = ""
+#    "DOCKER_REGISTRY_SERVER_USERNAME"       = ""
+#    "DOCKER_REGISTRY_SERVER_PASSWORD"       = ""
 
   }
 
