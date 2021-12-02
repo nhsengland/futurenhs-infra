@@ -170,8 +170,8 @@ resource "azurerm_app_service" "files" {
     # Potentially replicating some of the settings in app config in case our app cannot access it .. the default fallback
     # state of the application if settings are missing or cannot be resolved for the environment
 
-    "Wopi:ClientDiscoveryDocumentEndpoint"                                      = "${var.application_fqdn}/gateway/wopi/client/hosting/discovery"
-    "Wopi:HostFilesEndpoint"                                                    = "${var.application_fqdn}/gateway/wopi/host/files/"
+    "Wopi:ClientDiscoveryDocumentUrl"                                           = "${var.application_fqdn}/gateway/wopi/client/hosting/discovery"
+    "Wopi:HostFilesUrl"                                                         = "${var.application_fqdn}/gateway/wopi/host/files/"
   }
 
   logs {
@@ -387,8 +387,8 @@ resource "azurerm_app_service_slot" "files" {
     "AzurePlatform:AzureSql:ReadWriteConnectionString"                          = var.files_db_keyvault_readwrite_connection_string_reference       
     "AzurePlatform:AzureSql:ReadOnlyConnectionString"                           = var.files_db_keyvault_readonly_connection_string_reference       
 
-    "Wopi:ClientDiscoveryDocumentEndpoint"                                      = "${var.application_fqdn}/gateway/wopi/client/hosting/discovery"
-    "Wopi:HostFilesEndpoint"                                                    = "${var.application_fqdn}/gateway/wopi/host/files/"
+    "Wopi:ClientDiscoveryDocumentUrl"                                           = "${var.application_fqdn}/gateway/wopi/client/hosting/discovery"
+    "Wopi:HostFilesUrl"                                                         = "${var.application_fqdn}/gateway/wopi/host/files/"
   }
 
   logs {
