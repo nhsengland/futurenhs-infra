@@ -118,7 +118,7 @@ resource "azurerm_key_vault" "main" {
     ]
   }
 
-  # 4. The application gateway on the default subnet of the virtual network through which all public incoming traffic is routed.  It needs access to the 
+  # 5. The application gateway on the default subnet of the virtual network through which all public incoming traffic is routed.  It needs access to the 
   #    key vault to pull out the certificate it uses to manage HTTPS connnections
 
   access_policy {
@@ -131,6 +131,67 @@ resource "azurerm_key_vault" "main" {
 
     secret_permissions = [
       "Get"				 # TODO - Remove secret perms once I've figured out how to hook up directly to certificate using key vault references
+    ]
+  }
+
+  # 6. The app-service hosting the API code uses a kv reference to lookup database connection string etc
+  # TODO - Might end up removing this if we store connection string in app configuration service instead
+
+  access_policy {
+    tenant_id                            = data.azurerm_client_config.current.tenant_id
+    object_id                            = var.principal_id_api_app_svc
+
+    secret_permissions = [
+      "Get"
+    ]
+  }
+
+  access_policy {
+    tenant_id                            = data.azurerm_client_config.current.tenant_id
+    object_id                            = var.principal_id_api_staging_app_svc
+
+    secret_permissions = [
+      "Get"
+    ]
+  }
+
+  # 7. The app-service hosting the vNext web application uses a kv reference for returning secrets suhc as the 
+  #    shared secret that allows it to authenticate against the API service
+
+  access_policy {
+    tenant_id                            = data.azurerm_client_config.current.tenant_id
+    object_id                            = var.principal_id_web_app_svc
+
+    secret_permissions = [
+      "Get"
+    ]
+  }
+
+  access_policy {
+    tenant_id                            = data.azurerm_client_config.current.tenant_id
+    object_id                            = var.principal_id_web_staging_app_svc
+
+    secret_permissions = [
+      "Get"
+    ]
+  }
+
+ # 8. Access policy for Meghanath
+
+  access_policy {
+    tenant_id                            = "19007d4a-254f-4fbf-8c8d-c59b6d32b766"
+    object_id                            = "f3a2bc34-f6a7-4ded-b393-e7ae3cfd10f5"
+
+    certificate_permissions = [
+      "Backup", "Create", "Delete", "DeleteIssuers", "Get", "GetIssuers", "Import", "List", "ListIssuers", "ManageContacts", "ManageIssuers", "Purge", "Recover", "Restore", "SetIssuers", "Update"
+    ]
+
+    key_permissions = [
+      "Backup", "Create", "Decrypt", "Delete", "Encrypt", "Get", "Import", "List", "Purge", "Recover", "Restore", "Sign", "UnwrapKey", "Update", "Verify", "WrapKey"
+    ]
+
+    secret_permissions = [
+      "Backup", "Delete", "Get", "List", "Purge", "Recover", "Restore", "Set"
     ]
   }
 }
@@ -179,12 +240,12 @@ resource "azurerm_monitor_diagnostic_setting" "main" {
 
 # Upload a certificate that the application gateway can use for HTTPS management. 
 
-resource "azurerm_key_vault_certificate" "app_forum_https" {
-  name                                   = "agw-certificate-tls-001"
+ resource "azurerm_key_vault_certificate" "app_forum_https" {
+  name                                   = "agw-certificate-tls-005"
   key_vault_id                           = azurerm_key_vault.main.id
 
   certificate {
-    contents = var.appgw_tls_certificate_base64     # filebase64("${path.module}/${var.appgw_tls_certificate_path}")
+    contents = var.appgw_tls_certificate_base64  # filebase64("${path.module}/certs/agw-certificate-tls-002.pfx")
     password = var.appgw_tls_certificate_password == "no-password" ? null : var.appgw_tls_certificate_password
   }
 
@@ -204,4 +265,16 @@ resource "azurerm_key_vault_certificate" "app_forum_https" {
       content_type = var.appgw_tls_certificate_content_type // "application/x-pkcs12" | "application/x-pem-file"
     }
   }
+}
+
+# Add the secret used by the API to verify requests do indeed come from our Forum Application (vNext)
+# TODO - Temporary implementation unti APIM can be stood up to authorise access
+
+resource "azurerm_key_vault_secret" "api-forum-app-shared-secret" {
+  name                                          = "${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-api-forum-app-shared-secret"
+  value                                         = var.api_forum_application_shared_secret
+  key_vault_id                                  = azurerm_key_vault.main.id
+
+  content_type                                  = "text/plain"
+  expiration_date                               = timeadd(timestamp(), "87600h")   
 }

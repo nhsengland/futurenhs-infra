@@ -12,6 +12,10 @@ variable virtual_network_name { type = string }
 
 variable virtual_network_application_gateway_subnet_id { type = string }
 
+variable virtual_network_web_app_subnet_id { type = string }
+
+variable virtual_network_file_server_subnet_id { type = string }
+
 variable virtual_network_security_group_id { type = string }
 
 variable log_storage_account_connection_string { 

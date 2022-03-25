@@ -113,6 +113,24 @@ resource "azurerm_app_service" "forum" {
         headers                             = null
         service_tag                         = null
       }
+      , {
+        name                                = "FNHSWebAppAllowInbound"
+        priority                            = "100"
+        action                              = "Allow"
+        virtual_network_subnet_id           = var.virtual_network_web_app_subnet_id
+        ip_address                          = null
+        headers                             = null
+        service_tag                         = null
+      }
+      , {
+        name                                = "FNHSFileServerAllowInbound"
+        priority                            = "101"
+        action                              = "Allow"
+        virtual_network_subnet_id           = var.virtual_network_file_server_subnet_id
+        ip_address                          = null
+        headers                             = null
+        service_tag                         = null
+      }
     ] 
     scm_use_main_ip_restriction             = false   # setting this to true will cause deployment issues unless the azdo pool is granted access
     scm_ip_restriction                      = []
@@ -174,7 +192,7 @@ resource "azurerm_app_service" "forum" {
 
     # TODO - Remove and move over to file server once MVC is no longer handling file uploads to blob storage
 
-    "AzureBlobStorage:PrimaryEndpoint_TO_BE_RETIRED" = var.files_blob_primary_endpoint
+    "AzureBlobStorage:PrimaryEndpoint_TO_BE_RETIRED"      = var.files_blob_primary_endpoint
     "AzureBlobStorage:FilesPrimaryEndpoint_TO_BE_RETIRED" = var.files_blob_primary_endpoint
     "AzureBlobStorage:FilesContainerName_TO_BE_RETIRED"   = var.files_primary_blob_container_name
 
@@ -411,6 +429,24 @@ resource "azurerm_app_service_slot" "forum" {
         priority                            = "1"
         action                              = "Allow"
         virtual_network_subnet_id           = var.virtual_network_application_gateway_subnet_id
+        ip_address                          = null
+        headers                             = null
+        service_tag                         = null
+      }
+      , {
+        name                                = "FNHSWebAppAllowInbound"
+        priority                            = "100"
+        action                              = "Allow"
+        virtual_network_subnet_id           = var.virtual_network_web_app_subnet_id
+        ip_address                          = null
+        headers                             = null
+        service_tag                         = null
+      }
+      , {
+        name                                = "FNHSFileServerAllowInbound"
+        priority                            = "101"
+        action                              = "Allow"
+        virtual_network_subnet_id           = var.virtual_network_file_server_subnet_id
         ip_address                          = null
         headers                             = null
         service_tag                         = null

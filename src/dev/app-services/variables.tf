@@ -97,6 +97,14 @@ variable files_blob_secondary_endpoint { type = string }
 variable files_blob_container_name { type = string }
 
 
+variable files_primary_table_resource_manager_id { type = string }
+
+
+variable files_table_primary_endpoint { type = string }
+
+variable files_table_secondary_endpoint { type = string }
+
+
 variable files_db_keyvault_readwrite_connection_string_reference { type = string }
 
 variable files_db_keyvault_readonly_connection_string_reference { type = string }
@@ -152,3 +160,79 @@ variable collabora_staging_app_insights_instrumentation_key {
     type      = string 
     sensitive = true
 }
+
+
+variable api_db_keyvault_readwrite_connection_string_reference { type = string }
+
+variable api_db_keyvault_readonly_connection_string_reference { type = string }
+
+variable api_app_config_primary_endpoint { type = string }
+
+variable api_app_config_secondary_endpoint { type = string }
+
+variable api_primary_app_configuration_id { type = string }
+
+variable api_primary_blob_keyvault_connection_string_reference  { type = string }
+
+variable api_primary_file_blob_container_endpoint { type = string }
+
+variable api_primary_image_blob_container_endpoint { type = string }
+
+variable api_app_insights_instrumentation_key { 
+  type      = string 
+  sensitive = true
+}
+
+variable api_app_insights_connection_string { 
+  type      = string
+  sensitive = true
+}
+
+variable api_staging_app_insights_instrumentation_key { 
+  type      = string 
+  sensitive = true
+}
+
+variable api_staging_app_insights_connection_string { 
+  type      = string
+  sensitive = true
+}
+
+variable api_forum_keyvault_application_shared_secret_reference { 
+    type      = string
+    sensitive = true  
+}
+
+
+variable web_app_config_primary_endpoint { type = string }
+
+variable web_app_config_secondary_endpoint { type = string }
+
+variable web_primary_app_configuration_id { type = string }
+
+variable web_app_insights_instrumentation_key { 
+  type      = string 
+  sensitive = true
+}
+
+variable web_app_insights_connection_string { 
+  type      = string
+  sensitive = true
+}
+
+variable web_staging_app_insights_instrumentation_key { 
+  type      = string 
+  sensitive = true
+}
+
+variable web_staging_app_insights_connection_string { 
+  type      = string
+  sensitive = true
+}
+
+variable web_cookie_parser_secret { 
+    type      = string
+    sensitive = true
+}
+
+

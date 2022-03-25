@@ -34,6 +34,12 @@ variable files_blob_secondary_endpoint { type = string }
 
 variable files_blob_container_name { type = string }
 
+variable files_primary_table_resource_manager_id { type = string }
+
+variable files_table_primary_endpoint { type = string }
+
+variable files_table_secondary_endpoint { type = string }
+
 variable files_db_keyvault_readwrite_connection_string_reference { type = string }
 
 variable files_db_keyvault_readonly_connection_string_reference { type = string }

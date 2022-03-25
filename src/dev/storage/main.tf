@@ -178,7 +178,7 @@ resource "azurerm_storage_container" "files" {
 #  }
 }
 
-# TODO - Should be able to remove this later and use a managed identity to connect to the storage account
+# TODO - Should be able to remove this later and use a managed identity to connect to the storage account from the forums app
 resource "azurerm_key_vault_secret" "blobs_primary_files_connection_string" {
   name                                      = "blobs-${var.product_name}-${var.environment}-${var.location}-files-connection-string"
   value                                     = azurerm_storage_account.public_content.primary_connection_string
@@ -186,4 +186,137 @@ resource "azurerm_key_vault_secret" "blobs_primary_files_connection_string" {
 
   content_type                              = "text/plain"
   expiration_date                           = timeadd(timestamp(), "87600h")   
+}
+
+
+
+
+# internal storage account in which we can write private data best located outside the main database
+
+resource "azurerm_storage_account" "private_content" {
+  #checkov:skip=CKV_AZURE_43:There is a bug in checkov (https://github.com/bridgecrewio/checkov/issues/741) that is giving a false positive on this rule so temp suppressing this rule check
+  name                       = "sa${var.product_name}${var.environment}${var.location}"
+  resource_group_name        = var.resource_group_name
+  location                   = var.location
+
+  account_tier               = "Standard"	
+  account_kind               = "StorageV2"    
+  account_replication_type   = "RAGRS"		  # TODO - For Production, change to RAGZRS
+
+  access_tier                = "Hot"			
+
+  enable_https_traffic_only  = true
+  min_tls_version            = "TLS1_2"
+  allow_blob_public_access   = false
+
+  identity {
+    type                     = "SystemAssigned"
+  }
+
+  blob_properties {
+    versioning_enabled       = true
+    change_feed_enabled      = true
+    last_access_time_enabled = true
+
+    # add the soft-delete policies to the storage account
+
+    delete_retention_policy {
+      days                   = 90  # 1 through 365      
+    }
+
+    # TODO - put this back in once the container soft delete is out of preview (https://docs.microsoft.com/en-us/azure/storage/blobs/soft-delete-container-overview?tabs=powershell#register-for-the-preview)
+    #container_delete_retention_policy {
+    #  days                   = 90  # 1 through 365            
+    #}
+  }
+}
+
+data "azurerm_monitor_diagnostic_categories" "private_storage_category" {
+  resource_id                                  = azurerm_storage_account.private_content.id
+}
+
+resource "azurerm_monitor_diagnostic_setting" "private_storage" {
+  name                                         = "private-storage-account-diagnostics"
+  target_resource_id                           = azurerm_storage_account.private_content.id
+  log_analytics_workspace_id                   = var.log_analytics_workspace_resource_id
+  storage_account_id                           = var.log_storage_account_id
+
+  dynamic "log" {
+    iterator = log_category
+    for_each = data.azurerm_monitor_diagnostic_categories.private_storage_category.logs
+
+    content {
+      category = log_category.value
+      enabled  = true
+
+      retention_policy {
+        enabled = true
+        days    = 90
+      }
+    }
+  }
+
+  dynamic "metric" {
+    iterator = metric_category
+    for_each = data.azurerm_monitor_diagnostic_categories.private_storage_category.metrics
+
+    content {
+      category = metric_category.value
+      enabled  = true
+
+      retention_policy {
+        enabled = true
+        days    = 90
+      }
+    }
+  }
+}
+
+data "azurerm_monitor_diagnostic_categories" "private_storage_blob_category" {
+  resource_id                                  = "${azurerm_storage_account.private_content.id}/blobServices/default/"
+}
+
+resource "azurerm_monitor_diagnostic_setting" "private_blob" {
+  ## https://github.com/terraform-providers/terraform-provider-azurerm/issues/8275
+  name                                         = "log-storage-account-private-blob-diagnostics"
+  target_resource_id                           = "${azurerm_storage_account.private_content.id}/blobServices/default/"
+  log_analytics_workspace_id                   = var.log_analytics_workspace_resource_id
+  storage_account_id                           = var.log_storage_account_id
+
+  dynamic "log" {
+    iterator = log_category
+    for_each = data.azurerm_monitor_diagnostic_categories.private_storage_blob_category.logs
+
+    content {
+      category = log_category.value
+      enabled  = true
+
+      retention_policy {
+        enabled = true
+        days    = 90
+      }
+    }
+  }
+
+  dynamic "metric" {
+    iterator = metric_category
+    for_each = data.azurerm_monitor_diagnostic_categories.private_storage_blob_category.metrics
+
+    content {
+      category = metric_category.value
+      enabled  = true
+
+      retention_policy {
+        enabled = true
+        days    = 90
+      }
+    }
+  }
+}
+
+# add the tables used by the file server application
+
+resource "azurerm_storage_table" "fileserver_userfileaccesstoken" {
+  name                 = "FileServerWopiUserFileAccessToken"
+  storage_account_name = azurerm_storage_account.private_content.name
 }

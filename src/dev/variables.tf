@@ -85,3 +85,13 @@ variable forum_email_sendgrid_apikey { type = string }
 variable forum_email_smtp_from { type = string }
 
 variable forum_email_smpt_username { type = string }
+
+variable api_forum_application_shared_secret { 
+    type      = string
+    sensitive = true  
+}
+
+variable web_cookie_parser_secret { 
+    type      = string
+    sensitive = true
+}

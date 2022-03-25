@@ -331,7 +331,90 @@ resource "azurerm_application_gateway" "default" {
         header_value                             = "https://{var_host}{var_request_uri}" 
       }
     }    
-  }
+
+    rewrite_rule {
+      name                                       = "agw-rewrite-api-health-check-request-url"
+      rule_sequence                              = 103
+
+      condition {
+        variable                                 = "var_uri_path"
+        pattern                                  = ".*/gateway/api/health-check" 
+        ignore_case                              = true 
+        negate                                   = false 
+      }
+
+      url {
+        path                                     = "health-check" 
+        query_string                             = "" 
+        reroute                                  = false
+      }
+    }
+ 
+    rewrite_rule {
+      name                                       = "agw-rewrite-api-request-url"
+      rule_sequence                              = 104
+
+      # if the uri_path variable matches the */gateway/api/* pattern, we want to reroute to the 
+      # API backend service
+
+      condition {
+        variable                                 = "var_uri_path"
+        pattern                                  = ".*/gateway/api/(.*)" 
+        ignore_case                              = true 
+        negate                                   = false 
+      }
+
+      url {
+        path                                     = "api/{var_uri_path_1}" 
+        query_string                             = "{var_query_string}" 
+        reroute                                  = false
+      }
+    }
+
+    rewrite_rule {
+      name                                       = "agw-rewrite-mvcforum-request-url"
+      rule_sequence                              = 105
+
+      # if the uri_path variable matches the */gateway/api/* pattern, we want to reroute to the 
+      # API backend service
+
+      condition {
+        variable                                 = "var_uri_path"
+        pattern                                  = ".*/members/(.*),.*/ui/(.*),.*/scripts/(.*)" 
+        ignore_case                              = true 
+        negate                                   = false 
+      }
+
+      url {
+        path                                     = "{var_uri_path_1}" 
+        query_string                             = "{var_query_string}" 
+        reroute                                  = false
+      }
+    }
+
+    
+    rewrite_rule {
+      name                                       = "agw-rewrite-mvcforum-request-url-logon"
+      rule_sequence                              = 106
+
+      # if the uri_path variable matches the */gateway/api/* pattern, we want to reroute to the 
+      # API backend service
+
+      condition {
+        variable                                 = "var_uri_path"
+        pattern                                  = ".*/members/logon,.*/ui/(.*),.*/scripts/(.*)" 
+        ignore_case                              = true 
+        negate                                   = false 
+      }
+
+      url {
+        path                                     = "{var_uri_path_1}" 
+        query_string                             = "{var_query_string}" 
+        reroute                                  = false
+      }
+    }
+
+   }
 
   # Forum rules to remove headers from outbound requests that can be considered to be security risks
   # e.g. headers that could help an attacker identify the host of the web server and thus attack it with 
@@ -382,15 +465,14 @@ resource "azurerm_application_gateway" "default" {
 
   # Next up, we need routing rules for https traffic to the relevant back end servers
  
-  # Website requests need to be send to the forum app service and this will be the default behaviour
-  # given the routing rules backend address pool is the forum
+  # Website requests need to be sent to the old forum app service.  This will be the default behaviour
+  # given the routing rules backend address pool is the forum, however this will eventually be replaced
+  # once the vNext web app is able to serve all traffic
 
   request_routing_rule {
     name                                         = "agw-routing-443"
     rule_type                                    = "PathBasedRouting"  # Basic
     http_listener_name                           = "agw-443-listener"
-    #backend_address_pool_name                    = "agw-forum-backend-address-pool"
-    #backend_http_settings_name                   = "agw-forum-backend-https"
     url_path_map_name                            = "agw-routing-url-path-map"
   }
 
@@ -402,12 +484,12 @@ resource "azurerm_application_gateway" "default" {
 
   url_path_map {
     name                                         = "agw-routing-url-path-map"
-    default_backend_address_pool_name            = "agw-forum-backend-address-pool"
-    default_backend_http_settings_name           = "agw-forum-backend-https"
+    default_backend_address_pool_name            = "agw-web-backend-address-pool"
+    default_backend_http_settings_name           = "agw-web-backend-https"
     default_rewrite_rule_set_name                = "agw-rewrite-response-rule-set"
 
     # We do not need to add a custom /* path rule to handle default cases. 
-    # This is automatically handled by the default backend pool which directs to the forum web site.
+    # This is automatically handled by the default backend pool which directs to the old MVCForum web site.
 
     path_rule {
       name                                       = "agw-routing-url-path-map-rule-to-blob"
@@ -430,6 +512,22 @@ resource "azurerm_application_gateway" "default" {
       paths                                      = ["/gateway/wopi/client/*"]
       backend_address_pool_name                  = "agw-collabora-backend-address-pool"
       backend_http_settings_name                 = "agw-collabora-backend-https"
+      rewrite_rule_set_name                      = "agw-rewrite-request-rule-set" 
+    }
+
+    path_rule {
+      name                                       = "agw-routing-url-path-map-rule-to-api"
+      paths                                      = ["/gateway/api/*"]
+      backend_address_pool_name                  = "agw-api-backend-address-pool"
+      backend_http_settings_name                 = "agw-api-backend-https"
+      rewrite_rule_set_name                      = "agw-rewrite-request-rule-set" 
+    }
+
+    path_rule {
+      name                                       = "agw-routing-url-path-map-rule-to-mvcforum"
+      paths                                      = ["/members/*,/ui/*,/scripts/*"]
+      backend_address_pool_name                  = "agw-forum-backend-address-pool"
+      backend_http_settings_name                 = "agw-forum-backend-https"
       rewrite_rule_set_name                      = "agw-rewrite-request-rule-set" 
     }
   }
@@ -555,7 +653,7 @@ resource "azurerm_application_gateway" "default" {
   backend_http_settings {
     name                                         = "agw-collabora-backend-https"
     cookie_based_affinity                        = "Enabled"
-    affinity_cookie_name                         = "${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-gwaffinity"
+    affinity_cookie_name                         = "${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-collabora-gwaffinity"
     #path                                         = "/"
     port                                         = 443
     protocol                                     = "Https"
@@ -568,7 +666,7 @@ resource "azurerm_application_gateway" "default" {
     name                                         = "agw-collabora-probe"
     interval                                     = 30 # 1 - 86400
     protocol                                     = "Https"
-    path                                         = "/gateway/wopi/client/"
+    path                                         = "/gateway/wopi/client/hosting/discovery"
     timeout                                      = 30 # 1 - 86400
     unhealthy_threshold                          = 3 # 1 - 20
     #port                                         = "443"
@@ -586,6 +684,81 @@ resource "azurerm_application_gateway" "default" {
       "app-${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-collabora.azurewebsites.net"   
     ]
   }
+
+  # 5. API Host Service
+
+  backend_http_settings {
+    name                                         = "agw-api-backend-https"
+    cookie_based_affinity                        = "Disabled"
+    #affinity_cookie_name                         = ""
+    #path                                         = "/"
+    port                                         = 443
+    protocol                                     = "Https"
+    request_timeout                              = 30
+    probe_name                                   = "agw-api-probe"
+    pick_host_name_from_backend_address          = true    
+  }
+
+  probe {
+    name                                         = "agw-api-probe"
+    interval                                     = 30 # 1 - 86400
+    protocol                                     = "Https"
+    path                                         = "/health-check"
+    timeout                                      = 30 # 1 - 86400
+    unhealthy_threshold                          = 3 # 1 - 20
+    #port                                         = "443"
+    pick_host_name_from_backend_http_settings    = true
+    minimum_servers                              = 0
+
+    match {
+      status_code                                = [ "200" ]
+    } 
+  }
+
+  backend_address_pool {
+    name                                         = "agw-api-backend-address-pool"
+    fqdns                                        = [
+      "app-${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-api.azurewebsites.net"   
+    ]
+  }
+
+  # 6. vNext Web (MVCForum replacement) Host Service
+
+  backend_http_settings {
+    name                                         = "agw-web-backend-https"
+    cookie_based_affinity                        = "Disabled"
+    #affinity_cookie_name                         = ""
+    #path                                         = "/"
+    port                                         = 443
+    protocol                                     = "Https"
+    request_timeout                              = 30
+    probe_name                                   = "agw-web-probe"
+    pick_host_name_from_backend_address          = true    
+  }
+
+  probe {
+    name                                         = "agw-web-probe"
+    interval                                     = 30 # 1 - 86400
+    protocol                                     = "Https"
+    path                                         = "/health-check"
+    timeout                                      = 30 # 1 - 86400
+    unhealthy_threshold                          = 3 # 1 - 20
+    #port                                         = "443"
+    pick_host_name_from_backend_http_settings    = true
+    minimum_servers                              = 0
+
+    match {
+      status_code                                = [ "200" ]
+    } 
+  }
+
+  backend_address_pool {
+    name                                         = "agw-web-backend-address-pool"
+    fqdns                                        = [
+      "app-${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-web.azurewebsites.net"   
+    ]
+  }
+
 }
 
 data "azurerm_monitor_diagnostic_categories" "agw_waf" {

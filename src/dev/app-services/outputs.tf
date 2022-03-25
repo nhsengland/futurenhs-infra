@@ -25,3 +25,19 @@ output principal_id_files {
 output principal_id_files_staging {
   value = module.files.principal_id_staging
 }
+
+output principal_id_api { 
+  value = module.api.principal_id
+}
+
+output principal_id_api_staging {
+  value = module.api.principal_id_staging
+}
+
+output principal_id_web { 
+  value = module.web.principal_id
+}
+
+output principal_id_web_staging {
+  value = module.web.principal_id_staging
+}

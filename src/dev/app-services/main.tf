@@ -12,6 +12,8 @@ module "forum" {
   virtual_network_name                                          = var.virtual_network_name
   virtual_network_application_gateway_subnet_id                 = var.virtual_network_application_gateway_subnet_id
   virtual_network_security_group_id                             = var.virtual_network_security_group_id
+  virtual_network_web_app_subnet_id                             = module.web.virtual_network_web_app_subnet_id
+  virtual_network_file_server_subnet_id                         = module.files.virtual_network_file_server_subnet_id
 
   log_storage_account_id                                        = var.log_storage_account_id
   log_storage_account_connection_string                         = var.log_storage_account_connection_string
@@ -84,6 +86,11 @@ module "files" {
   files_blob_secondary_endpoint                                 = var.files_blob_secondary_endpoint
   files_blob_container_name                                     = var.files_primary_blob_container_name
 
+  files_primary_table_resource_manager_id                       = var.files_primary_table_resource_manager_id
+  
+  files_table_primary_endpoint                                  = var.files_table_primary_endpoint
+  files_table_secondary_endpoint                                = var.files_table_secondary_endpoint
+
   files_app_config_primary_endpoint                             = var.files_app_config_primary_endpoint
   files_app_config_secondary_endpoint                           = var.files_app_config_secondary_endpoint
   files_primary_app_configuration_id                            = var.files_primary_app_configuration_id
@@ -123,4 +130,84 @@ module "collabora" {
 
   collabora_staging_app_insights_instrumentation_key            = var.collabora_staging_app_insights_instrumentation_key
   collabora_staging_app_insights_connection_string              = var.collabora_staging_app_insights_connection_string
+}
+
+module "api" {
+  source                                                        = "./api"
+
+  application_fqdn                                              = var.application_fqdn
+  
+  resource_group_name                                           = var.resource_group_name
+
+  location                                                      = var.location
+  environment                                                   = var.environment
+  product_name                                                  = var.product_name
+
+  virtual_network_name                                          = var.virtual_network_name
+  virtual_network_application_gateway_subnet_id                 = var.virtual_network_application_gateway_subnet_id
+  virtual_network_web_app_subnet_id                             = module.web.virtual_network_web_app_subnet_id
+  virtual_network_security_group_id                             = var.virtual_network_security_group_id
+
+  log_storage_account_id                                        = var.log_storage_account_id
+  log_storage_account_connection_string                         = var.log_storage_account_connection_string
+  log_storage_account_blob_endpoint                             = var.log_storage_account_blob_endpoint
+  log_storage_account_container_name                            = var.log_storage_account_container_name
+
+  log_analytics_workspace_resource_id                           = var.log_analytics_workspace_resource_id
+
+  api_app_config_primary_endpoint                               = var.api_app_config_primary_endpoint
+  api_app_config_secondary_endpoint                             = var.api_app_config_secondary_endpoint
+  api_primary_app_configuration_id                              = var.api_primary_app_configuration_id
+
+  api_db_keyvault_readwrite_connection_string_reference         = var.api_db_keyvault_readwrite_connection_string_reference
+  api_db_keyvault_readonly_connection_string_reference          = var.api_db_keyvault_readonly_connection_string_reference
+
+  api_forum_keyvault_application_shared_secret_reference        = var.api_forum_keyvault_application_shared_secret_reference
+
+  api_app_insights_instrumentation_key                          = var.api_app_insights_instrumentation_key
+  api_app_insights_connection_string                            = var.api_app_insights_connection_string
+
+  api_staging_app_insights_instrumentation_key                  = var.api_staging_app_insights_instrumentation_key
+  api_staging_app_insights_connection_string                    = var.api_staging_app_insights_connection_string
+
+  api_primary_file_blob_container_endpoint                      = var.api_primary_file_blob_container_endpoint
+  api_primary_image_blob_container_endpoint                     = var.api_primary_image_blob_container_endpoint
+  api_primary_blob_keyvault_connection_string_reference         = var.api_primary_blob_keyvault_connection_string_reference
+}
+
+module "web" {
+  source                                                        = "./web"
+
+  application_fqdn                                              = var.application_fqdn
+  
+  resource_group_name                                           = var.resource_group_name
+
+  location                                                      = var.location
+  environment                                                   = var.environment
+  product_name                                                  = var.product_name
+
+  virtual_network_name                                          = var.virtual_network_name
+  virtual_network_application_gateway_subnet_id                 = var.virtual_network_application_gateway_subnet_id
+  virtual_network_security_group_id                             = var.virtual_network_security_group_id
+
+  log_storage_account_id                                        = var.log_storage_account_id
+  log_storage_account_connection_string                         = var.log_storage_account_connection_string
+  log_storage_account_blob_endpoint                             = var.log_storage_account_blob_endpoint
+  log_storage_account_container_name                            = var.log_storage_account_container_name
+
+  log_analytics_workspace_resource_id                           = var.log_analytics_workspace_resource_id
+
+  web_app_config_primary_endpoint                               = var.web_app_config_primary_endpoint
+  web_app_config_secondary_endpoint                             = var.web_app_config_secondary_endpoint
+  web_primary_app_configuration_id                              = var.web_primary_app_configuration_id
+
+  web_api_keyvault_application_shared_secret_reference          = var.api_forum_keyvault_application_shared_secret_reference
+
+  web_app_insights_instrumentation_key                          = var.web_app_insights_instrumentation_key
+  web_app_insights_connection_string                            = var.web_app_insights_connection_string
+
+  web_staging_app_insights_instrumentation_key                  = var.web_staging_app_insights_instrumentation_key
+  web_staging_app_insights_connection_string                    = var.web_staging_app_insights_connection_string
+
+  web_cookie_parser_secret                                      = var.web_cookie_parser_secret
 }

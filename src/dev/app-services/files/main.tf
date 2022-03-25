@@ -160,18 +160,22 @@ resource "azurerm_app_service" "files" {
     "AzurePlatform:AzureBlobStorage:GeoRedundantServiceUrl"                     = var.files_blob_secondary_endpoint        
     "AzurePlatform:AzureBlobStorage:ContainerName"                              = var.files_blob_container_name        
 
+    "AzurePlatform:AzureTableStorage:PrimaryServiceUrl"                         = var.files_table_primary_endpoint       
+    "AzurePlatform:AzureTableStorage:GeoRedundantServiceUrl"                    = var.files_table_secondary_endpoint        
+    "AzurePlatform:AzureTableStorage:AccessTokenTableName"                      = "FileServerWopiUserFileAccessToken"     
+
     "AzurePlatform:AzureAppConfiguration:CacheExpirationIntervalInSeconds"      = "300" # 5 minutes       
     "AzurePlatform:AzureAppConfiguration:PrimaryServiceUrl"                     = var.files_app_config_primary_endpoint		          
     "AzurePlatform:AzureAppConfiguration:GeoRedundantServiceUrl"                = var.files_app_config_secondary_endpoint		          
 
     "AzurePlatform:AzureSql:ReadWriteConnectionString"                          = var.files_db_keyvault_readwrite_connection_string_reference       
     "AzurePlatform:AzureSql:ReadOnlyConnectionString"                           = var.files_db_keyvault_readonly_connection_string_reference       
-
-    # Potentially replicating some of the settings in app config in case our app cannot access it .. the default fallback
-    # state of the application if settings are missing or cannot be resolved for the environment
-
+  
     "Wopi:ClientDiscoveryDocumentUrl"                                           = "${var.application_fqdn}/gateway/wopi/client/hosting/discovery"
     "Wopi:HostFilesUrl"                                                         = "${var.application_fqdn}/gateway/wopi/host/files/"
+
+    "App:MvcForumUserInfoUrl"                                                   = "https://app-${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-forum.azurewebsites.net/auth/userinfo"
+    "App:MvcForumHealthCheckUrl"                                                = "https://app-${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-forum.azurewebsites.net/api/healthcheck/heartbeat"
   }
 
   logs {
@@ -214,6 +218,14 @@ resource "azurerm_role_assignment" "files_blob_reader" {
   scope                                     = var.files_primary_blob_container_resource_manager_id
   principal_id                              = azurerm_app_service.files.identity[0].principal_id
   role_definition_name                      = "Storage Blob Data Contributor"
+}
+
+# read, write, delete access to table storage
+
+resource "azurerm_role_assignment" "files_table_contributor" {
+  scope                                     = var.files_primary_table_resource_manager_id
+  principal_id                              = azurerm_app_service.files.identity[0].principal_id
+  role_definition_name                      = "Storage Table Data Contributor"
 }
 
 # needed to allow managed identity to be used to generate user delegate token because we are scoping the data contributor
@@ -303,6 +315,12 @@ resource "azurerm_subnet" "files" {
       actions = ["Microsoft.Network/virtualNetworks/subnets/action"]
     }
   }
+
+  # configure the service endpoint that will allow us to connect to the MVCForum subnet to interact directly (without
+  # having to route through our application gateway)
+  service_endpoints                              = [
+    "Microsoft.Web"
+  ]
 }
 
 # now we need to add the vnet integration by connecting the two resources together
@@ -381,6 +399,9 @@ resource "azurerm_app_service_slot" "files" {
     "AzurePlatform:AzureBlobStorage:PrimaryServiceUrl"                          = var.files_blob_primary_endpoint       
     "AzurePlatform:AzureBlobStorage:GeoRedundantServiceUrl"                     = var.files_blob_secondary_endpoint        
     "AzurePlatform:AzureBlobStorage:ContainerName"                              = var.files_blob_container_name        
+    "AzurePlatform:AzureTableStorage:PrimaryServiceUrl"                         = var.files_table_primary_endpoint       
+    "AzurePlatform:AzureTableStorage:GeoRedundantServiceUrl"                    = var.files_table_secondary_endpoint   
+    "AzurePlatform:AzureTableStorage:AccessTokenTableName"                      = "FileServerWopiUserFileAccessToken"     
     "AzurePlatform:AzureAppConfiguration:CacheExpirationIntervalInSeconds"      = "300" # 5 minutes       
     "AzurePlatform:AzureAppConfiguration:PrimaryServiceUrl"                     = var.files_app_config_primary_endpoint		          
     "AzurePlatform:AzureAppConfiguration:GeoRedundantServiceUrl"                = var.files_app_config_secondary_endpoint		          
@@ -389,6 +410,9 @@ resource "azurerm_app_service_slot" "files" {
 
     "Wopi:ClientDiscoveryDocumentUrl"                                           = "${var.application_fqdn}/gateway/wopi/client/hosting/discovery"
     "Wopi:HostFilesUrl"                                                         = "${var.application_fqdn}/gateway/wopi/host/files/"
+
+    "App:MvcForumUserInfoUrl"                                                   = "https://app-${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-forum.azurewebsites.net/auth/userinfo"
+    "App:MvcForumHealthCheckUrl"                                                = "https://app-${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-forum.azurewebsites.net/api/healthcheck/heartbeat"
   }
 
   logs {
@@ -422,6 +446,12 @@ resource "azurerm_role_assignment" "files_staging_slot_blob_reader" {
   scope                                     = var.files_primary_blob_container_resource_manager_id
   principal_id                              = azurerm_app_service_slot.files.identity[0].principal_id
   role_definition_name                      = "Storage Blob Data Contributor"
+}
+
+resource "azurerm_role_assignment" "files_staging_slot_table_contributor" {
+  scope                                     = var.files_primary_table_resource_manager_id
+  principal_id                              = azurerm_app_service_slot.files.identity[0].principal_id
+  role_definition_name                      = "Storage Table Data Contributor"
 }
 
 resource "azurerm_role_assignment" "files_staging_slot_blob_delegator" {

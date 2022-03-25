@@ -16,6 +16,14 @@ variable principal_id_files_app_svc { type = string }
 
 variable principal_id_files_staging_app_svc { type = string }
 
+variable principal_id_api_app_svc { type = string }
+
+variable principal_id_api_staging_app_svc { type = string }
+
+variable principal_id_web_app_svc { type = string }
+
+variable principal_id_web_staging_app_svc { type = string }
+
 variable principal_id_app_configuration_svc { type = string }
 
 variable principal_id_app_gateway_svc { type = string }
@@ -32,3 +40,8 @@ variable appgw_tls_certificate_password {
 }
 
 variable appgw_tls_certificate_content_type { type = string }
+
+variable api_forum_application_shared_secret { 
+    type         = string
+    sensitive    = true
+}

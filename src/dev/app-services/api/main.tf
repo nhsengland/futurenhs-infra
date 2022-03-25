@@ -1,4 +1,4 @@
-data "azurerm_storage_account_blob_container_sas" "collabora_logs" {
+data "azurerm_storage_account_blob_container_sas" "api_logs" {
   connection_string                         = var.log_storage_account_connection_string
   container_name                            = var.log_storage_account_container_name
   https_only                                = true
@@ -16,13 +16,13 @@ data "azurerm_storage_account_blob_container_sas" "collabora_logs" {
   }
 }
 
-resource "azurerm_app_service_plan" "collabora" {
-  name                                      = "plan-${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-collabora"
+resource "azurerm_app_service_plan" "api" {
+  name                                      = "plan-${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-api"
   location                                  = var.location
   resource_group_name                       = var.resource_group_name
-  kind                                      = "Linux"
+  kind                                      = "Windows"
   per_site_scaling                          = true
-  reserved                                  = true  
+  reserved                                  = false  
 
   sku {
     tier                                    = "PremiumV2" # needed for deployment slots, auto-scaling and vnet integration
@@ -38,12 +38,12 @@ resource "azurerm_app_service_plan" "collabora" {
 }
 
 data "azurerm_monitor_diagnostic_categories" "plan" {
-  resource_id                                  = azurerm_app_service_plan.collabora.id
+  resource_id                                  = azurerm_app_service_plan.api.id
 }
 
 resource "azurerm_monitor_diagnostic_setting" "plan" {
-  name                                         = "plan-collabora-diagnostics"
-  target_resource_id                           = azurerm_app_service_plan.collabora.id
+  name                                         = "plan-api-diagnostics"
+  target_resource_id                           = azurerm_app_service_plan.api.id
   log_analytics_workspace_id                   = var.log_analytics_workspace_resource_id
   storage_account_id                           = var.log_storage_account_id
 
@@ -79,15 +79,15 @@ resource "azurerm_monitor_diagnostic_setting" "plan" {
 }
 
 
-resource "azurerm_app_service" "collabora" {
+resource "azurerm_app_service" "api" {
   #checkov:skip=CKV_AZURE_13:Authentication is taken care of by the application and we do not need to use the federation services provided by Azure
-  name                                      = "app-${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-collabora"
+  name                                      = "app-${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-api"
   location                                  = var.location
   resource_group_name                       = var.resource_group_name
-  app_service_plan_id                       = azurerm_app_service_plan.collabora.id
+  app_service_plan_id                       = azurerm_app_service_plan.api.id
 
   enabled                                   = true
-  client_affinity_enabled                   = true
+  client_affinity_enabled                   = false
   client_cert_enabled                       = false
   https_only                                = true
   
@@ -97,11 +97,11 @@ resource "azurerm_app_service" "collabora" {
 
   site_config {
     always_on                               = true
-    dotnet_framework_version                = "v5.0"
+    dotnet_framework_version                = "v6.0"
     remote_debugging_enabled                = false
     remote_debugging_version                = "VS2019"
     ftps_state                              = "Disabled"
-    health_check_path                       = "/"
+    health_check_path                       = "/health-check"
     http2_enabled                           = true
     ip_restriction                          = [
       {
@@ -109,6 +109,15 @@ resource "azurerm_app_service" "collabora" {
         priority                            = "1"
         action                              = "Allow"
         virtual_network_subnet_id           = var.virtual_network_application_gateway_subnet_id
+        ip_address                          = null
+        headers                             = null
+        service_tag                         = null
+      }
+      , {
+        name                                = "FNHSWebAppAllowInbound"
+        priority                            = "100"
+        action                              = "Allow"
+        virtual_network_subnet_id           = var.virtual_network_web_app_subnet_id
         ip_address                          = null
         headers                             = null
         service_tag                         = null
@@ -121,26 +130,21 @@ resource "azurerm_app_service" "collabora" {
     managed_pipeline_mode                   = "Integrated"
     min_tls_version                         = "1.2"
     use_32_bit_worker_process               = false
-    websockets_enabled                      = true
-
-    # this next bit will configure the docker container hosting collabora CODE
-    # I toyed with doing this in the deployment pipeline using the Azure Web App for Containers task so we had a little
-    # more control on when the container is updated, but I think this will be better managed longer term by us using our
-    # own azure container registry and deploying a container to it.  For now (dev) we'll pull the latest version from 
-    # docker hub, albeit acknowledging this is not appropriate for production and requires a TODO
-
-    app_command_line                        = "" # this bit is appended to the end of the docker run command after the container source
-    linux_fx_version                        = "DOCKER|timcds/fnhs-wopi-client:${lower(var.product_name)}-${lower(var.environment)}-latest" 
+    websockets_enabled                      = false
   }
 
+  # For a list of the Azure owned config settings, visit https://docs.microsoft.com/en-us/azure/app-service/reference-app-settings
+  # https://whatazurewebsiteenvironmentvariablesareavailable.azurewebsites.net/
+  
   app_settings = {
-    "APPLICATIONINSIGHTS_CONNECTION_STRING" = var.collabora_app_insights_connection_string
+    "ASPNETCORE_ENVIRONMENT"                = var.environment                                   # this value will be used to match with the label on the environment specific configuration in the azure app config service
+    "APPLICATIONINSIGHTS_CONNECTION_STRING" = var.api_app_insights_connection_string
 
     # Enable app service profiling - 
     # see https://docs.microsoft.com/en-us/azure/azure-monitor/app/profiler-overview
     # and https://docs.microsoft.com/en-us/azure/azure-monitor/app/profiler?toc=/azure/azure-monitor/toc.json 
    
-    "APPINSIGHTS_INSTRUMENTATIONKEY"        = var.collabora_app_insights_instrumentation_key
+    "APPINSIGHTS_INSTRUMENTATIONKEY"        = var.api_app_insights_instrumentation_key
     "APPINSIGHTS_PROFILERFEATURE_VERSION"   = "1.0.0"
     "DiagnosticServices_EXTENSION_VERSION"  = "~3"
 
@@ -157,15 +161,28 @@ resource "azurerm_app_service" "collabora" {
 
     "WEBSITE_DNS_SERVER"                    = "168.63.129.16"
 
-    # configure the container stuff so we can pull down from docker hub noting we are pulling from the public repository
-    # so no need to provide authentication details - TODO : Move to private repo or ACR instance
+    # use app config store to get settings for the environment including feature flags, storage endpoints etc
 
-    "WEBSITES_ENABLE_APP_SERVICE_STORAGE"   = false
-    "WEBSITES_PORT"                         = "9980" # the port collabora is listening on
+    "USE_AZURE_APP_CONFIGURATION"           = true 
+    
+    "AzurePlatform:AzureAppConfiguration:CacheExpirationIntervalInSeconds"      = "300" # 5 minutes       
+    "AzurePlatform:AzureAppConfiguration:PrimaryServiceUrl"                     = var.api_app_config_primary_endpoint		          
+    "AzurePlatform:AzureAppConfiguration:GeoRedundantServiceUrl"                = var.api_app_config_secondary_endpoint		
 
-    "DOCKER_REGISTRY_SERVER_URL"            = "https://index.docker.io"
-#    "DOCKER_REGISTRY_SERVER_USERNAME"       = ""
-#    "DOCKER_REGISTRY_SERVER_PASSWORD"       = ""
+    "AzurePlatform:AzureFileBlobStorage:PrimaryServiceUrl"                      = "${var.application_fqdn}/gateway/media/files"  
+    "AzurePlatform:AzureImageBlobStorage:PrimaryServiceUrl"                     = "${var.application_fqdn}/gateway/media/images"
+
+    #  TODO - Assess if we need this in the front end app, if so remove from here
+    "FileServer:TemplateUrl"                                                    = "${var.application_fqdn}/gateway/wopi/host/files/{fileId}/authorise-user?permission=view"
+    "FileServer:TemplateUrlFileIdPlaceholder"                                   = "{fileId}"
+
+    "AzureBlobStorage:ImagePrimaryConnectionString"                             = var.api_primary_blob_keyvault_connection_string_reference
+    "AzureBlobStorage:FilePrimaryConnectionString"                              = var.api_primary_blob_keyvault_connection_string_reference
+    "AzurePlatform:AzureSql:ReadWriteConnectionString"                          = var.api_db_keyvault_readwrite_connection_string_reference       
+    "AzurePlatform:AzureSql:ReadOnlyConnectionString"                           = var.api_db_keyvault_readonly_connection_string_reference
+    "AzurePlatform:ApplicationGateway:FQDN"                                     = var.application_fqdn
+
+    "SharedSecrets:WebApplication"                                              = var.api_forum_keyvault_application_shared_secret_reference    
   }
 
   logs {
@@ -177,14 +194,14 @@ resource "azurerm_app_service" "collabora" {
 
       azure_blob_storage { 
         level                               = "Information"	# Off | Error | Verbose | Information | Warning
-        sas_url                             = "${var.log_storage_account_blob_endpoint}${var.log_storage_account_container_name}${data.azurerm_storage_account_blob_container_sas.collabora_logs.sas}"
+        sas_url                             = "${var.log_storage_account_blob_endpoint}${var.log_storage_account_container_name}${data.azurerm_storage_account_blob_container_sas.api_logs.sas}"
         retention_in_days                   = 90
       }
     }
 
     http_logs {
       azure_blob_storage { 
-        sas_url                             = "${var.log_storage_account_blob_endpoint}${var.log_storage_account_container_name}${data.azurerm_storage_account_blob_container_sas.collabora_logs.sas}"
+        sas_url                             = "${var.log_storage_account_blob_endpoint}${var.log_storage_account_container_name}${data.azurerm_storage_account_blob_container_sas.api_logs.sas}"
         retention_in_days                   = 90
       }
       #file_system {
@@ -201,19 +218,28 @@ resource "azurerm_app_service" "collabora" {
   }
 }
 
-data "azurerm_monitor_diagnostic_categories" "collabora" {
-  resource_id                                  = azurerm_app_service.collabora.id
+
+# now assign reader role to app configuration service so we can use managed identity to access it
+
+resource "azurerm_role_assignment" "api_app_config_data_reader" {
+  scope                                     = var.api_primary_app_configuration_id
+  principal_id                              = azurerm_app_service.api.identity[0].principal_id
+  role_definition_name                      = "App Configuration Data Reader"
 }
 
-resource "azurerm_monitor_diagnostic_setting" "collabora" {
-  name                                         = "app-collabora-diagnostics"
-  target_resource_id                           = azurerm_app_service.collabora.id
+data "azurerm_monitor_diagnostic_categories" "api" {
+  resource_id                                  = azurerm_app_service.api.id
+}
+
+resource "azurerm_monitor_diagnostic_setting" "api" {
+  name                                         = "app-api-diagnostics"
+  target_resource_id                           = azurerm_app_service.api.id
   log_analytics_workspace_id                   = var.log_analytics_workspace_resource_id
   storage_account_id                           = var.log_storage_account_id
 
   dynamic "log" {
     iterator = log_category
-    for_each = data.azurerm_monitor_diagnostic_categories.collabora.logs
+    for_each = data.azurerm_monitor_diagnostic_categories.api.logs
 
     content {
       category = log_category.value
@@ -228,7 +254,7 @@ resource "azurerm_monitor_diagnostic_setting" "collabora" {
 
   dynamic "metric" {
     iterator = metric_category
-    for_each = data.azurerm_monitor_diagnostic_categories.collabora.metrics
+    for_each = data.azurerm_monitor_diagnostic_categories.api.metrics
 
     content {
       category = metric_category.value
@@ -254,17 +280,17 @@ resource "azurerm_monitor_diagnostic_setting" "collabora" {
 # for the app service, such that it can be granted access to PaaS service private endpoints hosted in the same vnet (database etc).
 # https://docs.microsoft.com/en-us/azure/virtual-network/subnet-delegation-overview
 
-resource "azurerm_subnet" "collabora" {
-  name                                           = "snet-${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-collabora"
-  resource_group_name                            = azurerm_app_service.collabora.resource_group_name
+resource "azurerm_subnet" "api" {
+  name                                           = "snet-${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-api"
+  resource_group_name                            = azurerm_app_service.api.resource_group_name
   virtual_network_name                           = var.virtual_network_name
-  address_prefixes                               = ["10.0.4.0/24"]
+  address_prefixes                               = ["10.0.5.0/24"]
 
   enforce_private_link_endpoint_network_policies = false
   enforce_private_link_service_network_policies  = false
 
   delegation {
-    name = "snet-delegation-${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-collabora"
+    name = "snet-delegation-${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-api"
 
     service_delegation {
       name    = "Microsoft.Web/serverFarms"
@@ -275,15 +301,15 @@ resource "azurerm_subnet" "collabora" {
 
 # now we need to add the vnet integration by connecting the two resources together
 
-resource "azurerm_app_service_virtual_network_swift_connection" "collabora" {
-  app_service_id                                 = azurerm_app_service.collabora.id
-  subnet_id                                      = azurerm_subnet.collabora.id
+resource "azurerm_app_service_virtual_network_swift_connection" "api" {
+  app_service_id                                 = azurerm_app_service.api.id
+  subnet_id                                      = azurerm_subnet.api.id
 }
 
 # next piece is to hook up the subnet to use our network security group
 
-resource "azurerm_subnet_network_security_group_association" "collabora" {
-  subnet_id                                      = azurerm_subnet.collabora.id
+resource "azurerm_subnet_network_security_group_association" "api" {
+  subnet_id                                      = azurerm_subnet.api.id
   network_security_group_id                      = var.virtual_network_security_group_id
 }
 
@@ -291,15 +317,15 @@ resource "azurerm_subnet_network_security_group_association" "collabora" {
 
 # set up the staging slot for blue/green deployment strategy
 
-resource "azurerm_app_service_slot" "collabora" {
+resource "azurerm_app_service_slot" "api" {
   name                                      = "staging"  # combined with app_service_name must be less than 59 characters
-  location                                  = azurerm_app_service.collabora.location
-  resource_group_name                       = azurerm_app_service.collabora.resource_group_name
-  app_service_plan_id                       = azurerm_app_service_plan.collabora.id
-  app_service_name                          = azurerm_app_service.collabora.name
+  location                                  = azurerm_app_service.api.location
+  resource_group_name                       = azurerm_app_service.api.resource_group_name
+  app_service_plan_id                       = azurerm_app_service_plan.api.id
+  app_service_name                          = azurerm_app_service.api.name
 
   enabled                                   = true
-  client_affinity_enabled                   = true
+  client_affinity_enabled                   = false
   https_only                                = true
   
   identity {
@@ -308,11 +334,11 @@ resource "azurerm_app_service_slot" "collabora" {
 
   site_config {
     always_on                               = false # important we don't have this on for slots because it can cause significant IO spike to production slot on service restart
-    dotnet_framework_version                = "v5.0"
+    dotnet_framework_version                = "v6.0"
     remote_debugging_enabled                = false
     remote_debugging_version                = "VS2019"
     ftps_state                              = "Disabled"
-    health_check_path                       = "/"
+    health_check_path                       = "/health-check"
     http2_enabled                           = true
     ip_restriction                          = [
       {
@@ -320,6 +346,15 @@ resource "azurerm_app_service_slot" "collabora" {
         priority                            = "1"
         action                              = "Allow"
         virtual_network_subnet_id           = var.virtual_network_application_gateway_subnet_id
+        ip_address                          = null
+        headers                             = null
+        service_tag                         = null
+      }
+      , {
+        name                                = "FNHSWebAppAllowInbound"
+        priority                            = "100"
+        action                              = "Allow"
+        virtual_network_subnet_id           = var.virtual_network_web_app_subnet_id
         ip_address                          = null
         headers                             = null
         service_tag                         = null
@@ -332,24 +367,36 @@ resource "azurerm_app_service_slot" "collabora" {
     managed_pipeline_mode                   = "Integrated"
     min_tls_version                         = "1.2"
     use_32_bit_worker_process               = false
-    websockets_enabled                      = true
-    app_command_line                        = "" 
-    linux_fx_version                        = "DOCKER|richardcds/fnhs-wopi-client:${lower(var.product_name)}-${lower(var.environment)}-latest" 
+    websockets_enabled                      = false
   }
 
   app_settings = {
-    "APPLICATIONINSIGHTS_CONNECTION_STRING" = var.collabora_staging_app_insights_connection_string
-    "APPINSIGHTS_INSTRUMENTATIONKEY"        = var.collabora_staging_app_insights_instrumentation_key
+    "ASPNETCORE_ENVIRONMENT"                = var.environment                                   # this value will be used to match with the label on the environment specific configuration in the azure app config service
+    "APPLICATIONINSIGHTS_CONNECTION_STRING" = var.api_staging_app_insights_connection_string
+    "APPINSIGHTS_INSTRUMENTATIONKEY"        = var.api_staging_app_insights_instrumentation_key
     "APPINSIGHTS_PROFILERFEATURE_VERSION"   = "1.0.0"
     "DiagnosticServices_EXTENSION_VERSION"  = "~3"
     "WEBSITE_VNET_ROUTE_ALL"                = "1"
     "WEBSITE_DNS_SERVER"                    = "168.63.129.16"
-    "WEBSITES_ENABLE_APP_SERVICE_STORAGE"   = false
-    "WEBSITES_PORT"                         = "9980" # the port collabora is listening on
-    "DOCKER_REGISTRY_SERVER_URL"            = "https://index.docker.io"
-#    "DOCKER_REGISTRY_SERVER_USERNAME"       = ""
-#    "DOCKER_REGISTRY_SERVER_PASSWORD"       = ""
 
+    "USE_AZURE_APP_CONFIGURATION"           = true 
+    
+    "AzurePlatform:AzureAppConfiguration:CacheExpirationIntervalInSeconds"      = "300" # 5 minutes       
+    "AzurePlatform:AzureAppConfiguration:PrimaryServiceUrl"                     = var.api_app_config_primary_endpoint		          
+    "AzurePlatform:AzureAppConfiguration:GeoRedundantServiceUrl"                = var.api_app_config_secondary_endpoint		          
+    "AzurePlatform:AzureFileBlobStorage:PrimaryServiceUrl"                      = "${var.application_fqdn}/gateway/media/files"  
+    "AzurePlatform:AzureImageBlobStorage:PrimaryServiceUrl"                     = "${var.application_fqdn}/gateway/media/images"
+
+    #  TODO - Assess if we need this in the front end app, if so remove from here
+    "FileServer:TemplateUrl"                                                    = "${var.application_fqdn}/gateway/wopi/host/files/{fileId}/authorise-user?permission=view"
+    "FileServer:TemplateUrlFileIdPlaceholder"                                   = "{fileId}"
+
+    "AzureBlobStorage:ImagePrimaryConnectionString"                             = var.api_primary_blob_keyvault_connection_string_reference
+    "AzureBlobStorage:FilePrimaryConnectionString"                              = var.api_primary_blob_keyvault_connection_string_reference
+    "AzurePlatform:AzureSql:ReadWriteConnectionString"                          = var.api_db_keyvault_readwrite_connection_string_reference       
+    "AzurePlatform:AzureSql:ReadOnlyConnectionString"                           = var.api_db_keyvault_readonly_connection_string_reference
+    "AzurePlatform:ApplicationGateway:FQDN"                                     = var.application_fqdn
+    "SharedSecrets:WebApplication"                                              = var.api_forum_keyvault_application_shared_secret_reference    
   }
 
   logs {
@@ -359,14 +406,14 @@ resource "azurerm_app_service_slot" "collabora" {
     application_logs {
       azure_blob_storage { 
         level                               = "Information"	# Off | Error | Verbose | Information | Warning
-        sas_url                             = "${var.log_storage_account_blob_endpoint}${var.log_storage_account_container_name}${data.azurerm_storage_account_blob_container_sas.collabora_logs.sas}"
+        sas_url                             = "${var.log_storage_account_blob_endpoint}${var.log_storage_account_container_name}${data.azurerm_storage_account_blob_container_sas.api_logs.sas}"
         retention_in_days                   = 90
       }
     }
 
     http_logs {
       azure_blob_storage { 
-        sas_url                             = "${var.log_storage_account_blob_endpoint}${var.log_storage_account_container_name}${data.azurerm_storage_account_blob_container_sas.collabora_logs.sas}"
+        sas_url                             = "${var.log_storage_account_blob_endpoint}${var.log_storage_account_container_name}${data.azurerm_storage_account_blob_container_sas.api_logs.sas}"
         retention_in_days                   = 90
       }
     }
@@ -379,19 +426,25 @@ resource "azurerm_app_service_slot" "collabora" {
   }
 }
 
-data "azurerm_monitor_diagnostic_categories" "collabora_staging_slot" {
-  resource_id                                  = azurerm_app_service_slot.collabora.id
+resource "azurerm_role_assignment" "api_staging_slot_app_config_data_reader" {
+  scope                                     = var.api_primary_app_configuration_id
+  principal_id                              = azurerm_app_service_slot.api.identity[0].principal_id
+  role_definition_name                      = "App Configuration Data Reader"
 }
 
-resource "azurerm_monitor_diagnostic_setting" "collabora_staging_slot" {
-  name                                         = "app-collabora-diagnostics"
-  target_resource_id                           = azurerm_app_service_slot.collabora.id
+data "azurerm_monitor_diagnostic_categories" "api_staging_slot" {
+  resource_id                                  = azurerm_app_service_slot.api.id
+}
+
+resource "azurerm_monitor_diagnostic_setting" "api_staging_slot" {
+  name                                         = "app-api-diagnostics"
+  target_resource_id                           = azurerm_app_service_slot.api.id
   log_analytics_workspace_id                   = var.log_analytics_workspace_resource_id
   storage_account_id                           = var.log_storage_account_id
 
   dynamic "log" {
     iterator = log_category
-    for_each = data.azurerm_monitor_diagnostic_categories.collabora_staging_slot.logs
+    for_each = data.azurerm_monitor_diagnostic_categories.api_staging_slot.logs
 
     content {
       category = log_category.value
@@ -406,7 +459,7 @@ resource "azurerm_monitor_diagnostic_setting" "collabora_staging_slot" {
 
   dynamic "metric" {
     iterator = metric_category
-    for_each = data.azurerm_monitor_diagnostic_categories.collabora_staging_slot.metrics
+    for_each = data.azurerm_monitor_diagnostic_categories.api_staging_slot.metrics
 
     content {
       category = metric_category.value
@@ -420,8 +473,8 @@ resource "azurerm_monitor_diagnostic_setting" "collabora_staging_slot" {
   }
 }
 
-resource "azurerm_app_service_slot_virtual_network_swift_connection" "collabora_staging_slot" {
-  slot_name                                      = azurerm_app_service_slot.collabora.name
-  app_service_id                                 = azurerm_app_service.collabora.id
-  subnet_id                                      = azurerm_subnet.collabora.id
+resource "azurerm_app_service_slot_virtual_network_swift_connection" "api_staging_slot" {
+  slot_name                                      = azurerm_app_service_slot.api.name
+  app_service_id                                 = azurerm_app_service.api.id
+  subnet_id                                      = azurerm_subnet.api.id
 }

@@ -18,6 +18,7 @@ output forum_staging_connection_string {
   sensitive = true
 }
 
+
 output files_instrumentation_key {
   value     = module.files.instrumentation_key
   sensitive = true
@@ -38,6 +39,7 @@ output files_staging_connection_string {
   sensitive = true
 }
 
+
 output collabora_instrumentation_key {
   value     = module.collabora.instrumentation_key
   sensitive = true
@@ -55,5 +57,47 @@ output collabora_staging_instrumentation_key {
 
 output collabora_staging_connection_string {
   value     = module.collabora.staging_connection_string
+  sensitive = true
+}
+
+
+output api_instrumentation_key {
+  value     = module.api.instrumentation_key
+  sensitive = true
+}
+
+output api_connection_string {
+  value     = module.api.connection_string
+  sensitive = true
+}
+
+output api_staging_instrumentation_key {
+  value     = module.api.staging_instrumentation_key
+  sensitive = true
+}
+
+output api_staging_connection_string {
+  value     = module.api.staging_connection_string
+  sensitive = true
+}
+
+
+output web_instrumentation_key {
+  value     = module.web.instrumentation_key
+  sensitive = true
+}
+
+output web_connection_string {
+  value     = module.web.connection_string
+  sensitive = true
+}
+
+output web_staging_instrumentation_key {
+  value     = module.web.staging_instrumentation_key
+  sensitive = true
+}
+
+output web_staging_connection_string {
+  value     = module.web.staging_connection_string
   sensitive = true
 }
