@@ -176,25 +176,7 @@ resource "azurerm_key_vault" "main" {
     ]
   }
 
- # 8. Access policy for Meghanath
-
-  access_policy {
-    tenant_id                            = "19007d4a-254f-4fbf-8c8d-c59b6d32b766"
-    object_id                            = "f3a2bc34-f6a7-4ded-b393-e7ae3cfd10f5"
-
-    certificate_permissions = [
-      "Backup", "Create", "Delete", "DeleteIssuers", "Get", "GetIssuers", "Import", "List", "ListIssuers", "ManageContacts", "ManageIssuers", "Purge", "Recover", "Restore", "SetIssuers", "Update"
-    ]
-
-    key_permissions = [
-      "Backup", "Create", "Decrypt", "Delete", "Encrypt", "Get", "Import", "List", "Purge", "Recover", "Restore", "Sign", "UnwrapKey", "Update", "Verify", "WrapKey"
-    ]
-
-    secret_permissions = [
-      "Backup", "Delete", "Get", "List", "Purge", "Recover", "Restore", "Set"
-    ]
-  }
-}
+ }
 
 data "azurerm_monitor_diagnostic_categories" "main" {
   resource_id                                  = azurerm_key_vault.main.id
