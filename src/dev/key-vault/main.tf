@@ -260,3 +260,12 @@ resource "azurerm_key_vault_secret" "api-forum-app-shared-secret" {
   content_type                                  = "text/plain"
   expiration_date                               = timeadd(timestamp(), "87600h")   
 }
+
+resource "azurerm_key_vault_secret" "api_govnotify_api_key" {
+  name                                          = "${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-govnotify-api-key"
+  value                                         = var.api_govnotify_api_key
+  key_vault_id                                  = azurerm_key_vault.main.id
+
+  content_type                                  = "text/plain"
+  expiration_date                               = timeadd(timestamp(), "87600h")   
+}

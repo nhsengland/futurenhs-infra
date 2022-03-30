@@ -163,6 +163,8 @@ module "api" {
   api_db_keyvault_readonly_connection_string_reference          = var.api_db_keyvault_readonly_connection_string_reference
 
   api_forum_keyvault_application_shared_secret_reference        = var.api_forum_keyvault_application_shared_secret_reference
+  api_govnotify_keyvault_api_key_reference                      = var.api_govnotify_keyvault_api_key_reference
+  api_govnotify_registration_template_id                        = var.api_govnotify_registration_template_id
 
   api_app_insights_instrumentation_key                          = var.api_app_insights_instrumentation_key
   api_app_insights_connection_string                            = var.api_app_insights_connection_string

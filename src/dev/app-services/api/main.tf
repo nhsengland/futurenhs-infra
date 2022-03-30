@@ -182,7 +182,10 @@ resource "azurerm_app_service" "api" {
     "AzurePlatform:AzureSql:ReadOnlyConnectionString"                           = var.api_db_keyvault_readonly_connection_string_reference
     "AzurePlatform:ApplicationGateway:FQDN"                                     = var.application_fqdn
 
-    "SharedSecrets:WebApplication"                                              = var.api_forum_keyvault_application_shared_secret_reference    
+    "SharedSecrets:WebApplication"                                              = var.api_forum_keyvault_application_shared_secret_reference  
+    "GovNotify:ApiKey"                                                          = var.api_govnotify_keyvault_api_key_reference 
+    "GovNotify:RegistrationEmailTemplateId"                                     = var.api_govnotify_registration_template_id
+
   }
 
   logs {
@@ -397,6 +400,8 @@ resource "azurerm_app_service_slot" "api" {
     "AzurePlatform:AzureSql:ReadOnlyConnectionString"                           = var.api_db_keyvault_readonly_connection_string_reference
     "AzurePlatform:ApplicationGateway:FQDN"                                     = var.application_fqdn
     "SharedSecrets:WebApplication"                                              = var.api_forum_keyvault_application_shared_secret_reference    
+    "GovNotify:ApiKey"                                                          = var.api_govnotify_keyvault_api_key_reference
+    "GovNotify:RegistrationEmailTemplateId"                                     = var.api_govnotify_registration_template_id
   }
 
   logs {

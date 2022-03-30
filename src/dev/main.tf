@@ -44,6 +44,7 @@ locals {
   api_db_keyvault_readonly_connection_string_reference       = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/sqldb-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-api-readonly-connection-string)"
   api_forum_keyvault_application_shared_secret_reference     = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-api-forum-app-shared-secret)"
   api_blob_keyvault_connection_string_reference              = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/blobs-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-api-connection-string)"
+  api_govnotify_keyvault_api_key_reference                   = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-govnotify--api-key)"
 
 }
 
@@ -119,7 +120,8 @@ module "key-vault" {
   appgw_tls_certificate_content_type                    = var.appgw_tls_certificate_content_type
 
   api_forum_application_shared_secret                   = var.api_forum_application_shared_secret
-  
+  api_govnotify_api_key                                 = var.api_govnotify_api_key 
+
   principal_id_forum_app_svc                            = module.app-services.principal_id_forum
   principal_id_forum_staging_app_svc                    = module.app-services.principal_id_forum_staging
   principal_id_files_app_svc                            = module.app-services.principal_id_files
@@ -307,6 +309,7 @@ module "app-services" {
   api_staging_app_insights_connection_string            = module.app-insights.api_staging_connection_string
   api_primary_file_blob_container_endpoint              = module.storage.api_primary_file_blob_container_endpoint
   api_primary_image_blob_container_endpoint             = module.storage.api_primary_image_blob_container_endpoint
+  api_govnotify_registration_template_id                = var.api_govnotify_registration_template_id 
 
   web_app_config_primary_endpoint                       = module.app-configuration.primary_endpoint
   web_app_config_secondary_endpoint                     = module.app-configuration.secondary_endpoint
@@ -339,6 +342,7 @@ module "app-services" {
   api_primary_blob_keyvault_connection_string_reference                   = local.api_blob_keyvault_connection_string_reference
 
   api_forum_keyvault_application_shared_secret_reference                  = local.api_forum_keyvault_application_shared_secret_reference
+  api_govnotify_keyvault_api_key_reference                                = local.api_govnotify_keyvault_api_key_reference
 }
 
 module "databases" {

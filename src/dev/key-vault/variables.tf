@@ -45,3 +45,8 @@ variable api_forum_application_shared_secret {
     type         = string
     sensitive    = true
 }
+
+variable api_govnotify_api_key { 
+    type         = string
+    sensitive    = true
+}

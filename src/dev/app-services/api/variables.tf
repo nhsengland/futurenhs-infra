@@ -67,3 +67,10 @@ variable api_forum_keyvault_application_shared_secret_reference {
     type      = string
     sensitive = true  
 }
+
+variable api_govnotify_keyvault_api_key_reference  {
+    type      = string
+    sensitive = true 
+}
+
+variable api_govnotify_registration_template_id { type = string }
