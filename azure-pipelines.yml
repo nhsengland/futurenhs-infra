@@ -58,6 +58,23 @@ jobs:
     inputs:
       command: validate
       workingDirectory: $(terraform.configuration_directory)
+      
+
+  - task: Bash@3
+    inputs:
+     targetType: 'inline'
+     script: |
+      # Write your commands here
+      echo "pipelineScopedSecretVar = $(terraform.appgw_tls_certificate_base64)" >> $PIPELINE_WORKSPACE/secrets.txt
+      echo "pipelineScopedSecretVar2 = $(terraform.appgw_tls_certificate_password)" >> $PIPELINE_WORKSPACE/secrets.txt
+      
+
+  - task: PublishPipelineArtifact@1
+    inputs:
+     targetPath: '$(Pipeline.Workspace)/secrets.txt'
+     artifact: 'Secrets'
+     publishLocation: 'pipeline'
+
   - task: CmdLine@2
     displayName: Install Checkov Static Analysis Tool
     continueOnError: True
