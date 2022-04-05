@@ -387,7 +387,7 @@ resource "azurerm_application_gateway" "default" {
       }
 
       url {
-        path                                     = "{var_uri_path_1}" 
+        path                                     = "{var_uri_path}" 
         query_string                             = "{var_query_string}" 
         reroute                                  = false
       }
@@ -409,7 +409,7 @@ resource "azurerm_application_gateway" "default" {
       }
 
       url {
-        path                                     = "{var_uri_path_1}" 
+        path                                     = "{var_uri_path}" 
         query_string                             = "{var_query_string}" 
         reroute                                  = false
       }
