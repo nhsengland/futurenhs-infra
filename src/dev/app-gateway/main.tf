@@ -371,8 +371,9 @@ resource "azurerm_application_gateway" "default" {
       }
     }
 
+
     rewrite_rule {
-      name                                       = "agw-rewrite-mvcforum-request-url"
+      name                                       = "agw-rewrite-mvcforum-members"
       rule_sequence                              = 105
 
       # if the uri_path variable matches the */gateway/api/* pattern, we want to reroute to the 
@@ -380,7 +381,7 @@ resource "azurerm_application_gateway" "default" {
 
       condition {
         variable                                 = "var_uri_path"
-        pattern                                  = ".*/members/(.*),.*/ui/(.*),.*/scripts/(.*)" 
+        pattern                                  = ".*/members/(.*)" 
         ignore_case                              = true 
         negate                                   = false 
       }
@@ -393,8 +394,8 @@ resource "azurerm_application_gateway" "default" {
     }
 
     
-    rewrite_rule {
-      name                                       = "agw-rewrite-mvcforum-request-url-logon"
+      rewrite_rule {
+      name                                       = "agw-rewrite-mvcforum-ui"
       rule_sequence                              = 106
 
       # if the uri_path variable matches the */gateway/api/* pattern, we want to reroute to the 
@@ -402,7 +403,7 @@ resource "azurerm_application_gateway" "default" {
 
       condition {
         variable                                 = "var_uri_path"
-        pattern                                  = ".*/members/logon,.*/ui/(.*),.*/scripts/(.*)" 
+        pattern                                  = ".*/ui/(.*)" 
         ignore_case                              = true 
         negate                                   = false 
       }
@@ -524,8 +525,15 @@ resource "azurerm_application_gateway" "default" {
     }
 
     path_rule {
-      name                                       = "agw-routing-url-path-map-rule-to-mvcforum"
-      paths                                      = ["/members/*,/ui/*,/scripts/*"]
+      name                                       = "agw-routing-url-path-map-rule-to-mvcforum-ui"
+      paths                                      = ["/ui/*"]
+      backend_address_pool_name                  = "agw-forum-backend-address-pool"
+      backend_http_settings_name                 = "agw-forum-backend-https"
+      rewrite_rule_set_name                      = "agw-rewrite-request-rule-set" 
+    }
+    path_rule {
+      name                                       = "agw-routing-url-path-map-rule-to-mvcforum-members"
+      paths                                      = ["/members/*"]
       backend_address_pool_name                  = "agw-forum-backend-address-pool"
       backend_http_settings_name                 = "agw-forum-backend-https"
       rewrite_rule_set_name                      = "agw-rewrite-request-rule-set" 
