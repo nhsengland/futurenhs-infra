@@ -144,6 +144,15 @@ resource "azurerm_key_vault_secret" "blobs_primary_forum_connection_string" {
   expiration_date                           = timeadd(timestamp(), "87600h")   
 }
 
+resource "azurerm_key_vault_secret" "blobs_primary_api_connection_string" {
+  name                                      = "blobs-${var.product_name}-${var.environment}-${var.location}-api-connection-string"
+  value                                     = azurerm_storage_account.public_content.primary_connection_string
+  key_vault_id                              = var.key_vault_id
+
+  content_type                              = "text/plain"
+  expiration_date                           = timeadd(timestamp(), "87600h")   
+}
+
 # now add a storage container for files that are uploaded by users
 # we'll add a locked immutability policy so we assure we meet the 7 years audit retention NFR and stop updates/deletion
 # we'll add a stored access policy that will be used when generating SaS tokens so users can download and we can kill tokens without having the recycle the account access keys
