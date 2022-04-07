@@ -334,7 +334,7 @@ resource "azurerm_app_service_slot" "collabora" {
     use_32_bit_worker_process               = false
     websockets_enabled                      = true
     app_command_line                        = "" 
-    linux_fx_version                        = "DOCKER|richardcds/fnhs-wopi-client:${lower(var.product_name)}-${lower(var.environment)}-latest" 
+    linux_fx_version                        = "DOCKER|timcds/fnhs-wopi-client:${lower(var.product_name)}-${lower(var.environment)}-latest" 
   }
 
   app_settings = {
