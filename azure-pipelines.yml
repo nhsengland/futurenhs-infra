@@ -32,9 +32,9 @@ trigger:
     - refs/heads/main
   batch: True
 name: $(date:yyyyMMdd)$(rev:.r)
-variables:
-- group: Terraform - Dev
-- group: KeyVault - Dev
+#variables:
+#- group: Terraform - Dev
+#- group: KeyVault - Dev
 jobs:
 - job: Job_1
   displayName: Validate (dev)
