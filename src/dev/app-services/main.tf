@@ -212,4 +212,5 @@ module "web" {
   web_staging_app_insights_connection_string                    = var.web_staging_app_insights_connection_string
 
   web_cookie_parser_secret                                      = var.web_cookie_parser_secret
+  web_next_public_gtm_key                                       = var.web_next_public_gtm_key
 }

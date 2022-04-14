@@ -30,6 +30,11 @@ variable web_cookie_parser_secret {
     sensitive = true
 }
 
+variable web_next_public_gtm_key { 
+    type      = string
+    sensitive = true
+}
+
 variable web_app_config_primary_endpoint { type = string }
 
 variable web_app_config_secondary_endpoint { type = string }

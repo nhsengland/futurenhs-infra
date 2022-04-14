@@ -175,7 +175,8 @@ resource "azurerm_app_service" "web" {
     "NEXT_PUBLIC_API_GATEWAY_BASE_URL"                                          = "${var.application_fqdn}/gateway/api"
     "API_HEALTH_CHECK_URL"                                                      = "https://app-${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-api.azurewebsites.net/health-check"
 
-    "COOKIE_PARSER_SECRET"                                                      = var.web_cookie_parser_secret  
+    "COOKIE_PARSER_SECRET"                                                      = var.web_cookie_parser_secret
+    "NEXT_PUBLIC_GTM_KEY"                                                       = var.web_next_public_gtm_key  
   }
 
   logs {
@@ -388,7 +389,8 @@ resource "azurerm_app_service_slot" "web" {
     "NEXT_PUBLIC_API_BASE_URL"                                                  = "https://app-${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-api.azurewebsites.net/api"
     "NEXT_PUBLIC_API_GATEWAY_BASE_URL"                                          = "${var.application_fqdn}/gateway/api"    
     "API_HEALTH_CHECK_URL"                                                      = "https://app-${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-api.azurewebsites.net/health-check"
-    "COOKIE_PARSER_SECRET"                                                      = var.web_cookie_parser_secret  
+    "COOKIE_PARSER_SECRET"                                                      = var.web_cookie_parser_secret
+    "NEXT_PUBLIC_GTM_KEY"                                                       = var.web_next_public_gtm_key
   }
 
   logs {

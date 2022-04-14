@@ -320,6 +320,7 @@ module "app-services" {
   web_staging_app_insights_instrumentation_key          = module.app-insights.web_staging_instrumentation_key
   web_staging_app_insights_connection_string            = module.app-insights.web_staging_connection_string
   web_cookie_parser_secret                              = var.web_cookie_parser_secret
+  web_next_public_gtm_key                               = var.web_next_public_gtm_key
 
   # There is a dependency between the key vault access policies and the app services that use it to host their secrets.  Unfortunately, we have to create access policies when the vault is 
   # created (which means we need the identities of the consuming services) otherwise we run into problems where the deployment pipeline cannot manage the secrets using these terraform scripts.  

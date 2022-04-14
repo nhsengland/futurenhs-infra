@@ -102,3 +102,8 @@ variable api_govnotify_api_key  {
 }
 
 variable api_govnotify_registration_template_id { type = string }
+
+variable web_next_public_gtm_key { 
+    type      = string
+    sensitive = true
+}
