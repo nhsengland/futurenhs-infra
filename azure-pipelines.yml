@@ -98,6 +98,13 @@ jobs:
       TargetFolder: $(Build.ArtifactStagingDirectory)/$(terraform.environment)
       CleanTargetFolder: true
       OverWrite: true
+  - task: Terraforminport@2
+    displayName: 'terraform import env'
+    inputs:
+      command: import
+      workingDirectory: $(terraform.configuration_directory)
+      resourceAddress: azurerm_resource_group.myrg  # The resource type and name in your .tf file
+      resourceId: "subscriptions/d9c0a8f2-3fae-48e7-a2dd-6ffcc5c1c994/resourceGroups/rg-fnhso-dev-uksouth-001"
   - task: TerraformTaskV2@2
     displayName: Terraform - plan
     inputs:
