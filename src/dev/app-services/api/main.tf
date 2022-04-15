@@ -171,7 +171,9 @@ resource "azurerm_app_service" "api" {
 
     "AzurePlatform:AzureFileBlobStorage:PrimaryServiceUrl"                      = "${var.application_fqdn}/gateway/media/files"  
     "AzurePlatform:AzureImageBlobStorage:PrimaryServiceUrl"                     = "${var.application_fqdn}/gateway/media/images"
-
+    "AzurePlatform:AzureFileBlobStorage:ContainerName"                          = "files"  
+    "AzurePlatform:AzureImageBlobStorage:ContainerName"                         = "images"
+    
     #  TODO - Assess if we need this in the front end app, if so remove from here
     "FileServer:TemplateUrl"                                                    = "${var.application_fqdn}/gateway/wopi/host/files/{fileId}/authorise-user?permission=view"
     "FileServer:TemplateUrlFileIdPlaceholder"                                   = "{fileId}"
@@ -393,6 +395,8 @@ resource "azurerm_app_service_slot" "api" {
     "AzurePlatform:AzureAppConfiguration:GeoRedundantServiceUrl"                = var.api_app_config_secondary_endpoint		          
     "AzurePlatform:AzureFileBlobStorage:PrimaryServiceUrl"                      = "${var.application_fqdn}/gateway/media/files"  
     "AzurePlatform:AzureImageBlobStorage:PrimaryServiceUrl"                     = "${var.application_fqdn}/gateway/media/images"
+    "AzurePlatform:AzureFileBlobStorage:ContainerName"                          = "files"  
+    "AzurePlatform:AzureImageBlobStorage:ContainerName"                         = "images"
 
     #  TODO - Assess if we need this in the front end app, if so remove from here
     "FileServer:TemplateUrl"                                                    = "${var.application_fqdn}/gateway/wopi/host/files/{fileId}/authorise-user?permission=view"
