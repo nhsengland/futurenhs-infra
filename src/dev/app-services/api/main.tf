@@ -186,6 +186,8 @@ resource "azurerm_app_service" "api" {
     "GovNotify:ApiKey"                                                          = var.api_govnotify_keyvault_api_key_reference 
     "GovNotify:RegistrationEmailTemplateId"                                     = var.api_govnotify_registration_template_id
 
+    "Logging:TableStorageConfiguration:ConnectionString"                        = var.api_primary_blob_keyvault_connection_string_reference
+    "Logging:TableStorageConfiguration:TableName"                               = "Logs"
   }
 
   logs {
@@ -402,6 +404,9 @@ resource "azurerm_app_service_slot" "api" {
     "SharedSecrets:WebApplication"                                              = var.api_forum_keyvault_application_shared_secret_reference    
     "GovNotify:ApiKey"                                                          = var.api_govnotify_keyvault_api_key_reference
     "GovNotify:RegistrationEmailTemplateId"                                     = var.api_govnotify_registration_template_id
+
+    "Logging:TableStorageConfiguration:ConnectionString"                        = var.api_primary_blob_keyvault_connection_string_reference
+    "Logging:TableStorageConfiguration:TableName"                               = "Logs"
   }
 
   logs {
