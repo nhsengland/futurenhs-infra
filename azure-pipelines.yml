@@ -59,7 +59,7 @@ jobs:
       backendAzureRmContainerName: $(azure.tfstatefile.blob_container)
       backendAzureRmKey: $(azure.tfstatefile.name)
   #- task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
-  - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
+  - task: Terraform-cli@0
     displayName: 'terraform - import'
     inputs:
       command: import
