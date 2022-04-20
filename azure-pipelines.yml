@@ -58,6 +58,9 @@ jobs:
       backendAzureRmStorageAccountName: $(azure.tfstatefile.storage_account)
       backendAzureRmContainerName: $(azure.tfstatefile.blob_container)
       backendAzureRmKey: $(azure.tfstatefile.name)
+  - task:  ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
+    inputs: 
+       terraformVersion: 1.0.0
   - task: TerraformTaskV2@2
     displayName: Terraform - validate
     inputs:
