@@ -44,8 +44,8 @@ jobs:
     vmImage: ubuntu-20.04
   steps:
   - checkout: self
-  - task: task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
-    displayName: Install Terraform 1.0.0
+  - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
+    displayName: 'Install Terraform 1.0.0'
     inputs:
       terraformVersion: 1.0.0
   - task: TerraformTaskV2@2
