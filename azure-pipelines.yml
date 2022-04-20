@@ -60,10 +60,9 @@ jobs:
       backendAzureRmKey: $(azure.tfstatefile.name)
   - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
     displayName: 'terraform - import'
-  checkout: self
     inputs:
       command: import
-      workingDirectory: '$(terraform.configuration_directory)/_ci.nhsengland.futurenhs-infra-Tim/dev-uksouth-terraform-release-plan/dev'
+      workingDirectory: $(terraform.configuration_directory)
       environmentServiceName: 'Azure Resource Manager - FNHS_Development Subscription'
       providerAzureRmSubscriptionId: 'd9c0a8f2-3fae-48e7-a2dd-6ffcc5c1c994'
       resourceAddress: 'azurerm_mssql_database.forum'
