@@ -60,6 +60,7 @@ jobs:
       backendAzureRmKey: $(azure.tfstatefile.name)
   - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
     displayName: 'terraform - import'
+  - checkout: self
     inputs:
       command: import
       workingDirectory: '$(terraform.configuration_directory)/_ci.nhsengland.futurenhs-infra-Tim/dev-uksouth-terraform-release-plan/dev'
