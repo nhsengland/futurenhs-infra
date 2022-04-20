@@ -60,10 +60,13 @@ jobs:
       backendAzureRmKey: $(azure.tfstatefile.name)
   - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
     displayName: 'terraform - import'
-    inputs:
-      command: import
-      resourceAddress: 'azurerm_mssql_database.forum'
-      resourceId: '/subscriptions/d9c0a8f2-3fae-48e7-a2dd-6ffcc5c1c994/resourceGroups/rg-fnhso-dev-uksouth-001/providers/Microsoft.Sql/servers/sql-fnhso-dev-uksouth-primary/databases/sqldb-fnhso-dev-uksouth-forum'
+  inputs:
+    command: import
+    workingDirectory: '$(System.DefaultWorkingDirectory)/_ci.nhsengland.futurenhs-infra-Tim/dev-uksouth-terraform-release-plan/dev'
+    environmentServiceName: 'Azure Resource Manager - FNHS_Development Subscription'
+    providerAzureRmSubscriptionId: 'd9c0a8f2-3fae-48e7-a2dd-6ffcc5c1c994'
+    resourceAddress: 'azurerm_mssql_database.forum'
+    resourceId: '/subscriptions/d9c0a8f2-3fae-48e7-a2dd-6ffcc5c1c994/resourceGroups/rg-fnhso-dev-uksouth-001/providers/Microsoft.Sql/servers/sql-fnhso-dev-uksouth-primary/databases/sqldb-fnhso-dev-uksouth-forum'
   - task: TerraformTaskV2@2
     displayName: Terraform - validate
     inputs:
