@@ -374,16 +374,16 @@ module "databases" {
     
 resource "azurerm_mssql_database" "forum" {
   resourceId                                                              ="/subscriptions/d9c0a8f2-3fae-48e7-a2dd-6ffcc5c1c994/resourceGroups/rg-fnhso-dev-uksouth-001/providers/Microsoft.Sql/servers/sql-fnhso-dev-uksouth-primary/databases/sqldb-fnhso-dev-uksouth-forum"
-  api_forum_application_shared_secret                                     = var.api_forum_application_shared_secret
-  api_govnotify_api_key                                                   = var.api_govnotify_api_key
-  api_govnotify_registration_template_id                                  = var.api_govnotify_registration_template_id
-  appgw_tls_certificate_base64                                            = var.appgw_tls_certificate_base64
-  appgw_tls_certificate_password                                          = var.appgw_tls_certificate_password
-  forum_email_sendgrid_apikey                                             = var.forum_email_sendgrid_apikey
-  sqlserver_active_directory_administrator_objectid                       = var.sqlserver_active_directory_administrator_objectid
-  sqlserver_admin_password                                                = var.sqlserver_admin_password
-  sqlserver_admin_user_id                                                 = var.sqlserver_admin_user_id
-  web_cookie_parser_secret                                                = var.web_cookie_parser_secret
+  api_forum_application_shared_secret                                     = $(api_forum_application_shared_secret)
+  api_govnotify_api_key                                                   = $(api_govnotify_api_key)
+  api_govnotify_registration_template_id                                  = $(api_govnotify_registration_template_id)
+  appgw_tls_certificate_base64                                            = $(appgw_tls_certificate_base64)
+  appgw_tls_certificate_password                                          = $(appgw_tls_certificate_password)
+  forum_email_sendgrid_apikey                                             = $(forum_email_sendgrid_apikey)
+  sqlserver_active_directory_administrator_objectid                       = $(sqlserver_active_directory_administrator_objectid)
+  sqlserver_admin_password                                                = $(sqlserver_admin_password)
+  sqlserver_admin_user_id                                                 = $(sqlserver_admin_user_id)
+  web_cookie_parser_secret                                                = $(web_cookie_parser_secret)
 }
 
 #module "security_centre" {
