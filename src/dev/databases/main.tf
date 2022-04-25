@@ -257,3 +257,32 @@ module "forum" {
   database_login_password                        = azurerm_mssql_server.primary.administrator_login_password
 }
 
+module "content" {
+  source = "./content"
+
+  resource_group_name                            = var.resource_group_name
+
+  location                                       = var.location
+  environment                                    = var.environment
+  product_name                                   = var.product_name
+
+  key_vault_id                                   = var.key_vault_id
+
+  log_analytics_workspace_resource_id            = var.log_analytics_workspace_resource_id
+
+  log_storage_account_id                         = var.log_storage_account_id
+  log_storage_account_blob_endpoint              = var.log_storage_account_blob_endpoint
+  log_storage_account_access_key                 = var.log_storage_account_access_key
+
+  sql_server_id                                  = azurerm_mssql_server.primary.id
+  sql_server_elasticpool_id                      = azurerm_mssql_elasticpool.primary.id
+  sqlserver_admin_email                          = var.sqlserver_admin_email
+
+  sql_server_primary_fully_qualified_domain_name = azurerm_mssql_server.primary.fully_qualified_domain_name
+
+  # TODO - Change below to use none admin credentials when forum up and running and access rights are understood.  Using admin credentials is no good!
+
+  database_login_user                            = azurerm_mssql_server.primary.administrator_login
+  database_login_password                        = azurerm_mssql_server.primary.administrator_login_password
+}
+
