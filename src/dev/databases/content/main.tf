@@ -37,7 +37,7 @@ data "azurerm_monitor_diagnostic_categories" "sqldb" {
 
 resource "azurerm_monitor_diagnostic_setting" "sqldb" {
   name                                         = "sqldb-content-diagnostics"
-  target_resource_id                           = azurerm_mssql_database.forum.id
+  target_resource_id                           = azurerm_mssql_database.content.id
   log_analytics_workspace_id                   = var.log_analytics_workspace_resource_id
   storage_account_id                           = var.log_storage_account_id
 
