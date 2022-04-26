@@ -92,48 +92,6 @@ variable api_forum_application_shared_secret {
     #default = "29f47452-eff9-45c5-9de4-10affac3d862"
 }
 
-variable "API_FORUM_APPLICATION_SHARED_SECRET" {
-  type      = string
-    sensitive = true 
-}
-
-variable API_GOVNOTIFY_API_KEY {
-  type      = string
-    sensitive = true 
-}                                                   
-  variable API_GOVNOTIFY_REGISTRATION_TEMPLATE_ID  {
-  type      = string
-    sensitive = true 
-}                               
-variable APPGW_TLS_CERTIFICATE_BASE64  {
-  type      = string
-    sensitive = true 
-}                                         
-variable  APPGW_TLS_CERTIFICATE_PASSWORD {
-  type      = string
-    sensitive = true 
-}                                      
-variable  FORUM_EMAIL_SENDGRID_APIKEY   {
-  type      = string
-    sensitive = true 
-}                                        
-variable SQLSERVER_ACTIVE_DIRECTORY_ADMINISTRATOR_OBJECTID  {
-  type      = string
-    sensitive = true 
-}                    
-variable SQLSERVER_ADMIN_PASSWORD     {
-  type      = string
-    sensitive = true 
-}                                           
-variable SQLSERVER_ADMIN_USER_ID   {
-  type      = string
-    sensitive = true 
-}                                              
-variable WEB_COOKIE_PARSER_SECRET {
-  type      = string
-    sensitive = true 
-}
-
 variable web_cookie_parser_secret { 
     type      = string
     sensitive = true
