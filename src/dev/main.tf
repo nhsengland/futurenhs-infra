@@ -375,16 +375,15 @@ module "databases" {
 resource "azurerm_mssql_database" "forum" {
   resourceId                                                              ="/subscriptions/d9c0a8f2-3fae-48e7-a2dd-6ffcc5c1c994/resourceGroups/rg-fnhso-dev-uksouth-001/providers/Microsoft.Sql/servers/sql-fnhso-dev-uksouth-primary/databases/sqldb-fnhso-dev-uksouth-forum"
   API_FORUM_APPLICATION_SHARED_SECRET                                     = "${terraform.api_forum_application_shared_secret}"
-  #api_forum_application_shared_secret                                     = $(api_forum_application_shared_secret)
- # api_govnotify_api_key                                                   = $(api_govnotify_api_key)
-  #api_govnotify_registration_template_id                                  = $(api_govnotify_registration_template_id)
- # appgw_tls_certificate_base64                                            = $(appgw_tls_certificate_base64)
- # appgw_tls_certificate_password                                          = $(appgw_tls_certificate_password)
- # forum_email_sendgrid_apikey                                             = $(forum_email_sendgrid_apikey)
- # sqlserver_active_directory_administrator_objectid                       = $(sqlserver_active_directory_administrator_objectid)
- # sqlserver_admin_password                                                = $(sqlserver_admin_password)
- # sqlserver_admin_user_id                                                 = $(sqlserver_admin_user_id)
- # web_cookie_parser_secret                                                = $(web_cookie_parser_secret)
+  API_GOVNOTIFY_API_KEY                                                   = "$(terraform.api_forum_application_shared_secret)"
+  API_GOVNOTIFY_REGISTRATION_TEMPLATE_ID                                 = $(terraform.api_govnotify_registration_template_id)
+ APPGW_TLS_CERTIFICATE_BASE64                                            = $(terrform.appgw_tls_certificate_base64)
+  APPGW_TLS_CERTIFICATE_PASSWORD                                        = $(terraform.appgw_tls_certificate_password)
+  FORUM_EMAIL_SENDGRID_APIKEY                                            = $(terraform.forum_email_sendgrid_apikey)
+ SQLSERVER_ACTIVE_DIRECTORY_ADMINISTRATOR_OBJECTID                       = $(terrform.sqlserver_active_directory_administrator_objectid)
+ SQLSERVER_ADMIN_PASSWORD                                                = $(terraformsqlserver_admin_password)
+ SQLSERVER_ADMIN_USER_ID                                                 = $(terraform.sqlserver_admin_user_id)
+ WEB_COOKIE_PARSER_SECRET                                               = $(terraform.web_cookie_parser_secret)
 }
 
 #module "security_centre" {
