@@ -94,7 +94,8 @@ variable api_forum_application_shared_secret {
 
 variable API_FORUM_APPLICATION_SHARED_SECRET {
   type      = string
-    sensitive = true }
+    sensitive = true 
+}
 
 variable web_cookie_parser_secret { 
     type      = string
@@ -102,7 +103,7 @@ variable web_cookie_parser_secret {
 }
 
 variable api_govnotify_api_key  {
-    type      = string
+    type  = string
     sensitive = true 
     #default = "dev-86e80710-e986-4edf-b9f2-65779d2fb046-7d70615b-bbf1-4438-bc19-19a357dad191"
 }
