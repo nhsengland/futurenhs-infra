@@ -92,6 +92,10 @@ variable api_forum_application_shared_secret {
     #default = "29f47452-eff9-45c5-9de4-10affac3d862"
 }
 
+variable API_FORUM_APPLICATION_SHARED_SECRET {
+  type      = string
+    sensitive = true }
+
 variable web_cookie_parser_secret { 
     type      = string
     sensitive = true
