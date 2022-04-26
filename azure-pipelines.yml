@@ -68,17 +68,7 @@ jobs:
       resourceAddress: 'azurerm_mssql_database.forum'
       resourceId: '/subscriptions/d9c0a8f2-3fae-48e7-a2dd-6ffcc5c1c994/resourceGroups/rg-fnhso-dev-uksouth-001/providers/Microsoft.Sql/servers/sql-fnhso-dev-uksouth-primary/databases/sqldb-fnhso-dev-uksouth-forum'
       #TF_VAR_API_FORUM_APPLICATION_SHARED_SECRET: $(api_forum_application_shared_secret)
-      commandOptions: >-
-                        -input=false -var API_FORUM_APPLICATION_SHARED_SECRET="$(terraform.api_forum_application_shared_secret)"
-                        -input=false -var API_GOVNOTIFY_API_KEY="$(terraform.api_govnotify_api_key)"
-                        -input=false -var API_GOVNOTIFY_REGISTRATION_TEMPLATE_ID="$(terraform.api_govnotify_registration_template_id)"
-                        -input=false -var APPGW_TLS_CERTIFICATE_BASE64="$(terraform.appgw_tls_certificate_base64)"
-                        -input=false -var APPGW_TLS_CERTIFICATE_PASSWORD="$(terraform.appgw_tls_certificate_password)"
-                        -input=false -var FORUM_EMAIL_SENDGRID_APIKEY="$(terraform.forum_email_sendgrid_apikey)"
-                        -input=false -var SQLSERVER_ACTIVE_DIRECTORY_ADMINISTRATOR_OBJECTID="$(terrform.sqlserver_active_directory_administrator_objectid)"
-                        -input=false var SQLSERVER_ADMIN_PASSWORD= "$(terraformsqlserver_admin_password)"
-                        -input=false -var SQLSERVER_ADMIN_USER_ID= "$(terraform.sqlserver_admin_user_id)"
-                        -input=false -var WEB_COOKIE_PARSER_SECRET="$(terraform.web_cookie_parser_secret)"
+      commandOptions: -input=false -var-file="src/dev/tfvars.tf"
   - task: TerraformTaskV2@2
     displayName: Terraform - validate
     inputs:
