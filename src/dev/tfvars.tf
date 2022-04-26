@@ -1,1 +1,1 @@
-TF_var_api_forum_application_shared_secret = $(terraform.api_forum_application_shared_secret)
+TF_VAR_api_forum_application_shared_secret= $(terraform.api_forum_application_shared_secret)
