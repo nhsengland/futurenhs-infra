@@ -1,4 +1,4 @@
-TF_VAR_API_FORUM_APPLICATION_SHARED_SECRET = "$(terraform.api_forum_application_shared_secret)"
+#TF_VAR_API_FORUM_APPLICATION_SHARED_SECRET = "$(terraform.api_forum_application_shared_secret)"
 #API_GOVNOTIFY_API_KEY                                                   = "$(terraform.api_govnotify_api_key)"
 #API_GOVNOTIFY_REGISTRATION_TEMPLATE_ID                                 = "$(terraform.api_govnotify_registration_template_id)"
 #APPGW_TLS_CERTIFICATE_BASE64                                            = "$(terraform.appgw_tls_certificate_base64)"
