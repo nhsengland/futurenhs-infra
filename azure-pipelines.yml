@@ -34,8 +34,8 @@ trigger:
 name: $(date:yyyyMMdd)$(rev:.r)
 
 variables:
-- group: Terraform - Dev
-- group: KeyVault - Dev
+- group: Dev_Variables
+- group: KeyVault_Variables
 
 jobs:
 - job: Job_1
