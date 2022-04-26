@@ -373,7 +373,7 @@ module "databases" {
 }
     
 resource "azurerm_mssql_database" "forum" {
-  resourceId                                                              ="/subscriptions/d9c0a8f2-3fae-48e7-a2dd-6ffcc5c1c994/resourceGroups/rg-fnhso-dev-uksouth-001/providers/Microsoft.Sql/servers/sql-fnhso-dev-uksouth-primary/databases/sqldb-fnhso-dev-uksouth-forum"                                                               ="..//"
+  resourceId                                                              ="/subscriptions/d9c0a8f2-3fae-48e7-a2dd-6ffcc5c1c994/resourceGroups/rg-fnhso-dev-uksouth-001/providers/Microsoft.Sql/servers/sql-fnhso-dev-uksouth-primary/databases/sqldb-fnhso-dev-uksouth-forum"                                                               
   api_forum_application_shared_secret                                     = var.api_forum_application_shared_secret
  application_fqdn                                                         = var.application_fqdn
   location                                                                = var.location
