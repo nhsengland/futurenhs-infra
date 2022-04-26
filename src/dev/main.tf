@@ -373,35 +373,7 @@ module "databases" {
 }
     
 resource "azurerm_mssql_database" "forum" {
-  resourceId                                                              ="/subscriptions/d9c0a8f2-3fae-48e7-a2dd-6ffcc5c1c994/resourceGroups/rg-fnhso-dev-uksouth-001/providers/Microsoft.Sql/servers/sql-fnhso-dev-uksouth-primary/databases/sqldb-fnhso-dev-uksouth-forum"
-  API_FORUM_APPLICATION_SHARED_SECRET                                     = "${terraform.api_forum_application_shared_secret}"
-  API_GOVNOTIFY_API_KEY                                                   = "$(terraform.api_govnotify_api_key)"
-  API_GOVNOTIFY_REGISTRATION_TEMPLATE_ID                                 = "$(terraform.api_govnotify_registration_template_id)"
-  APPGW_TLS_CERTIFICATE_BASE64                                            = "$(terraform.appgw_tls_certificate_base64)"
-  APPGW_TLS_CERTIFICATE_PASSWORD                                          = "$(terraform.appgw_tls_certificate_password)"
-  FORUM_EMAIL_SENDGRID_APIKEY                                            = "$(terraform.forum_email_sendgrid_apikey)"
-  SQLSERVER_ACTIVE_DIRECTORY_ADMINISTRATOR_OBJECTID                       = "$(terrform.sqlserver_active_directory_administrator_objectid)"
-  SQLSERVER_ADMIN_PASSWORD                                                = "$(terraformsqlserver_admin_password)"
-  SQLSERVER_ADMIN_USER_ID                                                 = "$(terraform.sqlserver_admin_user_id)"
-  WEB_COOKIE_PARSER_SECRET                                               ="$(terraform.web_cookie_parser_secret)"
-  application_fqdn                                                       ="$(terraform.application_fqdn)"
-  location                                                               ="$(terraform.location)"
-  environment                                                            ="$(terraform.environment)"
-  product_name                                                           ="$(terraform.product_name)"
-  sqlserver_admin_email                                                  ="($terraform.sqlserver_admin_email)"
-  sqlserver_admin_user_id                                                ="(terraform.sqlserver_admin_user_id)"
-  sqlserver_admin_password                                               ="(terraform.sqlserver_admin_password)"
-  sqlserver_active_directory_administrator_login_name                    ="(terraform.sqlserver_active_directory_administrator_login_name)"
-  sqlserver_active_directory_administrator_objectid                      ="(terraform.sqlserver_active_directory_administrator_objectid0"
-  security_center_contact_email                                          ="(terraform.security_center_contact_email)"
-  security_center_contact_phone                                          ="(terraform.security_center_contact_phone)"
-  appgw_tls_certificate_base64                                           ="(terraform.appgw_tls_certificate_base64)"
-  appgw_tls_certificate_password                                         ="(terraform.appgw_tls_certificate_password)"
-  appgw_tls_certificate_content_type                                     ="(terraform.appgw_tls_certificate_content_type)"
-  forum_email_sendgrid_apikey                                            ="(terraform.forum_email_sendgrid_apikey)"
-  forum_email_smtp_from                                                  ="(terraform.forum_email_smtp_from)"
-  forum_email_smpt_username                                              ="(terraform.forum_email_smpt_username)"
-  
+  resourceId                                                              ="/subscriptions/d9c0a8f2-3fae-48e7-a2dd-6ffcc5c1c994/resourceGroups/rg-fnhso-dev-uksouth-001/providers/Microsoft.Sql/servers/sql-fnhso-dev-uksouth-primary/databases/sqldb-fnhso-dev-uksouth-forum" 
 }
 
 #module "security_centre" {
