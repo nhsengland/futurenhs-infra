@@ -59,9 +59,6 @@ jobs:
       backendAzureRmContainerName: $(azure.tfstatefile.blob_container)
       backendAzureRmKey: $(azure.tfstatefile.name)
 
-  - powershell: 'terraform state rm ''azurerm_mssql_database.forum.rg'''
-    displayName: 'PowerShell Script'
-
   - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
     displayName: 'terraform - import'
     inputs:
