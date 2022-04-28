@@ -66,7 +66,8 @@ jobs:
       workingDirectory: $(terraform.configuration_directory)
       environmentServiceName: 'Azure Resource Manager - FNHS_Development Subscription'
       providerAzureRmSubscriptionId: 'd9c0a8f2-3fae-48e7-a2dd-6ffcc5c1c994'
-      resourceAddress: 'azurerm_mssql_database.forum','"azurerm_key_vault" "main"'
+      resourceAddress: 'azurerm_mssql_database.forum'
+      resourceAddress: 'azurerm_key_vault.main'
       resourceId: '/subscriptions/d9c0a8f2-3fae-48e7-a2dd-6ffcc5c1c994/resourceGroups/rg-fnhso-dev-uksouth-001/providers/Microsoft.Sql/servers/sql-fnhso-dev-uksouth-primary/databases/sqldb-fnhso-dev-uksouth-forum'
       #TF_VAR_API_FORUM_APPLICATION_SHARED_SECRET: 'var.api_forum_application_shared_secret'
       commandOptions: -input=true
