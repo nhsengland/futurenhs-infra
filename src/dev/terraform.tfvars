@@ -28,22 +28,22 @@ TF_VARFORUM_EMAIL_SENDGRID_APIKEY   = [
     "$(terraform.forum_email_sendgrid_apikey)"
   }
   ]
-TF_VARSQLSERVER_ACTIVE_DIRECTORY_ADMINISTRATOR_OBJECTID =[
+TF_VARSQLSERVER_ACTIVE_DIRECTORY_ADMINISTRATOR_OBJECTID = [
   {
     "$(terrform.sqlserver_active_directory_administrator_objectid)"
   }
   ]
-TF_VARSQLSERVER_ADMIN_PASSWORD    =[
+TF_VARSQLSERVER_ADMIN_PASSWORD    = [
   {
     "$(terraformsqlserver_admin_password)"
   }
   ]
-TF_VARSQLSERVER_ADMIN_USER_ID     =[
+TF_VARSQLSERVER_ADMIN_USER_ID     = [
   {
     "$(terraform.sqlserver_admin_user_id)"
   }
   ]
-TF_VARWEB_COOKIE_PARSER_SECRET    =[
+TF_VARWEB_COOKIE_PARSER_SECRET    = [
   {
     "$(terraform.web_cookie_parser_secret)"
   }
