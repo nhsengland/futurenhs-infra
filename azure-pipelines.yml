@@ -59,19 +59,28 @@ jobs:
       backendAzureRmContainerName: $(azure.tfstatefile.blob_container)
       backendAzureRmKey: $(azure.tfstatefile.name)
 
-  - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
-    displayName: 'terraform - import'
+  #- task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+    #displayName: 'terraform - import'
+    #inputs:
+      #command: import
+      #workingDirectory: $(terraform.configuration_directory)
+      #environmentServiceName: 'Azure Resource Manager - FNHS_Development Subscription'
+      #providerAzureRmSubscriptionId: 'd9c0a8f2-3fae-48e7-a2dd-6ffcc5c1c994'
+      #resourceAddress: 'azurerm_mssql_database.forum'
+      #resourceId: '/subscriptions/d9c0a8f2-3fae-48e7-a2dd-6ffcc5c1c994/resourceGroups/rg-fnhso-dev-uksouth-001/providers/Microsoft.Sql/servers/sql-fnhso-dev-uksouth-primary/databases/sqldb-fnhso-dev-uksouth-forum'
+      #TF_VAR_API_FORUM_APPLICATION_SHARED_SECRET: 'var.api_forum_application_shared_secret'
+      #commandOptions: -input=false -var-file="terraform.tfvars"
+      #comm                -var="product_name=$(terraform.product_name)" -var="location=$(terraform.location)" -var="environment=$(terraform.environment)" -var="sqlserver_admin_email=$(terraform.sqlserver_admin_email)" -var="sqlserver_admin_user_id=$(terraform.sqlserver_admin_user_id)" -var="sqlserver_admin_password=$(terraform.sqlserver_admin_password)" -var="security_center_contact_email=$(terraform.security_center_contact_email)" -var="security_center_contact_phone=$(terraform.security_center_contact_phone)" -var="appgw_tls_certificate_password=$(terraform.appgw_tls_certificate_password)" -var="appgw_tls_certificate_base64=$(terraform.appgw_tls_certificate_base64)" -var="appgw_tls_certificate_content_type=$(terraform.appgw_tls_certificate_content_type)" -var="sqlserver_active_directory_administrator_login_name=$(terraform.sqlserver_active_directory_administrator_login_name)" -var="sqlserver_active_directory_administrator_objectid=$(terraform.sqlserver_active_directory_administrator_objectid)" -var="application_fqdn=$(terraform.application_fqdn)" -var="forum_email_sendgrid_apikey=$(terraform.forum_email_sendgrid_apikey)" -var="forum_email_smtp_from=$(terraform.forum_email_smtp_from)" -var="forum_email_smpt_username=$(terraform.forum_email_smpt_username)" -var="api_forum_application_shared_secret=$(terraform.api_forum_application_shared_secret)" -var="web_cookie_parser_secret=$(terraform.web_cookie_parser_secret)" -var="api_govnotify_api_key=$(terraform.api_govnotify_api_key)" -var="api_govnotify_registration_template_id=$(terraform.api_govnotify_registration_template_id)" -var="web_next_public_gtm_key=$(terraform.web_next_public_gtm_key)"
+      
+  - task: TerraformCLI@0
     inputs:
-      command: import
+      command: 'destroy'
       workingDirectory: $(terraform.configuration_directory)
       environmentServiceName: 'Azure Resource Manager - FNHS_Development Subscription'
       providerAzureRmSubscriptionId: 'd9c0a8f2-3fae-48e7-a2dd-6ffcc5c1c994'
-      resourceAddress: 'azurerm_mssql_database.forum'
-      resourceId: '/subscriptions/d9c0a8f2-3fae-48e7-a2dd-6ffcc5c1c994/resourceGroups/rg-fnhso-dev-uksouth-001/providers/Microsoft.Sql/servers/sql-fnhso-dev-uksouth-primary/databases/sqldb-fnhso-dev-uksouth-forum'
-      #TF_VAR_API_FORUM_APPLICATION_SHARED_SECRET: 'var.api_forum_application_shared_secret'
-      commandOptions: -input=false -var-file="terraform.tfvars"
-      #comm                -var="product_name=$(terraform.product_name)" -var="location=$(terraform.location)" -var="environment=$(terraform.environment)" -var="sqlserver_admin_email=$(terraform.sqlserver_admin_email)" -var="sqlserver_admin_user_id=$(terraform.sqlserver_admin_user_id)" -var="sqlserver_admin_password=$(terraform.sqlserver_admin_password)" -var="security_center_contact_email=$(terraform.security_center_contact_email)" -var="security_center_contact_phone=$(terraform.security_center_contact_phone)" -var="appgw_tls_certificate_password=$(terraform.appgw_tls_certificate_password)" -var="appgw_tls_certificate_base64=$(terraform.appgw_tls_certificate_base64)" -var="appgw_tls_certificate_content_type=$(terraform.appgw_tls_certificate_content_type)" -var="sqlserver_active_directory_administrator_login_name=$(terraform.sqlserver_active_directory_administrator_login_name)" -var="sqlserver_active_directory_administrator_objectid=$(terraform.sqlserver_active_directory_administrator_objectid)" -var="application_fqdn=$(terraform.application_fqdn)" -var="forum_email_sendgrid_apikey=$(terraform.forum_email_sendgrid_apikey)" -var="forum_email_smtp_from=$(terraform.forum_email_smtp_from)" -var="forum_email_smpt_username=$(terraform.forum_email_smpt_username)" -var="api_forum_application_shared_secret=$(terraform.api_forum_application_shared_secret)" -var="web_cookie_parser_secret=$(terraform.web_cookie_parser_secret)" -var="api_govnotify_api_key=$(terraform.api_govnotify_api_key)" -var="api_govnotify_registration_template_id=$(terraform.api_govnotify_registration_template_id)" -var="web_next_public_gtm_key=$(terraform.web_next_public_gtm_key)"
-      
+      commandOptions: '-target=azurerm_mssql_database.forum'
+      allowTelemetryCollection: true
+
   - task: TerraformTaskV2@2
     displayName: Terraform - validate
     inputs:
