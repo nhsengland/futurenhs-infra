@@ -1,50 +1,50 @@
 TF_VAR_API_FORUM_APPLICATION_SHARED_SECRET = [
   {
-  "$(terraform.api_forum_application_shared_secret)"
+  var.api_forum_application_shared_secret = "$(terraform.api_forum_application_shared_secret)"
   }
  ]
-TF_VARAPI_GOVNOTIFY_API_KEY =  [
+TF_VA_RAPI_GOVNOTIFY_API_KEY =  [
   { 
-    "$(terraform.api_govnotify_api_key)"
+    var.api_govnotify_api_key = "$(terraform.api_govnotify_api_key)"
   }
   ]
-TF_VARAPI_GOVNOTIFY_REGISTRATION_TEMPLATE_ID  = [
+TF_VAR_API_GOVNOTIFY_REGISTRATION_TEMPLATE_ID  = [
   {
-    "$(terraform.api_govnotify_registration_template_id)"
+    var.api_govnotify_registration_template_id = "$(terraform.api_govnotify_registration_template_id)"
   }
   ]
-TF_VARAPPGW_TLS_CERTIFICATE_BASE64  = [
+TF_VAR_APPGW_TLS_CERTIFICATE_BASE64  = [
   {
-    "$(terraform.appgw_tls_certificate_base64)"
+    var.appgw_tls_certificate_base64 = "$(terraform.appgw_tls_certificate_base64)"
   }
   ]
-TF_VARAPPGW_TLS_CERTIFICATE_PASSWORD = [
+TF_VAR_APPGW_TLS_CERTIFICATE_PASSWORD = [
   {
-    "$(terraform.appgw_tls_certificate_password)"
+    var.appgw_tls_certificate_password = "$(terraform.appgw_tls_certificate_password)"
   }
   ]
-TF_VARFORUM_EMAIL_SENDGRID_APIKEY   = [
+TF_VAR_FORUM_EMAIL_SENDGRID_APIKEY   = [
   {
-    "$(terraform.forum_email_sendgrid_apikey)"
+    var.forum_email_sendgrid_apikey = "$(terraform.forum_email_sendgrid_apikey)"
   }
   ]
-TF_VARSQLSERVER_ACTIVE_DIRECTORY_ADMINISTRATOR_OBJECTID = [
+TF_VAR_SQLSERVER_ACTIVE_DIRECTORY_ADMINISTRATOR_OBJECTID = [
   {
-    "$(terrform.sqlserver_active_directory_administrator_objectid)"
+    var.sqlserver_active_directory_administrator_objectid = "$(terrform.sqlserver_active_directory_administrator_objectid)"
   }
   ]
-TF_VARSQLSERVER_ADMIN_PASSWORD    = [
+TF_VAR_SQLSERVER_ADMIN_PASSWORD    = [
   {
-    "$(terraformsqlserver_admin_password)"
+    var.sqlserver_admin_password = "$(terraformsqlserver_admin_password)"
   }
   ]
-TF_VARSQLSERVER_ADMIN_USER_ID     = [
+TF_VAR_SQLSERVER_ADMIN_USER_ID     = [
   {
-    "$(terraform.sqlserver_admin_user_id)"
+    var.sqlserver_admin_user_id = "$(terraform.sqlserver_admin_user_id)"
   }
   ]
-TF_VARWEB_COOKIE_PARSER_SECRET    = [
+TF_VAR_WEB_COOKIE_PARSER_SECRET    = [
   {
-    "$(terraform.web_cookie_parser_secret)"
+    var.web_cookie_parser_secret = "$(terraform.web_cookie_parser_secret)"
   }
   ]
