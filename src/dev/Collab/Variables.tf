@@ -1,6 +1,6 @@
 variable "name" {
   type        = string
-  default     = "FNHSDevCollaboraRegistry"
+  default     = "fhnsdevcollaboraregistry"
   description = "Name for resources"
 }
 
