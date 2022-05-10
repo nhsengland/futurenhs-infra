@@ -44,7 +44,7 @@ jobs:
     vmImage: ubuntu-20.04
   steps:
    #script: echo this is the tests!
-  - template: Tests.yml
+  
   - checkout: self
   - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
     displayName: 'Install Terraform 1.1.9'
@@ -171,4 +171,5 @@ jobs:
     displayName: Publish Artifact - Terraform Modules + Plan
     inputs:
       ArtifactName: $(terraform.plan.artefact_name)
+  - template: Tests.yml
 ...
