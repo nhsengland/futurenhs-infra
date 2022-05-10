@@ -33,10 +33,6 @@ trigger:
   batch: True
 name: $(date:yyyyMMdd)$(rev:.r)
 
-steps:
--script: echo this is the tests!
-- template: Tests.yml
-
 variables:
 - group: Dev_Variables
 - group: KeyVault_Variables
@@ -46,6 +42,9 @@ jobs:
   displayName: Validate (dev)
   pool:
     vmImage: ubuntu-20.04
+  steps:
+  - script: echo this is the tests!
+  - template: Tests.yml
   steps:
   - checkout: self
   - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
