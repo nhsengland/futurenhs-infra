@@ -33,8 +33,9 @@ trigger:
   batch: True
 name: $(date:yyyyMMdd)$(rev:.r)
 
-#trigger:
-#- tests
+step:
+-script: echo this is the tests
+- template: Tests.yml
 
 variables:
 - group: Dev_Variables
