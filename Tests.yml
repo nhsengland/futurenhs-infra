@@ -1,0 +1,29 @@
+trigger:
+  branches:
+    include:
+      - SPRINT
+
+  paths:
+    include:
+    - futurenhs.automation/*
+
+jobs:
+  job:
+  pool:
+    name: Azure Pipelines
+
+steps:
+- task: Npm@1
+  displayName: 'npm install'
+  inputs:
+    command: custom
+    verbose: false
+    customCommand: 'i -force'
+
+- script: 'npm test $(TESTSUITE)'
+  displayName: 'Execute Tests'
+
+- task: PublishTestResults@2
+  displayName: 'Publish Test Results **/wdio-*.log'
+  inputs:
+    testResultsFiles: '**/wdio-*.log'
