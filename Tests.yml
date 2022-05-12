@@ -21,13 +21,10 @@ jobs:
       workingDirectory: $(Build.SourcesDirectory)
 
     - task: Npm@1
-      displayName: 'npm install'
+      displayName: 'Npm install'
       inputs:
-        command: custom
-        workingDir: $(Build.SourcesDirectory)/futurenhs/futurenhs.automation/*
-        verbose: false
-        customCommand: 'i -force'
-        customEndpoint: 
+       command: 'install'
+       workingDir: '$(Build.SourcesDirectory)/futurenhs.app'
 
 
     - script: 'npm test $(TESTSUITE)'
