@@ -17,8 +17,7 @@ jobs:
   steps:
     - script: |
         echo dir
-
-        displayName: 'Command Line Script'
+      displayName: 'Command Line Script'
 
     - task: Npm@1
       displayName: 'npm install'
