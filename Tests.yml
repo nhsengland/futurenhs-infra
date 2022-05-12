@@ -23,8 +23,6 @@ jobs:
         verbose: false
         customCommand: 'i -force'
         customEndpoint: 
-
-  steps:
     - script: |
         echo dir
 
