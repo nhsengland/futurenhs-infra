@@ -16,7 +16,7 @@ jobs:
       displayName: 'Npm install'
       inputs:
        command: 'install'
-       workingDir: '$(Build.SourcesDirectory)/futurenhs.app'
+       workingDir: '$(Build.SourcesDirectory)/futurenhs.automation'
 
 
     - script: 'npm test $(TESTSUITE)'
