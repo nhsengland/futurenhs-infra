@@ -8,22 +8,22 @@ trigger:
     - futurenhs.automation/*
 
 jobs:
-  job:
+- job:
   pool:
     name: Azure Pipelines
 
-steps:
-- task: Npm@1
-  displayName: 'npm install'
-  inputs:
-    command: custom
-    verbose: false
-    customCommand: 'i -force'
+  steps:
+    - task: Npm@1
+      displayName: 'npm install'
+      inputs:
+      command: custom
+      verbose: false
+      customCommand: 'i -force'
 
-- script: 'npm test $(TESTSUITE)'
-  displayName: 'Execute Tests'
+    - script: 'npm test $(TESTSUITE)'
+      displayName: 'Execute Tests'
 
-- task: PublishTestResults@2
-  displayName: 'Publish Test Results **/wdio-*.log'
-  inputs:
-    testResultsFiles: '**/wdio-*.log'
+    - task: PublishTestResults@2
+      displayName: 'Publish Test Results **/wdio-*.log'
+      inputs:
+      testResultsFiles: '**/wdio-*.log'
