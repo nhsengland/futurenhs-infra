@@ -5,7 +5,7 @@ trigger:
 
   paths:
     include:
-    - futurenhs.automation/*
+    - $(release.workingDirectory)futurenhs.automation/*
 
 jobs:
 - job:
@@ -19,7 +19,7 @@ jobs:
       displayName: 'npm install'
       inputs:
         command: custom
-        workingDir: $(release.workingDirectory)\futurenhs.automation/*
+        workingDir: #$(release.workingDirectory)\futurenhs.automation/*
         verbose: false
         customCommand: 'i -force'
 
