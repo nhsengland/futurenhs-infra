@@ -3,9 +3,6 @@ trigger:
     include:
       - SPRINT
 
-  paths:
-    include:
-    - futurenhs.automation/*
 
 jobs:
 - job:
@@ -15,11 +12,6 @@ jobs:
     demands: npm
 
   steps:
-    - script: |
-        echo dir
-      displayName: 'Command Line Script'
-      workingDirectory: $(Build.SourcesDirectory)
-
     - task: Npm@1
       displayName: 'Npm install'
       inputs:
