@@ -19,7 +19,7 @@ jobs:
       displayName: 'npm install'
       inputs:
         command: custom
-        workingDir: $(System.ArtifactsDirectory)\_ci.nhsengland.futurenhs-infra-Tim\dev-uksouth-terraform-release-plan\dev\futurenhs.automation/*
+        workingDir: \_ci.nhsengland.futurenhs-infra-Tim\dev-uksouth-terraform-release-plan\dev\futurenhs.automation/*
         verbose: false
         customCommand: 'i -force'
 
