@@ -16,9 +16,9 @@ jobs:
     - task: Npm@1
       displayName: 'npm install'
       inputs:
-      command: custom
-      verbose: false
-      customCommand: 'i -force'
+        command: custom
+        verbose: false
+        customCommand: 'i -force'
 
     - script: 'npm test $(TESTSUITE)'
       displayName: 'Execute Tests'
@@ -26,4 +26,4 @@ jobs:
     - task: PublishTestResults@2
       displayName: 'Publish Test Results **/wdio-*.log'
       inputs:
-      testResultsFiles: '**/wdio-*.log'
+        testResultsFiles: '**/wdio-*.log'
