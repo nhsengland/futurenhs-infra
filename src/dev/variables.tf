@@ -107,3 +107,28 @@ variable web_next_public_gtm_key {
     type      = string
     sensitive = true
 }
+variable api_group_member_comment_on_discussion { 
+  type = string 
+  sensitive = true
+}
+
+variable api_member_response_to_comment { 
+    type      = string
+    sensitive = true
+}
+variable api_group_member_request_rejected { 
+    type      = string
+    sensitive = true
+}
+variable api_group_member_request_accepted__platform_user { 
+    type      = string
+    sensitive = true
+}
+variable api_group_member_request_rejected_platform_user { 
+    type      = string
+    sensitive = true
+}
+variable api_group_membership_request { 
+    type      = string
+    sensitive = true
+}
