@@ -33,9 +33,9 @@ trigger:
   batch: True
 name: $(date:yyyyMMdd)$(rev:.r)
 
-variables:
-- group: Dev_Variables
-- group: KeyVault_Variables
+#variables:
+#- group: Dev_Variables
+#- group: KeyVault_Variables
 
 jobs:
 - job: Job_1
