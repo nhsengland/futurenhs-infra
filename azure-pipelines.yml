@@ -32,6 +32,11 @@ trigger:
     - refs/heads/main
   batch: True
 name: $(date:yyyyMMdd)$(rev:.r)
+
+variables:
+- group: Dev_Variables
+- group: KeyVault_Variables
+
 jobs:
 - job: Job_1
   displayName: Validate (dev)
