@@ -339,5 +339,5 @@ resource "azurerm_container_registry" "acr" {
   resource_group_name = azurerm_resource_group.acr_resource_group.name
   location            = azurerm_resource_group.acr_resource_group.location
   sku                 = "Basic"
-  admin_enabled       = False
+  admin_enabled       = false
 }
