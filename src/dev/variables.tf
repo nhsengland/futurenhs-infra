@@ -101,12 +101,12 @@ variable api_govnotify_api_key  {
     sensitive = true 
 }
 
-#variable api_govnotify_registration_template_id { type = string }
+variable api_govnotify_registration_template_id { type = string }
 
-#variable web_next_public_gtm_key { 
- #   type      = string
-  #  sensitive = true
-#}
+variable web_next_public_gtm_key { 
+    type      = string
+    sensitive = true
+}
 #variable api_govnotify_group_member_comment_on_discussion { 
   #   type      = string
   #  sensitive = true
