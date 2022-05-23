@@ -55,7 +55,7 @@ jobs:
     displayName: Terraform - init
     inputs:
       workingDirectory: $(terraform.configuration_directory)
-      commandOptions: '-upgrade -var-file="Terraform.tfvars"' 
+      commandOptions: '-upgrade -var-file=api_forum_application_shared_secret -var-file=application_fqdn' 
       backendServiceArm: $(azure.service_connection)
       backendAzureRmResourceGroupName: $(azure.tfstatefile.resource_group)
       backendAzureRmStorageAccountName: $(azure.tfstatefile.storage_account)
@@ -80,7 +80,7 @@ jobs:
     inputs:
       command: validate
       workingDirectory: $(terraform.configuration_directory)
-      commandOptions: -var-file="Terraform.tfvars" 
+      commandOptions: '-var-file=api_forum_application_shared_secret -var-file=application_fqdn'
 
   - task: CmdLine@2
     displayName: Install Checkov Static Analysis Tool
