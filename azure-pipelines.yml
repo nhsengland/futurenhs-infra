@@ -80,7 +80,7 @@ jobs:
     inputs:
       command: validate
       workingDirectory: $(terraform.configuration_directory)
-      commandOptions: '-var-file=api_forum_application_shared_secret -var-file=application_fqdn'
+      #commandOptions: '-var-file=api_forum_application_shared_secret -var-file=application_fqdn'
 
   - task: CmdLine@2
     displayName: Install Checkov Static Analysis Tool
