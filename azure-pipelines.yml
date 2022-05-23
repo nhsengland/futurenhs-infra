@@ -55,7 +55,7 @@ jobs:
     displayName: Terraform - init
     inputs:
       workingDirectory: $(terraform.configuration_directory)
-      commandOptions: -upgrade  #-var-file="Terraform.tfvars" 
+      commandOptions: '-upgrade -var-file="Terraform.tfvars"' 
       backendServiceArm: $(azure.service_connection)
       backendAzureRmResourceGroupName: $(azure.tfstatefile.resource_group)
       backendAzureRmStorageAccountName: $(azure.tfstatefile.storage_account)
