@@ -74,3 +74,28 @@ variable api_govnotify_keyvault_api_key_reference  {
 }
 
 variable api_govnotify_registration_template_id { type = string }
+variable api_govnotify_group_member_comment_on_discussion { 
+  type      = string
+    sensitive = true
+}
+
+variable api_govnotify_member_response_to_comment { 
+  type      = string
+    sensitive = true
+}
+variable api_govnotify_group_member_request_rejected { 
+  type      = string
+    sensitive = true
+}
+variable api_govnotify_group_member_request_accepted__platform_user { 
+  type      = string
+    sensitive = true
+}
+variable api_govnotify_group_member_request_rejected_platform_user { 
+   type      = string
+    sensitive = true
+}
+variable api_govnotify_group_membership_request { 
+   type      = string
+    sensitive = true
+}
