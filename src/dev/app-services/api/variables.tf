@@ -94,3 +94,6 @@ variable api_govnotify_group_membership_request {
    type      = string
     sensitive = true
 }
+variable api_govnotify_member_response_to_comment { 
+  type      = string
+}
