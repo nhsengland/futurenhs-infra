@@ -173,5 +173,4 @@ jobs:
     displayName: Publish Artifact - Terraform Modules + Plan
     inputs:
       ArtifactName: $(terraform.plan.artefact_name)
-  #- template: Tests.yml
 ...
