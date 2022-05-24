@@ -185,6 +185,13 @@ resource "azurerm_app_service" "api" {
     "SharedSecrets:WebApplication"                                              = var.api_forum_keyvault_application_shared_secret_reference  
     "GovNotify:ApiKey"                                                          = var.api_govnotify_keyvault_api_key_reference 
     "GovNotify:RegistrationEmailTemplateId"                                     = var.api_govnotify_registration_template_id
+     "Govnotify:Group_member_comment_on_discussion"                             = var.api_govnotify_group_member_comment
+    "Govnotify:Member_response_to_comment"                                      = var.terraform.api_govnotify_member_response_to_comment
+    "Govnotify:Group_member_request_rejected"                                   = var.api_govnotify_group_member_request_rejected
+    "Govnotify:Group_member_request_accepted__platform_user"                    = var.api_govnotify_group_member_request_accepted__platform_user
+    "Govnotify:group_member_request_rejected_platform_user"                     = var.api_govnotify_group_member_request_rejected_platform_user
+    "Govnotify:group_membership_request"                                        = var.api_govnotify_group_membership_request
+    "Logging:TableStorageConfiguration:ConnectionString"                        = var.api_primary_blob_keyvault_connection_string_reference
 
     "Logging:TableStorageConfiguration:ConnectionString"                        = var.api_primary_blob_keyvault_connection_string_reference
     "Logging:TableStorageConfiguration:TableName"                               = "Logs"
