@@ -48,9 +48,9 @@ jobs:
   
   - checkout: self
   - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
-    displayName: 'Install Terraform 1.1.9'
+    displayName: 'Install Terraform 1.2.1'
     inputs:
-      terraformVersion: 1.1.9
+      terraformVersion: 1.2.1
   - task: TerraformTaskV2@2
     displayName: Terraform - init
     inputs:
