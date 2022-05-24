@@ -310,6 +310,12 @@ module "app-services" {
   api_primary_file_blob_container_endpoint              = module.storage.api_primary_file_blob_container_endpoint
   api_primary_image_blob_container_endpoint             = module.storage.api_primary_image_blob_container_endpoint
   api_govnotify_registration_template_id                = var.api_govnotify_registration_template_id 
+  api_govnotify_group_member_comment_on_discussion              = var.api_govnotify_group_member_comment_on_discussion
+  api_govnotify_member_response_to_comment                      = var.api_govnotify_member_response_to_comment
+  api_govnotify_group_member_request_rejected                   = var.api_govnotify_group_member_request_rejected
+  api_govnotify_group_member_request_accepted__platform_user    = var.api_govnotify_group_member_request_accepted__platform_user
+  api_govnotify_group_member_request_rejected_platform_user     = var.api_govnotify_group_member_request_rejected_platform_user
+  api_govnotify_group_membership_request                        = var.api_govnotify_group_membership_request
 
   web_app_config_primary_endpoint                       = module.app-configuration.primary_endpoint
   web_app_config_secondary_endpoint                     = module.app-configuration.secondary_endpoint
