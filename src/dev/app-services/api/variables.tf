@@ -78,11 +78,6 @@ variable api_govnotify_group_member_comment_on_discussion {
   type      = string
     sensitive = true
 }
-
-variable api_govnotify_group_member_comment_on_discussion { 
-  type      = string
-    sensitive = true
-}
 variable api_govnotify_group_member_request_rejected { 
   type      = string
     sensitive = true
