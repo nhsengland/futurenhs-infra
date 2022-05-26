@@ -165,6 +165,12 @@ module "api" {
   api_forum_keyvault_application_shared_secret_reference        = var.api_forum_keyvault_application_shared_secret_reference
   api_govnotify_keyvault_api_key_reference                      = var.api_govnotify_keyvault_api_key_reference
   api_govnotify_registration_template_id                        = var.api_govnotify_registration_template_id
+  api_govnotify_group_member_comment_on_discussion              = var.api_govnotify_group_member_comment_on_discussion
+  api_govnotify_member_response_to_comment                      = var.api_govnotify_member_response_to_comment
+  api_govnotify_group_member_request_rejected                   = var.api_govnotify_group_member_request_rejected
+  api_govnotify_group_member_request_accepted__platform_user    = var.api_govnotify_group_member_request_accepted__platform_user
+  api_govnotify_group_member_request_rejected_platform_user     = var.api_govnotify_group_member_request_rejected_platform_user
+  api_govnotify_group_membership_request                        = var.api_govnotify_group_membership_request
 
   api_app_insights_instrumentation_key                          = var.api_app_insights_instrumentation_key
   api_app_insights_connection_string                            = var.api_app_insights_connection_string

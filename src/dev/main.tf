@@ -312,6 +312,12 @@ module "app-services" {
   api_primary_file_blob_container_endpoint              = module.storage.api_primary_file_blob_container_endpoint
   api_primary_image_blob_container_endpoint             = module.storage.api_primary_image_blob_container_endpoint
   api_govnotify_registration_template_id                = var.api_govnotify_registration_template_id 
+  api_govnotify_group_member_comment_on_discussion              = var.api_govnotify_group_member_comment_on_discussion
+  api_govnotify_member_response_to_comment                      = var.api_govnotify_member_response_to_comment
+  api_govnotify_group_member_request_rejected                   = var.api_govnotify_group_member_request_rejected
+  api_govnotify_group_member_request_accepted__platform_user    = var.api_govnotify_group_member_request_accepted__platform_user
+  api_govnotify_group_member_request_rejected_platform_user     = var.api_govnotify_group_member_request_rejected_platform_user
+  api_govnotify_group_membership_request                        = var.api_govnotify_group_membership_request
 
   web_app_config_primary_endpoint                       = module.app-configuration.primary_endpoint
   web_app_config_secondary_endpoint                     = module.app-configuration.secondary_endpoint
@@ -373,6 +379,28 @@ module "databases" {
 
   log_analytics_workspace_resource_id                                     = module.logging.log_analytics_workspace_resource_id
 }
+    
+#resource "azurerm_mssql_database" "forum" {
+ # resourceId                                                              ="/subscriptions/d9c0a8f2-3fae-48e7-a2dd-6ffcc5c1c994/resourceGroups/rg-fnhso-dev-uksouth-001/providers/Microsoft.Sql/servers/sql-fnhso-dev-uksouth-primary/databases/sqldb-fnhso-dev-uksouth-forum"                                                               
+  #api_forum_application_shared_secret                                     = var.api_forum_application_shared_secret
+ #application_fqdn                                                         = var.application_fqdn
+ #location                                                                = var.location
+  #environment                                                             = var.environment
+  #product_name                                                            = var.product_name
+  #sqlserver_admin_email                                                   = var.sqlserver_admin_email
+  #sqlserver_admin_user_id                                                 = var.sqlserver_admin_user_id
+  #sqlserver_admin_password                                                = var.sqlserver_admin_password
+  #sqlserver_active_directory_administrator_login_name                     = var.sqlserver_active_directory_administrator_login_name
+  #sqlserver_active_directory_administrator_objectid                       = var.sqlserver_active_directory_administrator_objectid
+  #security_center_contact_email                                           = var.security_center_contact_email
+  #security_center_contact_phone                                           = var.security_center_contact_phone
+  #appgw_tls_certificate_base64                                            = var.appgw_tls_certificate_base64
+  #appgw_tls_certificate_password                                          = var.appgw_tls_certificate_password
+  #appgw_tls_certificate_content_type                                      = var.appgw_tls_certificate_content_type
+  #forum_email_sendgrid_apikey                                             = var.forum_email_sendgrid_apikey
+  #forum_email_smtp_from                                                   = var.forum_email_smtp_from
+  #forum_email_smpt_username                                               = var.forum_email_smpt_username
+#}
 
 #module "security_centre" {
 #  source                                                                  = "./security-centre"
