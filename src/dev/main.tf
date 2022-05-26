@@ -46,6 +46,8 @@ locals {
   api_blob_keyvault_connection_string_reference              = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/blobs-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-api-connection-string)"
   api_govnotify_keyvault_api_key_reference                   = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-govnotify-api-key)"
 
+  content_db_keyvault_readwrite_connection_string_reference  = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/sqldb-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-content-connection-string)"
+
 }
 
 

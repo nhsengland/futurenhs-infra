@@ -329,3 +329,15 @@ resource "azurerm_storage_table" "fileserver_userfileaccesstoken" {
   name                 = "FileServerWopiUserFileAccessToken"
   storage_account_name = azurerm_storage_account.private_content.name
 }
+#resource "azurerm_resource_group" "acr_resource_group" {
+  #name     = "${var.name}-rg"
+ # location = var.location
+#}
+
+#resource "azurerm_container_registry" "acr" {
+ # name                = "${var.name}acr"
+  #resource_group_name = azurerm_resource_group.acr_resource_group.name
+  #location            = azurerm_resource_group.acr_resource_group.location
+  #sku                 = "Basic"
+  #admin_enabled       = false
+#}

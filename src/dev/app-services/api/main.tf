@@ -171,7 +171,9 @@ resource "azurerm_app_service" "api" {
 
     "AzurePlatform:AzureFileBlobStorage:PrimaryServiceUrl"                      = "${var.application_fqdn}/gateway/media/files"  
     "AzurePlatform:AzureImageBlobStorage:PrimaryServiceUrl"                     = "${var.application_fqdn}/gateway/media/images"
-
+    "AzurePlatform:AzureFileBlobStorage:ContainerName"                          = "files"  
+    "AzurePlatform:AzureImageBlobStorage:ContainerName"                         = "images"
+    
     #  TODO - Assess if we need this in the front end app, if so remove from here
     "FileServer:TemplateUrl"                                                    = "${var.application_fqdn}/gateway/wopi/host/files/{fileId}/authorise-user?permission=view"
     "FileServer:TemplateUrlFileIdPlaceholder"                                   = "{fileId}"
@@ -182,16 +184,18 @@ resource "azurerm_app_service" "api" {
     "AzurePlatform:AzureSql:ReadOnlyConnectionString"                           = var.api_db_keyvault_readonly_connection_string_reference
     "AzurePlatform:ApplicationGateway:FQDN"                                     = var.application_fqdn
 
-    "SharedSecrets:WebApplication"                                              = var.api_forum_keyvault_application_shared_secret_reference  
+    "SharedSecrets:WebApplication"                                              = var.api_forum_keyvault_application_shared_secret_reference     
+    "SharedSecrets:Owner"                                                       = "FutureNHS" 
+
     "GovNotify:ApiKey"                                                          = var.api_govnotify_keyvault_api_key_reference 
     "GovNotify:RegistrationEmailTemplateId"                                     = var.api_govnotify_registration_template_id
+
     "Govnotify:Group_member_comment_on_discussion"                             = var.api_govnotify_group_member_comment_on_discussion
     "Govnotify:Member_response_to_comment"                                      = var.api_govnotify_member_response_to_comment
     "Govnotify:Group_member_request_rejected"                                   = var.api_govnotify_group_member_request_rejected
     "Govnotify:Group_member_request_accepted__platform_user"                    = var.api_govnotify_group_member_request_accepted__platform_user
     "Govnotify:group_member_request_rejected_platform_user"                     = var.api_govnotify_group_member_request_rejected_platform_user
     "Govnotify:group_membership_request"                                        = var.api_govnotify_group_membership_request
-    "Logging:TableStorageConfiguration:ConnectionString"                        = var.api_primary_blob_keyvault_connection_string_reference
 
     "Logging:TableStorageConfiguration:ConnectionString"                        = var.api_primary_blob_keyvault_connection_string_reference
     "Logging:TableStorageConfiguration:TableName"                               = "Logs"
@@ -398,6 +402,8 @@ resource "azurerm_app_service_slot" "api" {
     "AzurePlatform:AzureAppConfiguration:GeoRedundantServiceUrl"                = var.api_app_config_secondary_endpoint		          
     "AzurePlatform:AzureFileBlobStorage:PrimaryServiceUrl"                      = "${var.application_fqdn}/gateway/media/files"  
     "AzurePlatform:AzureImageBlobStorage:PrimaryServiceUrl"                     = "${var.application_fqdn}/gateway/media/images"
+    "AzurePlatform:AzureFileBlobStorage:ContainerName"                          = "files"  
+    "AzurePlatform:AzureImageBlobStorage:ContainerName"                         = "images"
 
     #  TODO - Assess if we need this in the front end app, if so remove from here
     "FileServer:TemplateUrl"                                                    = "${var.application_fqdn}/gateway/wopi/host/files/{fileId}/authorise-user?permission=view"
@@ -409,6 +415,7 @@ resource "azurerm_app_service_slot" "api" {
     "AzurePlatform:AzureSql:ReadOnlyConnectionString"                           = var.api_db_keyvault_readonly_connection_string_reference
     "AzurePlatform:ApplicationGateway:FQDN"                                     = var.application_fqdn
     "SharedSecrets:WebApplication"                                              = var.api_forum_keyvault_application_shared_secret_reference    
+    "SharedSecrets:Owner"                                                       = "FutureNHS"    
     "GovNotify:ApiKey"                                                          = var.api_govnotify_keyvault_api_key_reference
     "GovNotify:RegistrationEmailTemplateId"                                     = var.api_govnotify_registration_template_id
     "Govnotify:Group_member_comment_on_discussion"                             = var.api_govnotify_group_member_comment_on_discussion
