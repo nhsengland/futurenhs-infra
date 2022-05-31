@@ -41,3 +41,11 @@ output principal_id_web {
 output principal_id_web_staging {
   value = module.web.principal_id_staging
 }
+
+output principal_id_content { 
+  value = module.content.principal_id
+}
+
+output principal_id_content_staging {
+  value = module.content.principal_id_staging
+}

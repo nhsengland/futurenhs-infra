@@ -220,3 +220,41 @@ module "web" {
   web_cookie_parser_secret                                      = var.web_cookie_parser_secret
   web_next_public_gtm_key                                       = var.web_next_public_gtm_key
 }
+
+module "content" {
+  source                                                        = "./content"
+
+  application_fqdn                                              = var.application_fqdn
+  
+  resource_group_name                                           = var.resource_group_name
+
+  location                                                      = var.location
+  environment                                                   = var.environment
+  product_name                                                  = var.product_name
+
+  virtual_network_name                                          = var.virtual_network_name
+  virtual_network_application_gateway_subnet_id                 = var.virtual_network_application_gateway_subnet_id
+  virtual_network_api_app_subnet_id                             = module.api.virtual_network_api_app_subnet_id
+  virtual_network_security_group_id                             = var.virtual_network_security_group_id
+
+  log_storage_account_id                                        = var.log_storage_account_id
+  log_storage_account_connection_string                         = var.log_storage_account_connection_string
+  log_storage_account_blob_endpoint                             = var.log_storage_account_blob_endpoint
+  log_storage_account_container_name                            = var.log_storage_account_container_name
+
+  log_analytics_workspace_resource_id                           = var.log_analytics_workspace_resource_id
+
+  content_app_config_primary_endpoint                           = var.content_app_config_primary_endpoint
+  content_app_config_secondary_endpoint                         = var.content_app_config_secondary_endpoint
+  content_primary_app_configuration_id                          = var.content_primary_app_configuration_id
+
+  content_db_keyvault_readwrite_connection_string_reference     = var.content_db_keyvault_readwrite_connection_string_reference
+
+  content_app_insights_instrumentation_key                      = var.content_app_insights_instrumentation_key
+  content_app_insights_connection_string                        = var.content_app_insights_connection_string
+
+  content_staging_app_insights_instrumentation_key              = var.content_staging_app_insights_instrumentation_key
+  content_staging_app_insights_connection_string                = var.content_staging_app_insights_connection_string
+
+  content_primary_blob_keyvault_connection_string_reference     = var.content_primary_blob_keyvault_connection_string_reference
+}

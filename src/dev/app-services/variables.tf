@@ -266,4 +266,32 @@ variable web_next_public_gtm_key {
     sensitive = true
 }
 
+variable content_db_keyvault_readwrite_connection_string_reference { type = string }
 
+variable content_app_config_primary_endpoint { type = string }
+
+variable content_app_config_secondary_endpoint { type = string }
+
+variable content_primary_app_configuration_id { type = string }
+
+variable content_primary_blob_keyvault_connection_string_reference { type = string }
+
+variable content_app_insights_connection_string { 
+    type      = string 
+    sensitive = true
+}
+
+variable content_app_insights_instrumentation_key { 
+    type      = string 
+    sensitive = true
+}
+
+variable content_staging_app_insights_connection_string { 
+    type      = string 
+    sensitive = true
+}
+
+variable content_staging_app_insights_instrumentation_key { 
+    type      = string 
+    sensitive = true
+}

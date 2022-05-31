@@ -47,6 +47,7 @@ locals {
   api_govnotify_keyvault_api_key_reference                   = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-govnotify-api-key)"
 
   content_db_keyvault_readwrite_connection_string_reference  = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/sqldb-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-content-connection-string)"
+  content_blob_keyvault_connection_string_reference          = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/blobs-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-umbraco-connection-string)"
 
 }
 
@@ -132,8 +133,11 @@ module "key-vault" {
   principal_id_api_staging_app_svc                      = module.app-services.principal_id_api_staging
   principal_id_web_app_svc                              = module.app-services.principal_id_web
   principal_id_web_staging_app_svc                      = module.app-services.principal_id_web_staging
+  principal_id_content_app_svc                          = module.app-services.principal_id_content
+  principal_id_content_staging_app_svc                  = module.app-services.principal_id_content_staging
   principal_id_app_configuration_svc                    = module.app-configuration.primary_principal_id
   principal_id_app_gateway_svc                          = module.identities.principal_id_app_gateway_svc
+
 }
 
 module "logging" {
@@ -330,6 +334,15 @@ module "app-services" {
   web_cookie_parser_secret                              = var.web_cookie_parser_secret
   web_next_public_gtm_key                               = var.web_next_public_gtm_key
 
+  content_app_config_primary_endpoint                   = module.app-configuration.primary_endpoint
+  content_app_config_secondary_endpoint                 = module.app-configuration.secondary_endpoint
+  content_primary_app_configuration_id                  = module.app-configuration.primary_app_configuration_id
+  
+  content_app_insights_instrumentation_key              = module.app-insights.content_instrumentation_key
+  content_app_insights_connection_string                = module.app-insights.content_connection_string
+  content_staging_app_insights_instrumentation_key      = module.app-insights.content_staging_instrumentation_key
+  content_staging_app_insights_connection_string        = module.app-insights.content_staging_connection_string
+
   # There is a dependency between the key vault access policies and the app services that use it to host their secrets.  Unfortunately, we have to create access policies when the vault is 
   # created (which means we need the identities of the consuming services) otherwise we run into problems where the deployment pipeline cannot manage the secrets using these terraform scripts.  
   # Given we cannot combine assigning an access policy for the pipeline at the point of creation and using the azurerm_key_vault_access_policy resource (due to conflicts) the compromise is that 
@@ -339,8 +352,8 @@ module "app-services" {
   forum_db_keyvault_readwrite_connection_string_reference                 = local.forum_db_keyvault_readwrite_connection_string_reference
   forum_db_keyvault_readonly_connection_string_reference                  = local.forum_db_keyvault_readonly_connection_string_reference
   forum_primary_blob_keyvault_connection_string_reference                 = local.forum_blob_keyvault_connection_string_reference
-  #forum_redis_primary_keyvault_connection_string_reference                = local.forum_redis_primary_keyvault_connection_string_reference
-  #forum_redis_secondary_keyvault_connection_string_reference              = local.forum_redis_secondary_keyvault_connection_string_reference
+  #forum_redis_primary_keyvault_connection_string_reference               = local.forum_redis_primary_keyvault_connection_string_reference
+  #forum_redis_secondary_keyvault_connection_string_reference             = local.forum_redis_secondary_keyvault_connection_string_reference
 
   files_primary_blob_keyvault_connection_string_reference                 = local.files_blob_keyvault_connection_string_reference
   files_db_keyvault_readwrite_connection_string_reference                 = local.files_db_keyvault_readwrite_connection_string_reference
@@ -352,6 +365,9 @@ module "app-services" {
 
   api_forum_keyvault_application_shared_secret_reference                  = local.api_forum_keyvault_application_shared_secret_reference
   api_govnotify_keyvault_api_key_reference                                = local.api_govnotify_keyvault_api_key_reference
+
+  content_db_keyvault_readwrite_connection_string_reference               = local.content_db_keyvault_readwrite_connection_string_reference
+  content_primary_blob_keyvault_connection_string_reference               = local.content_blob_keyvault_connection_string_reference
 }
 
 module "databases" {

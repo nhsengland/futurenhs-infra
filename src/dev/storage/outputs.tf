@@ -62,3 +62,4 @@ output api_primary_file_blob_container_endpoint {
 output api_primary_image_blob_container_endpoint {
   value = "${azurerm_storage_account.public_content.primary_blob_endpoint}${azurerm_storage_container.images.name}"
 }
+

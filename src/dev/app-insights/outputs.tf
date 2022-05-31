@@ -101,3 +101,24 @@ output web_staging_connection_string {
   value     = module.web.staging_connection_string
   sensitive = true
 }
+
+
+output content_instrumentation_key {
+  value     = module.content.instrumentation_key
+  sensitive = true
+}
+
+output content_connection_string {
+  value     = module.content.connection_string
+  sensitive = true
+}
+
+output content_staging_instrumentation_key {
+  value     = module.content.staging_instrumentation_key
+  sensitive = true
+}
+
+output content_staging_connection_string {
+  value     = module.content.staging_connection_string
+  sensitive = true
+}

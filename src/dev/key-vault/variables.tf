@@ -24,6 +24,10 @@ variable principal_id_web_app_svc { type = string }
 
 variable principal_id_web_staging_app_svc { type = string }
 
+variable principal_id_content_app_svc { type = string }
+
+variable principal_id_content_staging_app_svc { type = string }
+
 variable principal_id_app_configuration_svc { type = string }
 
 variable principal_id_app_gateway_svc { type = string }

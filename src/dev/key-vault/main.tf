@@ -175,8 +175,30 @@ resource "azurerm_key_vault" "main" {
       "Get"
     ]
   }
+  
+  # 8. The app-service hosting the Umbraco Content code uses a kv reference to lookup database connection string etc
+  # TODO - Might end up removing this if we store connection string in app configuration service instead
 
+  access_policy {
+    tenant_id                            = data.azurerm_client_config.current.tenant_id
+    object_id                            = var.principal_id_content_app_svc
+
+    secret_permissions = [
+      "Get"
+    ]
+  }
+
+  access_policy {
+    tenant_id                            = data.azurerm_client_config.current.tenant_id
+    object_id                            = var.principal_id_content_staging_app_svc
+
+    secret_permissions = [
+      "Get"
+    ]
+  }
  }
+
+
 
 data "azurerm_monitor_diagnostic_categories" "main" {
   resource_id                                  = azurerm_key_vault.main.id
@@ -223,7 +245,7 @@ resource "azurerm_monitor_diagnostic_setting" "main" {
 # Upload a certificate that the application gateway can use for HTTPS management. 
 
  resource "azurerm_key_vault_certificate" "app_forum_https" {
-  name                                   = "agw-certificate-tls-007"
+  name                                   = "agw-certificate-tls-009"
   key_vault_id                           = azurerm_key_vault.main.id
 
   certificate {
