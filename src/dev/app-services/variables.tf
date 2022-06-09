@@ -295,3 +295,17 @@ variable content_staging_app_insights_instrumentation_key {
     type      = string 
     sensitive = true
 }
+
+variable collabora_container_registry_url { 
+    type      = string 
+}
+
+variable collabora_container_registry_username { 
+    type      = string 
+    sensitive = true
+}
+
+variable collabora_container_registry_password { 
+    type      = string 
+    sensitive = true
+}

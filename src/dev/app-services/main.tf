@@ -130,6 +130,9 @@ module "collabora" {
 
   collabora_staging_app_insights_instrumentation_key            = var.collabora_staging_app_insights_instrumentation_key
   collabora_staging_app_insights_connection_string              = var.collabora_staging_app_insights_connection_string
+  collabora_container_registry_url                              = var.collabora_container_registry_url
+  collabora_container_registry_username                         = var.collabora_container_registry_username
+  collabora_container_registry_password                         = var.collabora_container_registry_password
 }
 
 module "api" {
