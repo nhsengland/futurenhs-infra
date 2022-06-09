@@ -130,7 +130,7 @@ resource "azurerm_app_service" "collabora" {
     # docker hub, albeit acknowledging this is not appropriate for production and requires a TODO
 
     app_command_line                        = "" # this bit is appended to the end of the docker run command after the container source
-    linux_fx_version                        = "DOCKER|timcds/fnhs-wopi-client:${lower(var.product_name)}-${lower(var.environment)}-latest" 
+    linux_fx_version                        = "DOCKER|${var.collabora_container_registry_url}/fnhso${lower(var.environment)}collabora:${lower(var.product_name)}-${lower(var.environment)}-latest" 
   }
 
   app_settings = {
@@ -163,9 +163,9 @@ resource "azurerm_app_service" "collabora" {
     "WEBSITES_ENABLE_APP_SERVICE_STORAGE"   = false
     "WEBSITES_PORT"                         = "9980" # the port collabora is listening on
 
-    "DOCKER_REGISTRY_SERVER_URL"            = "https://index.docker.io"
-#    "DOCKER_REGISTRY_SERVER_USERNAME"       = ""
-#    "DOCKER_REGISTRY_SERVER_PASSWORD"       = ""
+    "DOCKER_REGISTRY_SERVER_URL"            = var.collabora_container_registry_url
+    "DOCKER_REGISTRY_SERVER_USERNAME"       = var.collabora_container_registry_username
+    "DOCKER_REGISTRY_SERVER_PASSWORD"       = var.collabora_container_registry_password
   }
 
   logs {
@@ -334,7 +334,7 @@ resource "azurerm_app_service_slot" "collabora" {
     use_32_bit_worker_process               = false
     websockets_enabled                      = true
     app_command_line                        = "" 
-    linux_fx_version                        = "DOCKER|timcds/fnhs-wopi-client:${lower(var.product_name)}-${lower(var.environment)}-latest" 
+    linux_fx_version                        = "DOCKER|${var.collabora_container_registry_url}/fnhso${lower(var.environment)}collabora:${lower(var.product_name)}-${lower(var.environment)}-latest" 
   }
 
   app_settings = {
@@ -346,9 +346,9 @@ resource "azurerm_app_service_slot" "collabora" {
     "WEBSITE_DNS_SERVER"                    = "168.63.129.16"
     "WEBSITES_ENABLE_APP_SERVICE_STORAGE"   = false
     "WEBSITES_PORT"                         = "9980" # the port collabora is listening on
-    "DOCKER_REGISTRY_SERVER_URL"            = "https://index.docker.io"
-#    "DOCKER_REGISTRY_SERVER_USERNAME"       = ""
-#    "DOCKER_REGISTRY_SERVER_PASSWORD"       = ""
+    "DOCKER_REGISTRY_SERVER_URL"           = var.collabora_container_registry_url
+    "DOCKER_REGISTRY_SERVER_USERNAME"       = var.collabora_container_registry_username
+    "DOCKER_REGISTRY_SERVER_PASSWORD"       = var.collabora_container_registry_password
 
   }
 

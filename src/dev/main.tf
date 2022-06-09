@@ -9,6 +9,10 @@ terraform {
   backend "azurerm" {} # injected during init call using -backend-config parameters and TF_CLI_ARGS_init env var
 }
 
+resource "azurerm_resource_provider_registration" "AzureActiveDirectory" {
+  name = "Microsoft.AzureActiveDirectory"
+}
+
 provider "azurerm" {
   features {
     key_vault {
@@ -239,6 +243,16 @@ module "caching" {
   log_analytics_workspace_resource_id                   = module.logging.log_analytics_workspace_resource_id
 }
 
+module "container-registry" {
+  source                                                = "./container-registry"
+    
+  resource_group_name                                   = module.resource-group.resource_group_name
+
+  location                                              = var.location
+  environment                                           = var.environment
+  product_name                                          = var.product_name
+}
+
 module "app-services" {
   source                                                = "./app-services"
   
@@ -304,6 +318,9 @@ module "app-services" {
   collabora_app_insights_connection_string              = module.app-insights.collabora_connection_string
   collabora_staging_app_insights_instrumentation_key    = module.app-insights.collabora_staging_instrumentation_key
   collabora_staging_app_insights_connection_string      = module.app-insights.collabora_staging_connection_string
+  collabora_container_registry_url                      = module.container-registry.container_registry_url
+  collabora_container_registry_username                 = module.container-registry.container_registry_username
+  collabora_container_registry_password                 = module.container-registry.container_registry_password
 
   api_app_config_primary_endpoint                       = module.app-configuration.primary_endpoint
   api_app_config_secondary_endpoint                     = module.app-configuration.secondary_endpoint
