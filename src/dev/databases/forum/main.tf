@@ -1,4 +1,4 @@
-resource "azurerm_mssql_database" "forum" {
+data "azurerm_mssql_database" "forum" {
   name                                      = "sqldb-${var.product_name}-${var.environment}-${var.location}-forum"
   server_id                                 = var.sql_server_id
   create_mode                               = "Default"

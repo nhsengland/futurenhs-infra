@@ -188,7 +188,7 @@ data "azurerm_monitor_diagnostic_categories" "sqlep" {
   resource_id                                  = azurerm_mssql_elasticpool.primary.id
 }
 
-resource "azurerm_monitor_diagnostic_setting" "sqlep" {
+data "azurerm_monitor_diagnostic_setting" "sqlep" {
   name                                         = "sqlep-diagnostics"
   target_resource_id                           = azurerm_mssql_elasticpool.primary.id
   log_analytics_workspace_id                   = var.log_analytics_workspace_resource_id

@@ -154,7 +154,7 @@ resource "azurerm_key_vault_secret" "blobs_primary_forum_connection_string" {
   expiration_date                           = timeadd(timestamp(), "87600h")   
 }
 
-resource "azurerm_key_vault_secret" "blobs_primary_api_connection_string" {
+data "azurerm_key_vault_secret" "blobs_primary_api_connection_string" {
   name                                      = "blobs-${var.product_name}-${var.environment}-${var.location}-api-connection-string"
   value                                     = azurerm_storage_account.public_content.primary_connection_string
   key_vault_id                              = var.key_vault_id
