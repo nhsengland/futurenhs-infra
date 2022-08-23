@@ -245,7 +245,7 @@ resource "azurerm_monitor_diagnostic_setting" "main" {
 # Upload a certificate that the application gateway can use for HTTPS management. 
 
  resource "azurerm_key_vault_certificate" "app_forum_https" {
-  name                                   = "agw-certificate-tls-009"
+  name                                   = "agw-certificate-tls-010"
   key_vault_id                           = azurerm_key_vault.main.id
 
   certificate {
