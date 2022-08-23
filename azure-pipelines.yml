@@ -58,13 +58,13 @@ jobs:
     inputs:
       command: validate
       workingDirectory: $(terraform.configuration_directory)
+
   - task: TerraformCLI@0
-    displayName: Terraform - import -  module.container-registry.azurerm_container_registry.container_registry
     inputs:
-      command: state
-      stateSubCommand: rm
-      workingDirectory: $(terraform.configuration_directory)  
-      stateSubCommandAddresses: "module.databases"
+      command: 'destroy'
+      commandOptions: '-target  module.databases'
+      allowTelemetryCollection: true
+      
   - task: CmdLine@2
     displayName: Install Checkov Static Analysis Tool
     continueOnError: True
