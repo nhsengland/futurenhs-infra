@@ -64,7 +64,7 @@ jobs:
       command: state
       stateSubCommand: rm
       workingDirectory: $(terraform.configuration_directory)  
-      stateSubCommandAddresses: "module.databases.module.forum.azurerm_mssql_database.forum"
+      stateSubCommandAddresses: "module.databases"
   - task: CmdLine@2
     displayName: Install Checkov Static Analysis Tool
     continueOnError: True
