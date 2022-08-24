@@ -3,7 +3,7 @@ resource "azurerm_mssql_database" "forum" {
   server_id                                 = var.sql_server_id
   create_mode                               = "Default"
   sku_name                                  = "ElasticPool" 
-  collation                                 = "SQL_LATIN1_GENERAL_CP1_CI_AS"
+  collation                                 = "SQL_Latin1_General_CP1_CI_AS"
   elastic_pool_id                           = var.sql_server_elasticpool_id
 
   zone_redundant                            = false 	# TODO - Needs to be set to true once databases are changed to Premium tier
