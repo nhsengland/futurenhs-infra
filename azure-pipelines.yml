@@ -1,31 +1,3 @@
-# Variable 'azure.service_connection' was defined in the Variables tab
-# Variable 'azure.tfstatefile.blob_container' was defined in the Variables tab
-# Variable 'azure.tfstatefile.name' was defined in the Variables tab
-# Variable 'azure.tfstatefile.resource_group' was defined in the Variables tab
-# Variable 'azure.tfstatefile.storage_account' was defined in the Variables tab
-# Variable 'terraform.appgw_tls_certificate_password' was defined in the Variables tab
-# Variable 'terraform.appgw_tls_certificate_base64' was defined in the Variables tab
-# Variable 'terraform.appgw_tls_certificate_content_type' was defined in the Variables tab
-# Variable 'terraform.configuration_directory' was defined in the Variables tab
-# Variable 'terraform.environment' was defined in the Variables tab
-# Variable 'terraform.location' was defined in the Variables tab
-# Variable 'terraform.plan.artefact_name' was defined in the Variables tab
-# Variable 'terraform.plan.name' was defined in the Variables tab
-# Variable 'terraform.product_name' was defined in the Variables tab
-# Variable 'terraform.security_center_contact_email' was defined in the Variables tab
-# Variable 'terraform.security_center_contact_phone' was defined in the Variables tab
-# Variable 'terraform.sqlserver_active_directory_administrator_login_name' was defined in the Variables tab
-# Variable 'terraform.sqlserver_active_directory_administrator_objectid' was defined in the Variables tab
-# Variable 'terraform.sqlserver_admin_email' was defined in the Variables tab
-# Variable 'terraform.sqlserver_admin_user_id' was defined in the Variables tab
-# Variable 'terraform.sqlserver_admin_password' was defined in the Variables tab
-# Variable 'terraform.application_fqdn' was defined in the Variables tab
-# Variable 'terraform.forum_email_sendgrid_apikey' was defined in the Variables tab
-# Variable 'terraform.forum_email_smtp_from' was defined in the Variables tab
-# Variable 'terraform.forum_email_smpt_username' was defined in the Variables tab
-# Variable 'terraform.api_forum_application_shared_secret' was defined in the Variables tab
-# Variable 'terraform.web_cookie_parser_secret' was defined in the Variables tab
-
 trigger:
   branches:
     include:
@@ -39,114 +11,34 @@ jobs:
     vmImage: ubuntu-20.04
   steps:
   - checkout: self
-  - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
-    displayName: Install Terraform 1.0.0
-    inputs:
-      terraformVersion: 1.0.0
-  - task: TerraformTaskV2@2
-    displayName: Terraform - init
-    inputs:
-      workingDirectory: $(terraform.configuration_directory)
-      commandOptions: -upgrade
-      backendServiceArm: $(azure.service_connection)
-      backendAzureRmResourceGroupName: $(azure.tfstatefile.resource_group)
-      backendAzureRmStorageAccountName: $(azure.tfstatefile.storage_account)
-      backendAzureRmContainerName: $(azure.tfstatefile.blob_container)
-      backendAzureRmKey: $(azure.tfstatefile.name)
-  - task: TerraformTaskV2@2
-    displayName: Terraform - validate
-    inputs:
-      command: validate
-      workingDirectory: $(terraform.configuration_directory)
 
-  - task: CmdLine@2
-    displayName: Install Checkov Static Analysis Tool
-    continueOnError: True
-    inputs:
-      script: >-
-        sudo apt update
-
-        sudo apt install software-properties-common
-
-        sudo add-apt-repository ppa:deadsnakes/ppa
-
-        sudo apt install python3.7
-
-        sudo apt install python3-pip
-
-        sudo python3.7 -m pip install -U checkov
-  - task: CmdLine@2
-    displayName: Run Static Analysis on Terraform Source (Checkov) copy
-    continueOnError: True
-    inputs:
-      script: checkov --directory $(terraform.configuration_directory) --output junitxml > $(System.DefaultWorkingDirectory)/checkov-report.xml
-  - task: PublishTestResults@2
-    displayName: Publish Terraform Static Analysis Results
-    continueOnError: True
-    inputs:
-      testResultsFiles: checkov-report.xml
-      testRunTitle: Checkov Terraform Static Analysis Test Run
   - task: CopyFiles@2
     displayName: Copy Terraform Files to Artifacts Staging Directory
     inputs:
       SourceFolder: $(terraform.configuration_directory)
-      TargetFolder: $(Build.ArtifactStagingDirectory)/$(terraform.environment)
+      TargetFolder: "$(Build.ArtifactStagingDirectory)/dev"
       CleanTargetFolder: true
       OverWrite: true
-  - task: TerraformTaskV2@2
-    displayName: Terraform - plan
+
+  - task: CopyFiles@2
+    displayName: Copy Terraform Files to Artifacts Staging Directory
     inputs:
-      command: plan
-      workingDirectory: $(Build.ArtifactStagingDirectory)/$(terraform.environment)
-      commandOptions: ' -no-color -out="$(terraform.plan.name).tfplan" -input=false -var="product_name=$(terraform.product_name)" -var="location=$(terraform.location)" -var="environment=$(terraform.environment)" -var="sqlserver_admin_email=$(terraform.sqlserver_admin_email)" -var="sqlserver_admin_user_id=$(terraform.sqlserver_admin_user_id)" -var="sqlserver_admin_password=$(terraform.sqlserver_admin_password)" -var="security_center_contact_email=$(terraform.security_center_contact_email)" -var="security_center_contact_phone=$(terraform.security_center_contact_phone)" -var="appgw_tls_certificate_password=$(terraform.appgw_tls_certificate_password)" -var="appgw_tls_certificate_base64=$(terraform.appgw_tls_certificate_base64)" -var="appgw_tls_certificate_content_type=$(terraform.appgw_tls_certificate_content_type)" -var="sqlserver_active_directory_administrator_login_name=$(terraform.sqlserver_active_directory_administrator_login_name)" -var="sqlserver_active_directory_administrator_objectid=$(terraform.sqlserver_active_directory_administrator_objectid)" -var="application_fqdn=$(terraform.application_fqdn)" -var="forum_email_sendgrid_apikey=$(terraform.forum_email_sendgrid_apikey)" -var="forum_email_smtp_from=$(terraform.forum_email_smtp_from)" -var="forum_email_smpt_username=$(terraform.forum_email_smpt_username)" -var="api_forum_application_shared_secret=$(terraform.api_forum_application_shared_secret)" -var="web_cookie_parser_secret=$(terraform.web_cookie_parser_secret)" -var="api_govnotify_api_key=$(terraform.api_govnotify_api_key)" -var="api_govnotify_registration_template_id=$(terraform.api_govnotify_registration_template_id)" -var="web_next_public_gtm_key=$(terraform.web_next_public_gtm_key) -var" -var="api_govnotify_group_member_comment_on_discussion=$(terraform.api_govnotify_group_member_comment_on_discussion)" -var="api_govnotify_member_response_to_comment=$(terraform.api_govnotify_member_response_to_comment)" -var="api_govnotify_group_member_request_rejected=$(terraform.api_govnotify_group_member_request_rejected)" -var="api_govnotify_group_member_request_accepted__platform_user=$(terraform.api_govnotify_group_member_request_accepted__platform_user)" -var="api_govnotify_group_member_request_rejected_platform_user=$(terraform.api_govnotify_group_member_request_rejected_platform_user)" -var="api_govnotify_group_membership_request=$(terraform.api_govnotify_group_membership_request)"'
-      environmentServiceNameAzureRM: $(azure.service_connection)
-  - task: CmdLine@2
-    displayName: Generate Reviewer Information File
+      SourceFolder: $(terraform.configuration_directory)
+      TargetFolder: "$(Build.ArtifactStagingDirectory)/uat"
+      CleanTargetFolder: true
+      OverWrite: true
+  
+  - task: CopyFiles@2
+    displayName: Copy Terraform Files to Artifacts Staging Directory
     inputs:
-      script: >+
-        echo "--------------------------------------------------------" >> build-details.txt
+      SourceFolder: $(terraform.configuration_directory)
+      TargetFolder: "$(Build.ArtifactStagingDirectory)/prod"
+      CleanTargetFolder: true
+      OverWrite: true
 
-        echo "Details of Build # - $(Build.BuildNumber)" >> build-details.txt
-
-        echo "--------------------------------------------------------" >> build-details.txt
-
-        echo "Definition - $(Build.DefinitionName) [$(Build.DefinitionVersion)]" >> build-details.txt
-
-        echo "Reason - $(Build.Reason)" >> build-details.txt
-
-        echo "Repository - $(Build.Repository.Name) [$(Build.Repository.Uri)]" >> build-details.txt
-
-        echo "Branch - $(Build.SourceBranchName)" >> build-details.txt
-
-        echo "Commit Id - $(Build.SourceVersion)" >> build-details.txt
-
-        echo "Commit Message (truncated) - $(Build.SourceVersionMessage)" >> build-details.txt
-
-        echo "--------------------------------------------------------" >> build-details.txt
-
-        echo "You will find the terraform plan for this build below" >> build-details.txt
-
-        echo "--------------------------------------------------------" >> build-details.txt
-
-
-      workingDirectory: $(Build.ArtifactStagingDirectory)
-  - task: CmdLine@2
-    displayName: Terraform - Convert Plan to Readable Form
-    inputs:
-      script: >
-        terraform init
-
-        terraform show "$(terraform.plan.name).tfplan" >> ../build-details.txt
-      workingDirectory: $(Build.ArtifactStagingDirectory)/$(terraform.environment)
-  - task: DeleteFiles@1
-    displayName: 'Delete Terraform Artifacts '
-    inputs:
-      SourceFolder: $(Build.ArtifactStagingDirectory)/$(terraform.environment)
-      Contents: .terraform*
   - task: PublishBuildArtifacts@1
-    displayName: Publish Artifact - Terraform Modules + Plan
+    displayName: Publish Artifact - Terraform Modules
     inputs:
-      ArtifactName: $(terraform.plan.artefact_name)
-...
+      ArtifactName: "FNHSInfra"
 
 
