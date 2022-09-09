@@ -133,12 +133,8 @@ variable api_govnotify_group_membership_request {
     sensitive = true
 }
 
-variable b2c_domain_name { 
+variable b2c_domain_name {
    type      = string
-}
-
-variable b2c_display_name {
-  type = string
 }
 
 variable b2c_application_name {

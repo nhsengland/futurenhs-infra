@@ -22,7 +22,7 @@ resource_app_id = data.azuread_application_published_app_ids.well_known.result.M
 
 resource_access {
   id   = azuread_service_principal.msgraph.app_role_ids["Application.ReadWrite.All"]
-  type = "Role";
+  type = "Role"
 }
 
 }
