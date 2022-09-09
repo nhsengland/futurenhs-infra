@@ -4,19 +4,19 @@ resource "azurerm_storage_account" "public_content" {
   #checkov:skip=CKV_AZURE_35:The storage account is used to serve public content over the iternet (avatar images etc) so shutting down public network access is not appropriate
   #checkov:skip=CKV_AZURE_59:The storage account is used to serve public content over the iternet (avatar images etc) so shutting down public network access is not appropriate
   #checkov:skip=CKV_AZURE_43:There is a bug in checkov (https://github.com/bridgecrewio/checkov/issues/741) that is giving a false positive on this rule so temp suppressing this rule check
-  name                       = "sa${var.product_name}${var.environment}${var.location}pub"
-  resource_group_name        = var.resource_group_name
-  location                   = var.location
+  name                            = "sa${var.product_name}${var.environment}${var.location}pub"
+  resource_group_name             = var.resource_group_name
+  location                        = var.location
 
-  account_tier               = "Standard"	
-  account_kind               = "StorageV2"    
-  account_replication_type   = "RAGRS"		  # TODO - For Production, change to RAGZRS
+  account_tier                    = "Standard"	
+  account_kind                    = "StorageV2"    
+  account_replication_type        = "RAGRS"		  # TODO - For Production, change to RAGZRS
 
-  access_tier                = "Hot"			
+  access_tier                     = "Hot"			
 
-  enable_https_traffic_only  = true
-  min_tls_version            = "TLS1_2"
-  allow_blob_public_access   = true
+  enable_https_traffic_only       = true
+  min_tls_version                 = "TLS1_2"
+  public_network_access_enabled   = true
 
   identity {
     type                     = "SystemAssigned"
@@ -223,19 +223,19 @@ resource "azurerm_key_vault_secret" "blobs_primary_files_connection_string" {
 
 resource "azurerm_storage_account" "private_content" {
   #checkov:skip=CKV_AZURE_43:There is a bug in checkov (https://github.com/bridgecrewio/checkov/issues/741) that is giving a false positive on this rule so temp suppressing this rule check
-  name                       = "sa${var.product_name}${var.environment}${var.location}"
-  resource_group_name        = var.resource_group_name
-  location                   = var.location
+  name                            = "sa${var.product_name}${var.environment}${var.location}"
+  resource_group_name             = var.resource_group_name
+  location                        = var.location
 
-  account_tier               = "Standard"	
-  account_kind               = "StorageV2"    
-  account_replication_type   = "RAGRS"		  # TODO - For Production, change to RAGZRS
+  account_tier                    = "Standard"	
+  account_kind                    = "StorageV2"    
+  account_replication_type        = "RAGRS"		  # TODO - For Production, change to RAGZRS
 
-  access_tier                = "Hot"			
+  access_tier                     = "Hot"			
 
-  enable_https_traffic_only  = true
-  min_tls_version            = "TLS1_2"
-  allow_blob_public_access   = false
+  enable_https_traffic_only       = true
+  min_tls_version                 = "TLS1_2"
+  public_network_access_enabled   = false
 
   identity {
     type                     = "SystemAssigned"
