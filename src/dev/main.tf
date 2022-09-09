@@ -417,11 +417,12 @@ module "b2c" {
   source                                                = "./b2c"
 
   resource_group_name                                   = module.resource-group.resource_group_name
-  location                                              = var.location
   domain_name                                           = var.b2c_domain_name
-  application_name                                      = var.b2c_application_name
+  location                                              = var.location
+  environment                                           = var.environment
+  product_name                                          = var.product_name
   application_fqdn                                      = var.application_fqdn
-  display_name                                          = var.b2c_display_name
+  application_name                                      = var.b2c_application_name
   }
     
 #resource "azurerm_mssql_database" "forum" {
