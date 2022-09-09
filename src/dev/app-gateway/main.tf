@@ -1,5 +1,5 @@
 resource "azurerm_network_watcher_flow_log" "default" {
-  network_watcher_name                           = var.network_watcher_name
+  name                                           = var.network_watcher_name
   resource_group_name                            = azurerm_network_security_group.default.resource_group_name
 
   network_security_group_id                      = azurerm_network_security_group.default.id
