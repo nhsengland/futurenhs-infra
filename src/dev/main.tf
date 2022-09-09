@@ -412,6 +412,17 @@ module "databases" {
 
   log_analytics_workspace_resource_id                                     = module.logging.log_analytics_workspace_resource_id
 }
+
+module "b2c" {
+  source                                                = "./b2c"
+
+  resource_group_name                                   = module.resource-group.resource_group_name
+  location                                              = var.location
+  domain_name                                           = var.b2c_domain_name
+  application_name                                      = var.b2c_application_name
+  application_fqdn                                      = var.application_fqdn
+  display_name                                          = var.b2c_display_name
+  }
     
 #resource "azurerm_mssql_database" "forum" {
  # resourceId                                                              ="/subscriptions/d9c0a8f2-3fae-48e7-a2dd-6ffcc5c1c994/resourceGroups/rg-fnhso-dev-uksouth-001/providers/Microsoft.Sql/servers/sql-fnhso-dev-uksouth-primary/databases/sqldb-fnhso-dev-uksouth-forum"                                                               
