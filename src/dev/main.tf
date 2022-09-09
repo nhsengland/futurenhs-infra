@@ -4,6 +4,11 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "=2.87.0"
     }
+
+      azuread = {
+      source  = "hashicorp/azuread"
+      version = "2.28.1"
+    }
   }
 
   backend "azurerm" {} # injected during init call using -backend-config parameters and TF_CLI_ARGS_init env var

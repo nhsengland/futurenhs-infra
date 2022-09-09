@@ -30,6 +30,9 @@ resource_access {
 
 resource "azuread_service_principal" "graph_worker" {
 application_id      = azuread_application.graph_worker.application_id
+}
+
+resource "azuread_app_role_assignment" "graph_worker" {
 app_role_id         = azuread_service_principal.msgraph.app_role_ids["Application.ReadWrite.All"]
 principal_object_id = azuread_service_principal.graph_worker.object_id
 resource_object_id  = azuread_service_principal.msgraph.object_id
