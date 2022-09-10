@@ -30,12 +30,14 @@ resource "azurerm_storage_container" "appsvclogs" {
   name                      = "appsvclogs"
   storage_account_name      = azurerm_storage_account.logs.name
   container_access_type     = "private"
+  public_network_access_enabled   = true
 }
 
 resource "azurerm_storage_container" "sql_vulnerability_assessments" {
   name                      = "sqlvulnerabilityassessments"
   storage_account_name      = azurerm_storage_account.logs.name
   container_access_type     = "private"
+  public_network_access_enabled   = true
 }
 
 data "azurerm_monitor_diagnostic_categories" "storage_category" {
