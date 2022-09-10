@@ -347,7 +347,6 @@ resource "azurerm_monitor_diagnostic_setting" "private_blob" {
 resource "azurerm_storage_table" "fileserver_userfileaccesstoken" {
   name                 = "FileServerWopiUserFileAccessToken"
   storage_account_name = azurerm_storage_account.private_content.name
-  public_network_access_enabled   = true
 }
 #resource "azurerm_resource_group" "acr_resource_group" {
   #name     = "${var.name}-rg"
