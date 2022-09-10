@@ -12,7 +12,7 @@ sign_in_audience = "AzureADMyOrg"
 
 
 web {
-redirect_uris = ["${var.application_fqdn}"]
+redirect_uris = ["${var.application_fqdn}/api/auth/callback/azure-ad-b2c/"]
 }
 
 
