@@ -12,7 +12,7 @@ resource "azurerm_storage_account" "logs" {
 
   enable_https_traffic_only       = true
   min_tls_version                 = "TLS1_2"
-  public_network_access_enabled   = false
+  public_network_access_enabled   = true
 
   # add a network rule to deny all public traffic access to the storage account
   # https://docs.microsoft.com/en-us/azure/storage/common/storage-network-security
