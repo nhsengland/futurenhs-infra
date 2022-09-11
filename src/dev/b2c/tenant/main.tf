@@ -18,6 +18,7 @@ resource "azuread_application" "app-api" {
       admin_consent_description  = "Allow the application to access example on behalf of the signed-in user."
       admin_consent_display_name = "Access example"
       enabled                    = true
+      id                         = "96183846-204b-4b43-82e1-5d2222eb4b9b"
       type                       = "User"
       user_consent_description   = "Allow the application to access example on your behalf."
       user_consent_display_name  = "Access example"
