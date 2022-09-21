@@ -7,6 +7,16 @@ resource "azurerm_aadb2c_directory" "tenant" {
   sku_name                = "PremiumP1"
 }
 
+module "tenant" {
+  source        = "./tenant"
+
+  tenant_id           = azurerm_aadb2c_directory.tenant.tenant_id
+  tenant_domain_name  = azurerm_aadb2c_directory.tenant.domain_name
+  application_fqdn    = var.application_fqdn
+  application_name    = var.application_name
+}
+
+
 output "tenant_id" {
   value = azurerm_aadb2c_directory.tenant.tenant_id
 }
