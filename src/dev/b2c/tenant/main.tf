@@ -1,6 +1,6 @@
 provider "azuread" {
   tenant_id = var.tenant_id
-  use_msi   = true
+  use_cli   = true
 }
 
 data "azuread_client_config" "current" {}
