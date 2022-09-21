@@ -2,7 +2,7 @@ resource "azurerm_network_watcher_flow_log" "default" {
   name                                           = var.network_watcher_name
   network_watcher_name                           = var.network_watcher_name
   resource_group_name                            = azurerm_network_security_group.default.resource_group_name
-
+  location                                       = var.location
   network_security_group_id                      = azurerm_network_security_group.default.id
   storage_account_id                             = var.log_storage_account_id
   enabled                                        = true
@@ -46,6 +46,7 @@ resource "azurerm_public_ip" "default" {
   sku                                            = "Standard"
   allocation_method                              = "Static"
   domain_name_label                              = "${lower(var.product_name)}-${lower(var.environment)}"
+  zones                                          = ["1","2","3"]
 }
 
 data "azurerm_monitor_diagnostic_categories" "pip" {
