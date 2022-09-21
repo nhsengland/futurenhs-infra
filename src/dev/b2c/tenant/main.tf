@@ -1,3 +1,7 @@
+provider "azuread" {
+  tenant_id = var.tenant_id
+}
+
 data "azuread_client_config" "current" {}
 
 data "azuread_application_published_app_ids" "well_known" {}
