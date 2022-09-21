@@ -235,7 +235,7 @@ resource "azurerm_storage_account" "private_content" {
 
   enable_https_traffic_only       = true
   min_tls_version                 = "TLS1_2"
-  public_network_access_enabled   = false
+  public_network_access_enabled   = true
 
   identity {
     type                     = "SystemAssigned"
