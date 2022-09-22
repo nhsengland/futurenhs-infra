@@ -1,6 +1,3 @@
-provider "azuread" {
-  tenant_id = var.tenant_id
-}
 
 data "azuread_application_published_app_ids" "well_known" {}
 resource "azuread_service_principal" "msgraph" {
