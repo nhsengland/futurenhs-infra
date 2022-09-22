@@ -1,6 +1,5 @@
 provider "azuread" {
   tenant_id = var.tenant_id
-  use_cli   = true
 }
 
 data "azuread_client_config" "current" {}
@@ -13,9 +12,9 @@ resource "azuread_service_principal" "msgraph" {
 }
 
 resource "azuread_application" "app-api" {
-  display_name = "${var.application_name}-B2C"
-  owners       = [data.azuread_client_config.current.object_id]
-  
+  display_name      = "${var.application_name}-B2C"
+  owners            = [data.azuread_client_config.current.object_id]
+  sign_in_audience  = "AzureADMultipleOrgs"
 
   api {
      oauth2_permission_scope {
@@ -52,8 +51,6 @@ resource "azuread_application" "app-api" {
 
   required_resource_access {
     resource_app_id = data.azuread_application_published_app_ids.well_known.result.MicrosoftGraph # Microsoft Graph
-
-   
 
      resource_access {
           id   = azuread_service_principal.msgraph.app_role_ids["User.Read.All"]
