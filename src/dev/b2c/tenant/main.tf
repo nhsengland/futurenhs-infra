@@ -12,7 +12,7 @@ sign_in_audience = "AzureADMultipleOrgs"
 
 
 web {
-redirect_uris = ["${var.application_fqdn}"]
+redirect_uris = ["${var.application_fqdn}/"]
 }
 
 
