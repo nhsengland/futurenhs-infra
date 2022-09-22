@@ -1,3 +1,5 @@
+provider "azuread" {
+}
 
 data "azuread_application_published_app_ids" "well_known" {}
 resource "azuread_service_principal" "msgraph" {
@@ -12,7 +14,7 @@ sign_in_audience = "AzureADMultipleOrgs"
 
 
 web {
-redirect_uris = ["${var.application_fqdn}/"]
+redirect_uris = ["${var.application_fqdn}"]
 }
 
 
