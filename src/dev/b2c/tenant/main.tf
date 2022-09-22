@@ -1,6 +1,3 @@
-provider "azuread" {
-  tenant_id = var.tenant_id
-}
 
 data "azuread_application_published_app_ids" "well_known" {}
 resource "azuread_service_principal" "msgraph" {
@@ -11,7 +8,7 @@ use_existing   = true
 
 resource "azuread_application" "graph_worker" {
 display_name     = "${var.application_name}-B2C"
-sign_in_audience = "AzureADMultipleOrgs"
+sign_in_audience = "AzureADMyOrg"
 
 
 web {
