@@ -160,6 +160,7 @@ resource "azurerm_app_service" "content" {
     # resolve the private endpoints for the services we depend on, such as the database
 
     "WEBSITE_DNS_SERVER"                    = "168.63.129.16"
+    "WEBSITE_DISABLE_OVERLAPPED_RECYCLING"  = "1" ## Here as a work around for Umbraco known issue - https://github.com/umbraco/Umbraco-CMS/issues/8006
 
     # use app config store to get settings for the environment including feature flags, storage endpoints etc
     
@@ -368,6 +369,7 @@ resource "azurerm_app_service_slot" "content" {
     "DiagnosticServices_EXTENSION_VERSION"  = "~3"
     "WEBSITE_VNET_ROUTE_ALL"                = "1"
     "WEBSITE_DNS_SERVER"                    = "168.63.129.16"
+    "WEBSITE_DISABLE_OVERLAPPED_RECYCLING"  = "1" ## Here as a work around for Umbraco known issue - https://github.com/umbraco/Umbraco-CMS/issues/8006
 
     "USE_AZURE_APP_CONFIGURATION"           = true 
     
