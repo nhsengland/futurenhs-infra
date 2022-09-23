@@ -1,3 +1,4 @@
+
 resource "azurerm_aadb2c_directory" "tenant" {
   country_code            = "GB"
   data_residency_location = "Europe"

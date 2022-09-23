@@ -140,3 +140,7 @@ variable b2c_domain_name {
 variable b2c_application_name {
   type = string
 }
+
+variable tenant_id {
+  type = string
+}

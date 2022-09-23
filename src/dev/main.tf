@@ -27,6 +27,10 @@ provider "azurerm" {
   }
 }
 
+provider "azuread" {
+  tenant_id = var.tenant_id
+}
+
 
 #data "http" "host_agent_ip" {
 #  url = "https://ipv4.icanhazip.com"  # dynamic discovery of host agent's ip address for use in firewall acls
