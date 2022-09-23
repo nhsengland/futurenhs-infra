@@ -8,7 +8,7 @@ use_existing   = true
 
 resource "azuread_application" "graph_worker" {
 display_name     = "${var.application_name}-B2C"
-sign_in_audience = "AzureADMyOrg"
+sign_in_audience = "AzureADMultipleOrgs"
 
 
 web {
