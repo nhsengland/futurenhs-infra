@@ -464,6 +464,7 @@ resource "azurerm_application_gateway" "default" {
     rule_type                                    = "Basic"
     http_listener_name                           = "agw-80-listener"
     redirect_configuration_name                  = "agw-redirecting-80-to-443"
+    priority                                     = "1"
   }
 
   # Next up, we need routing rules for https traffic to the relevant back end servers
@@ -477,6 +478,7 @@ resource "azurerm_application_gateway" "default" {
     rule_type                                    = "PathBasedRouting"  # Basic
     http_listener_name                           = "agw-443-listener"
     url_path_map_name                            = "agw-routing-url-path-map"
+    priority                                     = "2"
   }
 
   # We will use a path based routing algo to detect the correct backend service to route to.  
