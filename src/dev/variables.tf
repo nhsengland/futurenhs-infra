@@ -144,3 +144,25 @@ variable b2c_application_name {
 variable tenant_id {
   type = string
 }
+
+variable web_nextauth_secret { 
+    type      = string
+    sensitive = true
+}
+
+variable web_azure_ad_b2c_tenant_name { 
+    type      = string
+}
+
+variable web_azure_ad_b2c_client_id { 
+    type      = string
+}
+
+variable web_azure_ad_b2c_client_secret { 
+    type      = string
+    sensitive = true
+}
+
+variable web_azure_ad_b2c_primary_user_flow { 
+    type      = string
+}

@@ -177,6 +177,14 @@ resource "azurerm_app_service" "web" {
 
     "COOKIE_PARSER_SECRET"                                                      = var.web_cookie_parser_secret
     "NEXT_PUBLIC_GTM_KEY"                                                       = var.web_next_public_gtm_key  
+
+    ## NextAuth
+    "NEXTAUTH_URL"                                                              = "${var.application_fqdn}"
+    "NEXTAUTH_SECRET"                                                           = var.web_nextauth_secret
+    "AZURE_AD_B2C_TENANT_NAME"                                                  = var.web_azure_ad_b2c_tenant_name
+    "AZURE_AD_B2C_CLIENT_ID"                                                    = var.web_azure_ad_b2c_client_id
+    "AZURE_AD_B2C_CLIENT_SECRET"                                                = var.web_azure_ad_b2c_client_secret
+    "AZURE_AD_B2C_PRIMARY_USER_FLOW"                                            = var.web_azure_ad_b2c_primary_user_flow
   }
 
   logs {
@@ -391,6 +399,14 @@ resource "azurerm_app_service_slot" "web" {
     "API_HEALTH_CHECK_URL"                                                      = "https://app-${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-api.azurewebsites.net/health-check"
     "COOKIE_PARSER_SECRET"                                                      = var.web_cookie_parser_secret
     "NEXT_PUBLIC_GTM_KEY"                                                       = var.web_next_public_gtm_key
+
+    ## NextAuth
+    "NEXTAUTH_URL"                                                              = "${var.application_fqdn}"
+    "NEXTAUTH_SECRET"                                                           = var.web_nextauth_secret
+    "AZURE_AD_B2C_TENANT_NAME"                                                  = var.web_azure_ad_b2c_tenant_name
+    "AZURE_AD_B2C_CLIENT_ID"                                                    = var.web_azure_ad_b2c_client_id
+    "AZURE_AD_B2C_CLIENT_SECRET"                                                = var.web_azure_ad_b2c_client_secret
+    "AZURE_AD_B2C_PRIMARY_USER_FLOW"                                            = var.web_azure_ad_b2c_primary_user_flow
   }
 
   logs {
