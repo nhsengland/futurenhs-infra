@@ -222,6 +222,12 @@ module "web" {
 
   web_cookie_parser_secret                                      = var.web_cookie_parser_secret
   web_next_public_gtm_key                                       = var.web_next_public_gtm_key
+
+  web_nextauth_secret                                           = var.web_nextauth_secret
+  web_azure_ad_b2c_tenant_name                                  = var.web_azure_ad_b2c_tenant_name
+  web_azure_ad_b2c_client_id                                    = var.web_azure_ad_b2c_client_id
+  web_azure_ad_b2c_client_secret                                = var.web_azure_ad_b2c_client_secret
+  web_azure_ad_b2c_primary_user_flow                            = var.web_azure_ad_b2c_primary_user_flow
 }
 
 module "content" {
