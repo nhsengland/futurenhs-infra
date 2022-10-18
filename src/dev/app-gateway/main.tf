@@ -1,7 +1,8 @@
 resource "azurerm_network_watcher_flow_log" "default" {
+  name                                           = var.network_watcher_name
   network_watcher_name                           = var.network_watcher_name
   resource_group_name                            = azurerm_network_security_group.default.resource_group_name
-
+  location                                       = var.location
   network_security_group_id                      = azurerm_network_security_group.default.id
   storage_account_id                             = var.log_storage_account_id
   enabled                                        = true
@@ -45,6 +46,7 @@ resource "azurerm_public_ip" "default" {
   sku                                            = "Standard"
   allocation_method                              = "Static"
   domain_name_label                              = "${lower(var.product_name)}-${lower(var.environment)}"
+  zones                                          = ["1","2","3"]
 }
 
 data "azurerm_monitor_diagnostic_categories" "pip" {
@@ -462,6 +464,7 @@ resource "azurerm_application_gateway" "default" {
     rule_type                                    = "Basic"
     http_listener_name                           = "agw-80-listener"
     redirect_configuration_name                  = "agw-redirecting-80-to-443"
+    priority                                     = "1"
   }
 
   # Next up, we need routing rules for https traffic to the relevant back end servers
@@ -475,6 +478,7 @@ resource "azurerm_application_gateway" "default" {
     rule_type                                    = "PathBasedRouting"  # Basic
     http_listener_name                           = "agw-443-listener"
     url_path_map_name                            = "agw-routing-url-path-map"
+    priority                                     = "2"
   }
 
   # We will use a path based routing algo to detect the correct backend service to route to.  

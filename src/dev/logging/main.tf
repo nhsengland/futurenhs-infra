@@ -1,18 +1,18 @@
 resource "azurerm_storage_account" "logs" {
   #checkov:skip=CKV_AZURE_43:There is a bug in checkov (https://github.com/bridgecrewio/checkov/issues/741) that is giving a false positive on this rule so temp suppressing this rule check
-  name                      = "sa${var.product_name}${var.environment}${var.location}logs"
-  resource_group_name       = var.resource_group_name
-  location                  = var.location
+  name                            = "sa${var.product_name}${var.environment}${var.location}logs"
+  resource_group_name             = var.resource_group_name
+  location                        = var.location
 
-  account_tier              = "Standard"
-  account_kind              = "StorageV2"
-  account_replication_type  = "RAGRS"		
+  account_tier                    = "Standard"
+  account_kind                    = "StorageV2"
+  account_replication_type        = "RAGRS"		
 
-  access_tier               = "Cool"			
+  access_tier                     = "Cool"			
 
-  enable_https_traffic_only = true
-  min_tls_version           = "TLS1_2"
-  allow_blob_public_access  = false
+  enable_https_traffic_only       = true
+  min_tls_version                 = "TLS1_2"
+  public_network_access_enabled   = true
 
   # add a network rule to deny all public traffic access to the storage account
   # https://docs.microsoft.com/en-us/azure/storage/common/storage-network-security

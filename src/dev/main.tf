@@ -1,8 +1,13 @@
 terraform {
   required_providers {
-    azurerm = {
+      azurerm = {
       source  = "hashicorp/azurerm"
-      version = "=2.87.0"
+      version = "3.21.1"
+    }
+
+      azuread = {
+      source  = "hashicorp/azuread"
+      version = "2.28.1"
     }
   }
 
@@ -20,6 +25,10 @@ provider "azurerm" {
       recover_soft_deleted_key_vaults = true
     }
   }
+}
+
+provider "azuread" {
+  tenant_id = var.tenant_id
 }
 
 
@@ -351,6 +360,12 @@ module "app-services" {
   web_cookie_parser_secret                              = var.web_cookie_parser_secret
   web_next_public_gtm_key                               = var.web_next_public_gtm_key
 
+  web_nextauth_secret                                   = var.web_nextauth_secret
+  web_azure_ad_b2c_tenant_name                          = var.web_azure_ad_b2c_tenant_name
+  web_azure_ad_b2c_client_id                            = var.web_azure_ad_b2c_client_id
+  web_azure_ad_b2c_client_secret                        = var.web_azure_ad_b2c_client_secret
+  web_azure_ad_b2c_primary_user_flow                    = var.web_azure_ad_b2c_primary_user_flow
+  web_azure_ad_b2c_signup_user_flow                     = var.web_azure_ad_b2c_signup_user_flow
   content_app_config_primary_endpoint                   = module.app-configuration.primary_endpoint
   content_app_config_secondary_endpoint                 = module.app-configuration.secondary_endpoint
   content_primary_app_configuration_id                  = module.app-configuration.primary_app_configuration_id
@@ -412,6 +427,18 @@ module "databases" {
 
   log_analytics_workspace_resource_id                                     = module.logging.log_analytics_workspace_resource_id
 }
+
+module "b2c" {
+  source                                                = "./b2c"
+
+  resource_group_name                                   = module.resource-group.resource_group_name
+  domain_name                                           = var.b2c_domain_name
+  location                                              = var.location
+  environment                                           = var.environment
+  product_name                                          = var.product_name
+  application_fqdn                                      = var.application_fqdn
+  application_name                                      = var.b2c_application_name
+  }
     
 #resource "azurerm_mssql_database" "forum" {
  # resourceId                                                              ="/subscriptions/d9c0a8f2-3fae-48e7-a2dd-6ffcc5c1c994/resourceGroups/rg-fnhso-dev-uksouth-001/providers/Microsoft.Sql/servers/sql-fnhso-dev-uksouth-primary/databases/sqldb-fnhso-dev-uksouth-forum"                                                               
