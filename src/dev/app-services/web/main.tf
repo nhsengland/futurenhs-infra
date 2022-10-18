@@ -185,6 +185,7 @@ resource "azurerm_app_service" "web" {
     "AZURE_AD_B2C_CLIENT_ID"                                                    = var.web_azure_ad_b2c_client_id
     "AZURE_AD_B2C_CLIENT_SECRET"                                                = var.web_azure_ad_b2c_client_secret
     "AZURE_AD_B2C_PRIMARY_USER_FLOW"                                            = var.web_azure_ad_b2c_primary_user_flow
+    "AZURE_AD_B2C_SIGNUP_USER_FLOW"                                             = var.web_azure_ad_b2c_signup_user_flow
   }
 
   logs {
@@ -407,6 +408,7 @@ resource "azurerm_app_service_slot" "web" {
     "AZURE_AD_B2C_CLIENT_ID"                                                    = var.web_azure_ad_b2c_client_id
     "AZURE_AD_B2C_CLIENT_SECRET"                                                = var.web_azure_ad_b2c_client_secret
     "AZURE_AD_B2C_PRIMARY_USER_FLOW"                                            = var.web_azure_ad_b2c_primary_user_flow
+    "AZURE_AD_B2C_SIGNUP_USER_FLOW"                                             = var.web_azure_ad_b2c_signup_user_flow
   }
 
   logs {

@@ -365,7 +365,7 @@ module "app-services" {
   web_azure_ad_b2c_client_id                            = var.web_azure_ad_b2c_client_id
   web_azure_ad_b2c_client_secret                        = var.web_azure_ad_b2c_client_secret
   web_azure_ad_b2c_primary_user_flow                    = var.web_azure_ad_b2c_primary_user_flow
-
+  web_azure_ad_b2c_signup_user_flow                     = var.web_azure_ad_b2c_signup_user_flow
   content_app_config_primary_endpoint                   = module.app-configuration.primary_endpoint
   content_app_config_secondary_endpoint                 = module.app-configuration.secondary_endpoint
   content_primary_app_configuration_id                  = module.app-configuration.primary_app_configuration_id

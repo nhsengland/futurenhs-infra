@@ -166,3 +166,7 @@ variable web_azure_ad_b2c_client_secret {
 variable web_azure_ad_b2c_primary_user_flow { 
     type      = string
 }
+
+variable web_azure_ad_b2c_signup_user_flow { 
+    type      = string
+}
