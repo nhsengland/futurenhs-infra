@@ -174,9 +174,8 @@ resource "azurerm_app_service" "files" {
     "Wopi:ClientDiscoveryDocumentUrl"                                           = "${var.application_fqdn}/gateway/wopi/client/hosting/discovery"
     "Wopi:HostFilesUrl"                                                         = "${var.application_fqdn}/gateway/wopi/host/files/"
 
-    "App:MvcForumUserInfoUrl"                                                   = "https://app-${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-forum.azurewebsites.net/auth/userinfo"
-    "App:MvcForumHealthCheckUrl"                                                = "https://app-${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-forum.azurewebsites.net/api/healthcheck/heartbeat"
-  }
+    "App:MvcForumUserInfoUrl"                                                   = "https://app-${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-api.azurewebsites.net/api/v1/files/{fileId}/auth"
+   }
 
   logs {
     detailed_error_messages_enabled         = true
@@ -411,8 +410,7 @@ resource "azurerm_app_service_slot" "files" {
     "Wopi:ClientDiscoveryDocumentUrl"                                           = "${var.application_fqdn}/gateway/wopi/client/hosting/discovery"
     "Wopi:HostFilesUrl"                                                         = "${var.application_fqdn}/gateway/wopi/host/files/"
 
-    "App:MvcForumUserInfoUrl"                                                   = "https://app-${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-forum.azurewebsites.net/auth/userinfo"
-    "App:MvcForumHealthCheckUrl"                                                = "https://app-${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-forum.azurewebsites.net/api/healthcheck/heartbeat"
+    "App:MvcForumUserInfoUrl"                                                   = "https://app-${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-api.azurewebsites.net/api/v1/files/{fileId}/auth"
   }
 
   logs {
