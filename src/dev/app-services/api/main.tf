@@ -442,6 +442,12 @@ resource "azurerm_app_service_slot" "api" {
 
     "Logging:TableStorageConfiguration:ConnectionString"                        = var.api_primary_blob_keyvault_connection_string_reference
     "Logging:TableStorageConfiguration:TableName"                               = "Logs"
+    
+    "AzurePlatform:AzureAdB2C:Instance"                                         = "https://${var.api_azure_b2c_tenant}.b2clogin.com"
+    "AzurePlatform:AzureAdB2C:ClientId"                                         = var.api_azure_b2c_client_id
+    "AzurePlatform:AzureAdB2C:ClientSecret"                                     = var.api_azure_b2c_client_secret
+    "AzurePlatform:AzureAdB2C:SignUpSignInPolicyId"                             = var.api_azure_b2c_client_sign_in_policy
+    "AzurePlatform:AzureAdB2C:Domain"                                           = "${var.api_azure_b2c_tenant}.onmicrosoft.com"
   }
 
   logs {
