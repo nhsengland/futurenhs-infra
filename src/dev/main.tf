@@ -351,7 +351,7 @@ module "app-services" {
   api_azure_b2c_tenant                                          = var.web_azure_ad_b2c_tenant_name
   api_azure_b2c_client_id                                       = var.web_azure_ad_b2c_client_id
   api_azure_b2c_client_secret                                   = var.web_azure_ad_b2c_client_secret
-  api_azure_b2c_client_sign_in_policy                           = var.web_azure_ad_b2c_signup_user_flow
+  api_azure_b2c_client_sign_in_policy                           = var.web_azure_ad_b2c_primary_user_flow
 
   web_app_config_primary_endpoint                       = module.app-configuration.primary_endpoint
   web_app_config_secondary_endpoint                     = module.app-configuration.secondary_endpoint
