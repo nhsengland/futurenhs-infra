@@ -184,6 +184,11 @@ module "api" {
   api_primary_file_blob_container_endpoint                      = var.api_primary_file_blob_container_endpoint
   api_primary_image_blob_container_endpoint                     = var.api_primary_image_blob_container_endpoint
   api_primary_blob_keyvault_connection_string_reference         = var.api_primary_blob_keyvault_connection_string_reference
+
+  api_azure_b2c_tenant                                          = var.api_azure_b2c_tenant
+  api_azure_b2c_client_id                                       = var.api_azure_b2c_client_id
+  api_azure_b2c_client_secret                                   = var.api_azure_b2c_client_secret
+  api_azure_b2c_client_sign_in_policy                           = var.api_azure_b2c_client_sign_in_policy
 }
 
 module "web" {

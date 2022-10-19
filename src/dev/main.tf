@@ -348,6 +348,10 @@ module "app-services" {
   api_govnotify_group_member_request_accepted__platform_user    = var.api_govnotify_group_member_request_accepted__platform_user
   api_govnotify_group_member_request_rejected_platform_user     = var.api_govnotify_group_member_request_rejected_platform_user
   api_govnotify_group_membership_request                        = var.api_govnotify_group_membership_request
+  api_azure_b2c_tenant                                          = var.web_azure_ad_b2c_tenant_name
+  api_azure_b2c_client_id                                       = var.web_azure_ad_b2c_client_id
+  api_azure_b2c_client_secret                                   = var.web_azure_ad_b2c_client_secret
+  api_azure_b2c_client_sign_in_policy                           = var.web_azure_ad_b2c_signup_user_flow
 
   web_app_config_primary_endpoint                       = module.app-configuration.primary_endpoint
   web_app_config_secondary_endpoint                     = module.app-configuration.secondary_endpoint
