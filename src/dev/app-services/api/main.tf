@@ -419,7 +419,7 @@ resource "azurerm_app_service_slot" "api" {
     "AzurePlatform:AzureImageBlobStorage:ContainerName"                         = "images"
 
     #  TODO - Assess if we need this in the front end app, if so remove from here
-    "FileServer:TemplateUrl"                                                    = "${var.application_fqdn}/gateway/wopi/host/files/{fileId}/user/{userId}/authorise-user?permission=view"
+    "FileServer:TemplateUrl"                                                    = "${var.application_fqdn}/gateway/wopi/host/files/{fileId}/authorise-user?permission=view"
     "FileServer:TemplateUrlFileIdPlaceholder"                                   = "{fileId}"
     "FileServer:TemplateUrlUserIdPlaceholder"                                   = "{userId}"
 
