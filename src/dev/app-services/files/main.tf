@@ -112,7 +112,7 @@ resource "azurerm_app_service" "files" {
         ip_address                          = null
         headers                             = null
         service_tag                         = null
-      }      
+      }
       ,{
         name                                = "FNHSApiAppAllowInbound"
         priority                            = "100"
