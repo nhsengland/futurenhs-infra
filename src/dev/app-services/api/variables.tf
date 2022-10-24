@@ -115,3 +115,7 @@ variable api_azure_b2c_client_secret {
 variable api_azure_b2c_client_sign_in_policy { 
   type      = string
 }
+
+variable virtual_network_file_server_subnet_id { 
+  type      = string
+}
