@@ -113,7 +113,7 @@ resource "azurerm_app_service" "files" {
         headers                             = null
         service_tag                         = null
       }
-      ,{
+      , {
         name                                = "FNHSApiAppAllowInbound"
         priority                            = "100"
         action                              = "Allow"
@@ -382,7 +382,7 @@ resource "azurerm_app_service_slot" "files" {
         headers                             = null
         service_tag                         = null
       }
-      ,{
+      , {
         name                                = "FNHSApiAppAllowInbound"
         priority                            = "100"
         action                              = "Allow"
