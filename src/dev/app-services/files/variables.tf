@@ -72,3 +72,7 @@ variable files_staging_app_insights_instrumentation_key {
     sensitive = true
 }
 
+variable virtual_network_api_app_subnet_id { 
+    type      = string 
+}
+
