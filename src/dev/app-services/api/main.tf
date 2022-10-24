@@ -388,6 +388,15 @@ resource "azurerm_app_service_slot" "api" {
         headers                             = null
         service_tag                         = null
       }
+      , {
+        name                                = "FNHSFileServerAllowInbound"
+        priority                            = "101"
+        action                              = "Allow"
+        virtual_network_subnet_id           = var.virtual_network_file_server_subnet_id
+        ip_address                          = null
+        headers                             = null
+        service_tag                         = null
+      }
     ] 
     scm_use_main_ip_restriction             = false   # setting this to true will cause deployment issues unless the azdo pool is granted access
     scm_ip_restriction                      = []
