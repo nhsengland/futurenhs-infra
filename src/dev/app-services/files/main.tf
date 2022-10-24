@@ -184,7 +184,8 @@ resource "azurerm_app_service" "files" {
     "Wopi:HostFilesUrl"                                                         = "${var.application_fqdn}/gateway/wopi/host/files/"
 
     "App:UserInfoUrl"                                                           = "${var.application_fqdn}/gateway/api/v1/files/{fileId}/auth"
-    
+  }
+  
   logs {
     detailed_error_messages_enabled         = true
     failed_request_tracing_enabled          = true
