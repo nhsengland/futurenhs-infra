@@ -428,7 +428,7 @@ resource "azurerm_app_service_slot" "files" {
     "Wopi:ClientDiscoveryDocumentUrl"                                           = "${var.application_fqdn}/gateway/wopi/client/hosting/discovery"
     "Wopi:HostFilesUrl"                                                         = "${var.application_fqdn}/gateway/wopi/host/files/"
 
-    "App:UserInfoUrl"                                                           = "https://app-${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-api.azurewebsites.net/api/v1/files/{fileId}/auth"
+    "App:UserInfoUrl"                                                           = "${var.application_fqdn}/gateway/api/v1/files/{fileId}/auth"
   }
 
   logs {
