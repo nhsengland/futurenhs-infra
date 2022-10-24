@@ -71,7 +71,8 @@ module "files" {
   virtual_network_name                                          = var.virtual_network_name
   virtual_network_application_gateway_subnet_id                 = var.virtual_network_application_gateway_subnet_id
   virtual_network_security_group_id                             = var.virtual_network_security_group_id
-
+  virtual_network_api_app_subnet_id                             = module.api.virtual_network_api_app_subnet_id
+  
   log_storage_account_id                                        = var.log_storage_account_id
   log_storage_account_connection_string                         = var.log_storage_account_connection_string
   log_storage_account_blob_endpoint                             = var.log_storage_account_blob_endpoint
@@ -151,7 +152,7 @@ module "api" {
   virtual_network_web_app_subnet_id                             = module.web.virtual_network_web_app_subnet_id
   virtual_network_security_group_id                             = var.virtual_network_security_group_id
   virtual_network_file_server_subnet_id                         = module.files.virtual_network_file_server_subnet_id
-  
+
   log_storage_account_id                                        = var.log_storage_account_id
   log_storage_account_connection_string                         = var.log_storage_account_connection_string
   log_storage_account_blob_endpoint                             = var.log_storage_account_blob_endpoint
