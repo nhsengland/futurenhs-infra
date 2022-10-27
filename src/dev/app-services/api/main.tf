@@ -174,8 +174,7 @@ resource "azurerm_app_service" "api" {
     "AzurePlatform:AzureFileBlobStorage:ContainerName"                          = "files"  
     "AzurePlatform:AzureImageBlobStorage:ContainerName"                         = "images"
     
-    #  TODO - Assess if we need this in the front end app, if so remove from here
-    "FileServer:TemplateUrl"                                                    = "${var.application_fqdn}/gateway/wopi/host/files/{fileId}/authorise-user?permission=view"
+    "FileServer:TemplateUrl"                                                    = "https://app-${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-files.azurewebsites.net/wopi/files/{fileId}/authorise-user?permission=view"
     "FileServer:TemplateUrlFileIdPlaceholder"                                   = "{fileId}"
 
     "AzureBlobStorage:ImagePrimaryConnectionString"                             = var.api_primary_blob_keyvault_connection_string_reference
@@ -199,6 +198,12 @@ resource "azurerm_app_service" "api" {
 
     "Logging:TableStorageConfiguration:ConnectionString"                        = var.api_primary_blob_keyvault_connection_string_reference
     "Logging:TableStorageConfiguration:TableName"                               = "Logs"
+    
+    "AzurePlatform:AzureAdB2C:Instance"                                         = "https://${var.api_azure_b2c_tenant}.b2clogin.com"
+    "AzurePlatform:AzureAdB2C:ClientId"                                         = var.api_azure_b2c_client_id
+    "AzurePlatform:AzureAdB2C:ClientSecret"                                     = var.api_azure_b2c_client_secret
+    "AzurePlatform:AzureAdB2C:SignUpSignInPolicyId"                             = var.api_azure_b2c_client_sign_in_policy
+    "AzurePlatform:AzureAdB2C:Domain"                                           = "${var.api_azure_b2c_tenant}.onmicrosoft.com"
   }
 
   logs {
@@ -411,8 +416,7 @@ resource "azurerm_app_service_slot" "api" {
     "AzurePlatform:AzureFileBlobStorage:ContainerName"                          = "files"  
     "AzurePlatform:AzureImageBlobStorage:ContainerName"                         = "images"
 
-    #  TODO - Assess if we need this in the front end app, if so remove from here
-    "FileServer:TemplateUrl"                                                    = "${var.application_fqdn}/gateway/wopi/host/files/{fileId}/authorise-user?permission=view"
+    "FileServer:TemplateUrl"                                                    = "https://app-${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-files.azurewebsites.net/wopi/files/{fileId}/authorise-user?permission=view"
     "FileServer:TemplateUrlFileIdPlaceholder"                                   = "{fileId}"
 
     "AzureBlobStorage:ImagePrimaryConnectionString"                             = var.api_primary_blob_keyvault_connection_string_reference
@@ -434,6 +438,12 @@ resource "azurerm_app_service_slot" "api" {
 
     "Logging:TableStorageConfiguration:ConnectionString"                        = var.api_primary_blob_keyvault_connection_string_reference
     "Logging:TableStorageConfiguration:TableName"                               = "Logs"
+    
+    "AzurePlatform:AzureAdB2C:Instance"                                         = "https://${var.api_azure_b2c_tenant}.b2clogin.com"
+    "AzurePlatform:AzureAdB2C:ClientId"                                         = var.api_azure_b2c_client_id
+    "AzurePlatform:AzureAdB2C:ClientSecret"                                     = var.api_azure_b2c_client_secret
+    "AzurePlatform:AzureAdB2C:SignUpSignInPolicyId"                             = var.api_azure_b2c_client_sign_in_policy
+    "AzurePlatform:AzureAdB2C:Domain"                                           = "${var.api_azure_b2c_tenant}.onmicrosoft.com"
   }
 
   logs {

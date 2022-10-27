@@ -113,6 +113,15 @@ resource "azurerm_app_service" "files" {
         headers                             = null
         service_tag                         = null
       }
+      , {
+        name                                = "FNHSApiAppAllowInbound"
+        priority                            = "100"
+        action                              = "Allow"
+        virtual_network_subnet_id           = var.virtual_network_api_app_subnet_id
+        ip_address                          = null
+        headers                             = null
+        service_tag                         = null
+      }
     ] 
     scm_use_main_ip_restriction             = false   # setting this to true will cause deployment issues unless the azdo pool is granted access
     scm_ip_restriction                      = []
@@ -174,10 +183,9 @@ resource "azurerm_app_service" "files" {
     "Wopi:ClientDiscoveryDocumentUrl"                                           = "${var.application_fqdn}/gateway/wopi/client/hosting/discovery"
     "Wopi:HostFilesUrl"                                                         = "${var.application_fqdn}/gateway/wopi/host/files/"
 
-    "App:MvcForumUserInfoUrl"                                                   = "https://app-${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-forum.azurewebsites.net/auth/userinfo"
-    "App:MvcForumHealthCheckUrl"                                                = "https://app-${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-forum.azurewebsites.net/api/healthcheck/heartbeat"
+    "App:UserInfoUrl"                                                           = "${var.application_fqdn}/gateway/api/v1/files/{fileId}/auth"
   }
-
+  
   logs {
     detailed_error_messages_enabled         = true
     failed_request_tracing_enabled          = true
@@ -374,6 +382,15 @@ resource "azurerm_app_service_slot" "files" {
         headers                             = null
         service_tag                         = null
       }
+      , {
+        name                                = "FNHSApiAppAllowInbound"
+        priority                            = "100"
+        action                              = "Allow"
+        virtual_network_subnet_id           = var.virtual_network_api_app_subnet_id
+        ip_address                          = null
+        headers                             = null
+        service_tag                         = null
+      }
     ] 
     scm_use_main_ip_restriction             = false   # setting this to true will cause deployment issues unless the azdo pool is granted access
     scm_ip_restriction                      = []
@@ -411,8 +428,7 @@ resource "azurerm_app_service_slot" "files" {
     "Wopi:ClientDiscoveryDocumentUrl"                                           = "${var.application_fqdn}/gateway/wopi/client/hosting/discovery"
     "Wopi:HostFilesUrl"                                                         = "${var.application_fqdn}/gateway/wopi/host/files/"
 
-    "App:MvcForumUserInfoUrl"                                                   = "https://app-${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-forum.azurewebsites.net/auth/userinfo"
-    "App:MvcForumHealthCheckUrl"                                                = "https://app-${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-forum.azurewebsites.net/api/healthcheck/heartbeat"
+    "App:UserInfoUrl"                                                           = "${var.application_fqdn}/gateway/api/v1/files/{fileId}/auth"
   }
 
   logs {

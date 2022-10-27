@@ -71,7 +71,8 @@ module "files" {
   virtual_network_name                                          = var.virtual_network_name
   virtual_network_application_gateway_subnet_id                 = var.virtual_network_application_gateway_subnet_id
   virtual_network_security_group_id                             = var.virtual_network_security_group_id
-
+  virtual_network_api_app_subnet_id                             = module.api.virtual_network_api_app_subnet_id
+  
   log_storage_account_id                                        = var.log_storage_account_id
   log_storage_account_connection_string                         = var.log_storage_account_connection_string
   log_storage_account_blob_endpoint                             = var.log_storage_account_blob_endpoint
@@ -184,6 +185,11 @@ module "api" {
   api_primary_file_blob_container_endpoint                      = var.api_primary_file_blob_container_endpoint
   api_primary_image_blob_container_endpoint                     = var.api_primary_image_blob_container_endpoint
   api_primary_blob_keyvault_connection_string_reference         = var.api_primary_blob_keyvault_connection_string_reference
+
+  api_azure_b2c_tenant                                          = var.api_azure_b2c_tenant
+  api_azure_b2c_client_id                                       = var.api_azure_b2c_client_id
+  api_azure_b2c_client_secret                                   = var.api_azure_b2c_client_secret
+  api_azure_b2c_client_sign_in_policy                           = var.api_azure_b2c_client_sign_in_policy
 }
 
 module "web" {
@@ -222,6 +228,13 @@ module "web" {
 
   web_cookie_parser_secret                                      = var.web_cookie_parser_secret
   web_next_public_gtm_key                                       = var.web_next_public_gtm_key
+
+  web_nextauth_secret                                           = var.web_nextauth_secret
+  web_azure_ad_b2c_tenant_name                                  = var.web_azure_ad_b2c_tenant_name
+  web_azure_ad_b2c_client_id                                    = var.web_azure_ad_b2c_client_id
+  web_azure_ad_b2c_client_secret                                = var.web_azure_ad_b2c_client_secret
+  web_azure_ad_b2c_primary_user_flow                            = var.web_azure_ad_b2c_primary_user_flow
+  web_azure_ad_b2c_signup_user_flow                             = var.web_azure_ad_b2c_signup_user_flow
 }
 
 module "content" {
