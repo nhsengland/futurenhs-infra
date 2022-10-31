@@ -165,10 +165,12 @@ resource "azurerm_app_service" "files" {
 
     "USE_AZURE_APP_CONFIGURATION"           = true 
     
+    "AzurePlatform:AzureBlobStorage:ConnectionString"                           = var.files_primary_blob_keyvault_connection_string_reference
     "AzurePlatform:AzureBlobStorage:PrimaryServiceUrl"                          = var.files_blob_primary_endpoint       
     "AzurePlatform:AzureBlobStorage:GeoRedundantServiceUrl"                     = var.files_blob_secondary_endpoint        
     "AzurePlatform:AzureBlobStorage:ContainerName"                              = var.files_blob_container_name        
 
+    "AzurePlatform:AzureTableStorage:ConnectionString"                          = var.files_primary_table_keyvault_connection_string_reference
     "AzurePlatform:AzureTableStorage:PrimaryServiceUrl"                         = var.files_table_primary_endpoint       
     "AzurePlatform:AzureTableStorage:GeoRedundantServiceUrl"                    = var.files_table_secondary_endpoint        
     "AzurePlatform:AzureTableStorage:AccessTokenTableName"                      = "FileServerWopiUserFileAccessToken"     
@@ -412,13 +414,16 @@ resource "azurerm_app_service_slot" "files" {
     "WEBSITE_DNS_SERVER"                    = "168.63.129.16"
 
     "USE_AZURE_APP_CONFIGURATION"           = true 
-    
+    "AzurePlatform:AzureBlobStorage:ConnectionString"                           = var.files_primary_blob_keyvault_connection_string_reference
     "AzurePlatform:AzureBlobStorage:PrimaryServiceUrl"                          = var.files_blob_primary_endpoint       
     "AzurePlatform:AzureBlobStorage:GeoRedundantServiceUrl"                     = var.files_blob_secondary_endpoint        
     "AzurePlatform:AzureBlobStorage:ContainerName"                              = var.files_blob_container_name        
+
+    "AzurePlatform:AzureTableStorage:ConnectionString"                          = var.files_primary_table_keyvault_connection_string_reference
     "AzurePlatform:AzureTableStorage:PrimaryServiceUrl"                         = var.files_table_primary_endpoint       
-    "AzurePlatform:AzureTableStorage:GeoRedundantServiceUrl"                    = var.files_table_secondary_endpoint   
+    "AzurePlatform:AzureTableStorage:GeoRedundantServiceUrl"                    = var.files_table_secondary_endpoint        
     "AzurePlatform:AzureTableStorage:AccessTokenTableName"                      = "FileServerWopiUserFileAccessToken"     
+    
     "AzurePlatform:AzureAppConfiguration:CacheExpirationIntervalInSeconds"      = "300" # 5 minutes       
     "AzurePlatform:AzureAppConfiguration:PrimaryServiceUrl"                     = var.files_app_config_primary_endpoint		          
     "AzurePlatform:AzureAppConfiguration:GeoRedundantServiceUrl"                = var.files_app_config_secondary_endpoint		          

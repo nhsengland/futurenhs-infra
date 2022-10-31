@@ -52,6 +52,8 @@ locals {
   files_db_keyvault_readwrite_connection_string_reference    = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/sqldb-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-files-readwrite-connection-string)"
   files_db_keyvault_readonly_connection_string_reference     = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/sqldb-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-files-readonly-connection-string)"
   files_blob_keyvault_connection_string_reference            = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/blobs-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-files-connection-string)"
+  files_table_keyvault_connection_string_reference            = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/table-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-files-connection-string)"
+
 
   api_db_keyvault_readwrite_connection_string_reference      = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/sqldb-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-api-readwrite-connection-string)"
   api_db_keyvault_readonly_connection_string_reference       = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/sqldb-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-api-readonly-connection-string)"
@@ -61,7 +63,8 @@ locals {
 
   content_db_keyvault_readwrite_connection_string_reference  = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/sqldb-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-content-connection-string)"
   content_blob_keyvault_connection_string_reference          = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/blobs-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-umbraco-connection-string)"
-
+  
+  
 }
 
 
@@ -394,7 +397,8 @@ module "app-services" {
   files_primary_blob_keyvault_connection_string_reference                 = local.files_blob_keyvault_connection_string_reference
   files_db_keyvault_readwrite_connection_string_reference                 = local.files_db_keyvault_readwrite_connection_string_reference
   files_db_keyvault_readonly_connection_string_reference                  = local.files_db_keyvault_readonly_connection_string_reference
-
+  files_primary_table_keyvault_connection_string_reference                = local.files_table_keyvault_connection_string_reference
+  
   api_db_keyvault_readwrite_connection_string_reference                   = local.api_db_keyvault_readwrite_connection_string_reference
   api_db_keyvault_readonly_connection_string_reference                    = local.api_db_keyvault_readonly_connection_string_reference
   api_primary_blob_keyvault_connection_string_reference                   = local.api_blob_keyvault_connection_string_reference

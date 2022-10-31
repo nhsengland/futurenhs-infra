@@ -55,6 +55,7 @@ module "forum" {
   files_primary_blob_container_resource_manager_id              = var.files_primary_blob_container_resource_manager_id
   files_primary_blob_container_name                             = var.files_primary_blob_container_name
   files_primary_blob_keyvault_connection_string_reference       = var.files_primary_blob_keyvault_connection_string_reference
+  files_primary_table_keyvault_connection_string_reference      = var.files_primary_table_keyvault_connection_string_reference
 }
 
 module "files" {

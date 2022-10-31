@@ -342,6 +342,15 @@ resource "azurerm_monitor_diagnostic_setting" "private_blob" {
   }
 }
 
+resource "azurerm_key_vault_secret" "table_primary_access_token_connection_string" {
+  name                                      = "table-${var.product_name}-${var.environment}-${var.location}-files-connection-string"
+  value                                     = azurerm_storage_account.private_content.primary_connection_string
+  key_vault_id                              = var.key_vault_id
+
+  content_type                              = "text/plain"
+  expiration_date                           = timeadd(timestamp(), "87600h")   
+}
+
 # add the tables used by the file server application
 
 resource "azurerm_storage_table" "fileserver_userfileaccesstoken" {

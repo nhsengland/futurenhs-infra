@@ -111,6 +111,7 @@ variable files_db_keyvault_readonly_connection_string_reference { type = string 
 
 variable files_primary_blob_keyvault_connection_string_reference { type = string }  // TODO - retire once removed from forum
 
+variable files_primary_table_keyvault_connection_string_reference { type = string }
 
 variable files_app_config_primary_endpoint { type = string }
 
