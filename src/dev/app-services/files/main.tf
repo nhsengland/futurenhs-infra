@@ -182,6 +182,9 @@ resource "azurerm_app_service" "files" {
     "AzurePlatform:AzureSql:ReadWriteConnectionString"                          = var.files_db_keyvault_readwrite_connection_string_reference       
     "AzurePlatform:AzureSql:ReadOnlyConnectionString"                           = var.files_db_keyvault_readonly_connection_string_reference       
   
+    "Logging:TableStorageConfiguration:ConnectionString"                        = var.files_primary_blob_keyvault_connection_string_reference
+    "Logging:TableStorageConfiguration:TableName"                               = "Logs"
+
     "Wopi:ClientDiscoveryDocumentUrl"                                           = "${var.application_fqdn}/gateway/wopi/client/hosting/discovery"
     "Wopi:HostFilesUrl"                                                         = "${var.application_fqdn}/gateway/wopi/host/files/"
 
@@ -429,6 +432,9 @@ resource "azurerm_app_service_slot" "files" {
     "AzurePlatform:AzureAppConfiguration:GeoRedundantServiceUrl"                = var.files_app_config_secondary_endpoint		          
     "AzurePlatform:AzureSql:ReadWriteConnectionString"                          = var.files_db_keyvault_readwrite_connection_string_reference       
     "AzurePlatform:AzureSql:ReadOnlyConnectionString"                           = var.files_db_keyvault_readonly_connection_string_reference       
+
+    "Logging:TableStorageConfiguration:ConnectionString"                        = var.files_primary_blob_keyvault_connection_string_reference
+    "Logging:TableStorageConfiguration:TableName"                               = "Logs"
 
     "Wopi:ClientDiscoveryDocumentUrl"                                           = "${var.application_fqdn}/gateway/wopi/client/hosting/discovery"
     "Wopi:HostFilesUrl"                                                         = "${var.application_fqdn}/gateway/wopi/host/files/"
