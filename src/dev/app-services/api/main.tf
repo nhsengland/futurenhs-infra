@@ -188,6 +188,8 @@ resource "azurerm_app_service" "api" {
 
     "GovNotify:ApiKey"                                                          = var.api_govnotify_keyvault_api_key_reference 
     "GovNotify:RegistrationEmailTemplateId"                                     = var.api_govnotify_registration_template_id
+    "GovNotify:GroupRegistrationEmailTemplateId"                                = var.api_govnotify_group_registration_template_id 
+    "GovNotify:GroupInviteEmailTemplateId"                                      = var.api_govnotify_group_invite_template_id 
     "Govnotify:CommentOnDiscussionEmailTemplateId"                              = var.api_govnotify_group_member_comment_on_discussion
     "Govnotify:ResponseToCommentEmailTemplateId"                                = var.api_govnotify_member_response_to_comment
     "Govnotify:GroupMemberRequestRejectedEmailTemplateId"                       = var.api_govnotify_group_member_request_rejected_platform_user
@@ -428,6 +430,8 @@ resource "azurerm_app_service_slot" "api" {
     "SharedSecrets:Owner"                                                       = "FutureNHS"    
     "GovNotify:ApiKey"                                                          = var.api_govnotify_keyvault_api_key_reference
     "GovNotify:RegistrationEmailTemplateId"                                     = var.api_govnotify_registration_template_id  
+    "GovNotify:GroupRegistrationEmailTemplateId"                                = var.api_govnotify_group_registration_template_id 
+    "GovNotify:GroupInviteEmailTemplateId"                                      = var.api_govnotify_group_invite_template_id 
     "Govnotify:CommentOnDiscussionEmailTemplateId"                              = var.api_govnotify_group_member_comment_on_discussion
     "Govnotify:ResponseToCommentEmailTemplateId"                                = var.api_govnotify_member_response_to_comment
     "Govnotify:GroupMemberRequestRejectedEmailTemplateId"                       = var.api_govnotify_group_member_request_rejected_platform_user

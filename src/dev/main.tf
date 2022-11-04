@@ -345,6 +345,8 @@ module "app-services" {
   api_primary_file_blob_container_endpoint              = module.storage.api_primary_file_blob_container_endpoint
   api_primary_image_blob_container_endpoint             = module.storage.api_primary_image_blob_container_endpoint
   api_govnotify_registration_template_id                = var.api_govnotify_registration_template_id 
+  api_govnotify_group_registration_template_id          = var.api_govnotify_group_registration_template_id 
+  api_govnotify_group_invite_template_id                = var.api_govnotify_group_invite_template_id 
   api_govnotify_group_member_comment_on_discussion              = var.api_govnotify_group_member_comment_on_discussion
   api_govnotify_member_response_to_comment                      = var.api_govnotify_member_response_to_comment
   api_govnotify_group_member_request_rejected                   = var.api_govnotify_group_member_request_rejected

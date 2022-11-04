@@ -132,6 +132,9 @@ variable api_govnotify_group_membership_request {
    type      = string
     sensitive = true
 }
+variable api_govnotify_group_registration_template_id { type = string }
+
+variable api_govnotify_group_invite_template_id { type = string }
 
 variable b2c_domain_name {
    type      = string

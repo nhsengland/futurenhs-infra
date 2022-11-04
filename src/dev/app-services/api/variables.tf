@@ -74,6 +74,11 @@ variable api_govnotify_keyvault_api_key_reference  {
 }
 
 variable api_govnotify_registration_template_id { type = string }
+
+variable api_govnotify_group_registration_template_id { type = string }
+
+variable api_govnotify_group_invite_template_id { type = string }
+
 variable api_govnotify_group_member_comment_on_discussion { 
   type      = string
     sensitive = true
