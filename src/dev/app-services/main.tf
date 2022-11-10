@@ -240,6 +240,7 @@ module "web" {
   web_azure_ad_b2c_client_secret                                = var.web_azure_ad_b2c_client_secret
   web_azure_ad_b2c_primary_user_flow                            = var.web_azure_ad_b2c_primary_user_flow
   web_azure_ad_b2c_signup_user_flow                             = var.web_azure_ad_b2c_signup_user_flow
+  web_azure_ad_b2c_password_reset_user_flow                     = var.web_azure_ad_b2c_password_reset_user_flow
 }
 
 module "content" {
