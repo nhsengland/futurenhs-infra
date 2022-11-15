@@ -83,6 +83,10 @@ resource "azurerm_app_configuration_feature" "SelfRegister" {
   name                   = "SelfRegistration"
   label                  = "SelfRegistration"
   enabled                = var.self_register
+
+  depends_on = [ 
+    azurerm_role_assignment.owner
+  ]
 }
 
 
