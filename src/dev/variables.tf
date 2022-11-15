@@ -177,3 +177,7 @@ variable web_azure_ad_b2c_signup_user_flow {
 variable web_azure_ad_b2c_password_reset_user_flow { 
     type      = string
 }
+
+variable app_configuration_self_register { 
+    type      = bool
+}
