@@ -14,20 +14,16 @@ resource "azurerm_app_configuration" "main" {
   location            = var.location
 
   sku                 = "free" 				# free | standard  # TODO - use standard for production for more requests, storage and private link support
-  
+
   identity { 
     type              = "SystemAssigned"
   }
-
-   depends_on = [
-    azurerm_role_assignment.data-owner
-  ]
 }
 
 resource "azurerm_role_assignment" "data-owner" {
   scope                = azurerm_app_configuration.main.id
   role_definition_name = "App Configuration Data Owner"
-  principal_id         = data.azurerm_client_config.current.object_id
+  principal_id         = azurerm_app_configuration.main.identity.0.principal_id
 }
 
 # TODO - Confirm this can be removed - think it is now redundant
