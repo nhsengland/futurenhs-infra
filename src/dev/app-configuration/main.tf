@@ -17,10 +17,6 @@ resource "azurerm_app_configuration" "main" {
   identity { 
     type              = "SystemAssigned"
   }
-  
-  depends_on = [
-    azurerm_role_assignment.data-owner
-  ]
 }
 
 resource "azurerm_role_assignment" "data-owner" {
@@ -86,6 +82,10 @@ resource "azurerm_app_configuration_feature" "SelfRegister" {
   name                   = "SelfRegistration"
   label                  = "SelfRegistration"
   enabled                = var.self_register
+
+   depends_on = [
+    azurerm_role_assignment.data-owner
+  ]
 }
 
 
