@@ -40,6 +40,46 @@ resource "azurerm_storage_account" "public_content" {
   }
 }
 
+resource "azurerm_storage_account" "b2c_content" {
+  #checkov:skip=CKV_AZURE_35:The storage account is used to serve public content over the iternet (avatar images etc) so shutting down public network access is not appropriate
+  #checkov:skip=CKV_AZURE_59:The storage account is used to serve public content over the iternet (avatar images etc) so shutting down public network access is not appropriate
+  #checkov:skip=CKV_AZURE_43:There is a bug in checkov (https://github.com/bridgecrewio/checkov/issues/741) that is giving a false positive on this rule so temp suppressing this rule check
+  name                            = "sa${var.product_name}${var.environment}${var.location}b2c"
+  resource_group_name             = var.resource_group_name
+  location                        = var.location
+
+  account_tier                    = "Standard"	
+  account_kind                    = "StorageV2"    
+  account_replication_type        = "RAGRS"		  # TODO - For Production, change to RAGZRS
+
+  access_tier                     = "Hot"			
+
+  enable_https_traffic_only       = true
+  min_tls_version                 = "TLS1_2"
+  public_network_access_enabled   = true
+
+  identity {
+    type                     = "SystemAssigned"
+  }
+
+  blob_properties {
+    versioning_enabled       = true
+    change_feed_enabled      = false
+    last_access_time_enabled = false
+
+    # add the soft-delete policies to the storage account
+
+    delete_retention_policy {
+      days                   = 90  # 1 through 365      
+    }
+
+    # TODO - put this back in once the container soft delete is out of preview (https://docs.microsoft.com/en-us/azure/storage/blobs/soft-delete-container-overview?tabs=powershell#register-for-the-preview)
+    #container_delete_retention_policy {
+    #  days                   = 90  # 1 through 365            
+    #}
+  }
+}
+
 data "azurerm_monitor_diagnostic_categories" "storage_category" {
   resource_id                                  = azurerm_storage_account.public_content.id
 }
@@ -85,6 +125,10 @@ data "azurerm_monitor_diagnostic_categories" "storage_blob_category" {
   resource_id                                  = "${azurerm_storage_account.public_content.id}/blobServices/default/"
 }
 
+data "azurerm_monitor_diagnostic_categories" "b2c_storage_blob_category" {
+  resource_id                                  = "${azurerm_storage_account.b2c_content.id}/blobServices/default/"
+}
+
 resource "azurerm_monitor_diagnostic_setting" "blob" {
   ## https://github.com/terraform-providers/terraform-provider-azurerm/issues/8275
   name                                         = "log-storage-account-blob-diagnostics"
@@ -123,11 +167,52 @@ resource "azurerm_monitor_diagnostic_setting" "blob" {
   }
 }
 
+resource "azurerm_monitor_diagnostic_setting" "b2c_blob" {
+  ## https://github.com/terraform-providers/terraform-provider-azurerm/issues/8275
+  name                                         = "log-b2c-storage-account-blob-diagnostics"
+  target_resource_id                           = "${azurerm_storage_account.b2c_content.id}/blobServices/default/"
+  log_analytics_workspace_id                   = var.log_analytics_workspace_resource_id
+  storage_account_id                           = var.log_storage_account_id
 
+  dynamic "log" {
+    iterator = log_category
+    for_each = data.azurerm_monitor_diagnostic_categories.b2c_storage_blob_category.logs
+
+    content {
+      category = log_category.value
+      enabled  = true
+
+      retention_policy {
+        enabled = true
+        days    = 90
+      }
+    }
+  }
+
+  dynamic "metric" {
+    iterator = metric_category
+    for_each = data.azurerm_monitor_diagnostic_categories.b2c_storage_blob_category.metrics
+
+    content {
+      category = metric_category.value
+      enabled  = true
+
+      retention_policy {
+        enabled = true
+        days    = 90
+      }
+    }
+  }
+}
+resource "azurerm_storage_container" "b2c" {
+  #checkov:skip=CKV_AZURE_34:The container is used to serve public content over the iternet (avatar images etc) so shutting down public network access is not appropriate
+  name                       = "b2c"
+  storage_account_name       = azurerm_storage_account.b2c_content.name
+  container_access_type      = "blob"	# blob | container | private
+}
 
 # add storage container to host avatar and group images that we can serve up publically or via a CDN.
 # add the connection string to the storage account to key vault for safe keeping
-
 resource "azurerm_storage_container" "images" {
   #checkov:skip=CKV_AZURE_34:The container is used to serve public content over the iternet (avatar images etc) so shutting down public network access is not appropriate
   name                       = "images"
