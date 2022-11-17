@@ -188,7 +188,7 @@ resource "azurerm_app_service" "files" {
     "Wopi:ClientDiscoveryDocumentUrl"                                           = "${var.application_fqdn}/gateway/wopi/client/hosting/discovery"
     "Wopi:HostFilesUrl"                                                         = "${var.application_fqdn}/gateway/wopi/host/files/"
 
-    "App:UserInfoUrl"                                                           = "${var.application_fqdn}/gateway/api/v1/files/{fileId}/auth"
+    "App:UserInfoUrl"                                                           = "${var.application_fqdn}/gateway/api/v1/files/{fileId}/auth?permission={permission}"
   }
   
   logs {
@@ -439,7 +439,7 @@ resource "azurerm_app_service_slot" "files" {
     "Wopi:ClientDiscoveryDocumentUrl"                                           = "${var.application_fqdn}/gateway/wopi/client/hosting/discovery"
     "Wopi:HostFilesUrl"                                                         = "${var.application_fqdn}/gateway/wopi/host/files/"
 
-    "App:UserInfoUrl"                                                           = "${var.application_fqdn}/gateway/api/v1/files/{fileId}/auth"
+    "App:UserInfoUrl"                                                           = "${var.application_fqdn}/gateway/api/v1/files/{fileId}/auth?permission={permission}"
   }
 
   logs {

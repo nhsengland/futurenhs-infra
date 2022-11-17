@@ -174,7 +174,7 @@ resource "azurerm_app_service" "api" {
     "AzurePlatform:AzureFileBlobStorage:ContainerName"                          = "files"  
     "AzurePlatform:AzureImageBlobStorage:ContainerName"                         = "images"
     
-    "FileServer:TemplateUrl"                                                    = "https://app-${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-files.azurewebsites.net/wopi/files/{fileId}/authorise-user?permission=view"
+    "FileServer:TemplateUrl"                                                    = "https://app-${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-files.azurewebsites.net/wopi/files/{fileId}/authorise-user?permission={permission}"
     "FileServer:TemplateUrlFileIdPlaceholder"                                   = "{fileId}"
 
     "AzureBlobStorage:ImagePrimaryConnectionString"                             = var.api_primary_blob_keyvault_connection_string_reference
@@ -418,7 +418,7 @@ resource "azurerm_app_service_slot" "api" {
     "AzurePlatform:AzureFileBlobStorage:ContainerName"                          = "files"  
     "AzurePlatform:AzureImageBlobStorage:ContainerName"                         = "images"
 
-    "FileServer:TemplateUrl"                                                    = "https://app-${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-files.azurewebsites.net/wopi/files/{fileId}/authorise-user?permission=view"
+    "FileServer:TemplateUrl"                                                    = "https://app-${lower(var.product_name)}-${lower(var.environment)}-${lower(var.location)}-files.azurewebsites.net/wopi/files/{fileId}/authorise-user?permission={permission}"
     "FileServer:TemplateUrlFileIdPlaceholder"                                   = "{fileId}"
 
     "AzureBlobStorage:ImagePrimaryConnectionString"                             = var.api_primary_blob_keyvault_connection_string_reference
