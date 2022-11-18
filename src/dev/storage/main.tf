@@ -1,4 +1,5 @@
 # storage account used to house publically accessible artefacts such as images used for groups in the forum.  A CDN may be put in front of this
+data "azurerm_client_config" "current" {}
 
 resource "azurerm_storage_account" "public_content" {
   #checkov:skip=CKV_AZURE_35:The storage account is used to serve public content over the iternet (avatar images etc) so shutting down public network access is not appropriate
@@ -82,6 +83,12 @@ resource "azurerm_storage_account" "b2c_content" {
 
 data "azurerm_monitor_diagnostic_categories" "storage_category" {
   resource_id                                  = azurerm_storage_account.public_content.id
+}
+
+resource "azurerm_role_assignment" "data-owner" {
+  scope                = azurerm_storage_account.public_content.id
+  role_definition_name = "Storage Blob Data Owner"
+  principal_id         = data.azurerm_client_config.current.object_id
 }
 
 resource "azurerm_monitor_diagnostic_setting" "storage" {
