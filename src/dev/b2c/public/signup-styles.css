@@ -1,0 +1,659 @@
+.formInputList .helpLink,
+#cancel,
+#email_success,
+#requiredFieldMissing,
+.error.itemLevel {
+    display: none !important;
+}
+
+.formInputList {
+	padding-left: 20px;
+}
+
+.formInputList > div {
+    margin: 1rem 0;
+}
+
+#continue {
+    margin-left: 20px;
+}
+
+.termsOfUseTitle {
+    margin: 20px 0 10px 0;
+}
+
+#email_ver_but_send {
+    margin: 10px 0 10px 0;
+}
+
+#title {
+    padding-left: 20px;
+    margin: 10px 0 20px 0;
+}
+
+.passwordInstructionsDetail {
+    margin-bottom: 10px;
+}
+
+.passwordInstructionsDetail, 
+.passwordInstructionsList,
+#email_info,
+#email_fail_retry,
+#email_fail_no_retry,
+#email_fail_throttled,
+#email_fail_code_expired,
+#email_fail_server,
+#email_incorrect_format {
+    color: #354650;
+}
+
+.verify {
+	margin-top: 10px;
+}
+
+.buttons > button {
+	font-weight: 400;
+	font-size: 16px;
+	font-size: 1rem;
+	line-height: 1.5;
+	margin-bottom: 28px;
+	-webkit-appearance: none;
+	background-color: #007f3b;
+	border: 2px solid transparent;
+	border-radius: 4px;
+	box-shadow: 0 4px 0 #00401e;
+	box-sizing: border-box;
+	color: #fff;
+	cursor: pointer;
+	display: inline-block;
+	font-weight: 600;
+	margin-top: 0;
+	padding: 12px 16px;
+	position: relative;
+	text-align: center;
+	vertical-align: top;
+	width: auto
+}
+
+#email_intro {
+    display: none !important;
+}
+
+@media (min-width:40.0625em) {
+	.buttons > button {
+		font-size: 19px;
+		font-size: 1.1875rem;
+		line-height: 1.4736842105
+	}
+}
+
+@media print {
+	.buttons > button {
+		font-size: 14pt;
+		line-height: 1.15
+	}
+}
+
+@media (min-width:40.0625em) {
+	.buttons > button {
+		margin-bottom: 36px
+	}
+}
+
+@media (max-width:40.0525em) {
+	.buttons > button {
+		padding: 8px 16px
+	}
+}
+
+.buttons > button:active,
+.buttons > button:hover,
+.buttons > button:link,
+.buttons > button:visited {
+	color: #fff;
+	text-decoration: none
+}
+
+.buttons > button::-moz-focus-inner {
+	border: 0;
+	padding: 0
+}
+
+.buttons > button:hover {
+	background-color: #00662f
+}
+
+.buttons > button:focus {
+	background: #ffeb3b;
+	box-shadow: 0 4px 0 #212b32;
+	color: #212b32;
+	outline: 4px solid transparent
+}
+
+.buttons > button:focus:visited {
+	color: #212b32
+}
+
+.buttons > button:focus:visited:active {
+	color: #fff
+}
+
+.buttons > button:active {
+	background: #00401e;
+	box-shadow: none;
+	color: #fff;
+	top: 4px
+}
+
+.buttons > button:before {
+	background: transparent;
+	bottom: -6px;
+	content: "";
+	display: block;
+	left: -2px;
+	position: absolute;
+	right: -2px;
+	top: -2px
+}
+
+.buttons > button:active:before {
+	top: -6px
+}
+
+.buttons > button--reverse {
+	background-color: #fff;
+	box-shadow: 0 4px 0 #212b32;
+	color: #212b32
+}
+
+.buttons > button--reverse:hover {
+	background-color: #f2f2f2;
+	color: #212b32
+}
+
+.buttons > button--reverse:focus {
+	background: #ffeb3b;
+	box-shadow: 0 4px 0 #212b32;
+	color: #212b32;
+	outline: 4px solid transparent
+}
+
+.buttons > button--reverse:active {
+	background: #212b32;
+	box-shadow: none;
+	color: #fff;
+	top: 4px
+}
+
+.buttons > button--reverse:link {
+	color: #212b32
+}
+
+.buttons > button--reverse:link:active {
+	color: #fff
+}
+
+.buttons > button--reverse.buttons > button--disabled,
+.buttons > button--reverse.buttons > button--disabled:focus {
+	background-color: #fff
+}
+
+.buttons > button--disabled,
+.buttons > button[disabled=disabled],
+.buttons > button[disabled] {
+	background-color: #007f3b;
+	opacity: .5;
+	pointer-events: none
+}
+
+.buttons > button--disabled:hover,
+.buttons > button[disabled=disabled]:hover,
+.buttons > button[disabled]:hover {
+	background-color: #007f3b;
+	cursor: default
+}
+
+.buttons > button--disabled:focus,
+.buttons > button[disabled=disabled]:focus,
+.buttons > button[disabled]:focus {
+	background-color: #007f3b;
+	outline: none
+}
+
+.buttons > button--disabled:active,
+.buttons > button[disabled=disabled]:active,
+.buttons > button[disabled]:active {
+	box-shadow: 0 4px 0 #00401e;
+	top: 0
+}
+
+.buttons > button--secondary[disabled=disabled],
+.buttons > button--secondary[disabled] {
+	background-color: #4c6272;
+	opacity: .5
+}
+
+.buttons > button--secondary[disabled=disabled]:hover,
+.buttons > button--secondary[disabled]:hover {
+	background-color: #4c6272;
+	cursor: default
+}
+
+.buttons > button--secondary[disabled=disabled]:focus,
+.buttons > button--secondary[disabled]:focus {
+	outline: none
+}
+
+.buttons > button--secondary[disabled=disabled]:active,
+.buttons > button--secondary[disabled]:active {
+	box-shadow: 0 4px 0 #263139;
+	top: 0
+}
+
+.buttons > button--reverse[disabled=disabled],
+.buttons > button--reverse[disabled] {
+	background-color: #fff;
+	opacity: .5
+}
+
+.buttons > button--reverse[disabled=disabled]:hover,
+.buttons > button--reverse[disabled]:hover {
+	background-color: #fff;
+	cursor: default
+}
+
+.buttons > button--reverse[disabled=disabled]:focus,
+.buttons > button--reverse[disabled]:focus {
+	outline: none
+}
+
+.buttons > button--reverse[disabled=disabled]:active,
+.buttons > button--reverse[disabled]:active {
+	box-shadow: 0 4px 0 #212b32;
+	top: 0
+}
+
+.ie8 .buttons > button:focus {
+	outline: 1px dotted #212b32
+}
+
+.attrEntry > .textInput,
+#email_ver_input {
+	font-weight: 400;
+	font-size: 16px;
+	font-size: 1rem;
+	line-height: 1.5;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
+	border: 2px solid #4c6272;
+	border-radius: 0;
+	box-sizing: border-box;
+	height: 40px;
+	margin-top: 0;
+	padding: 4px;
+	width: 60%
+}
+
+@media (min-width:40.0625em) {
+	.attrEntry > .textInput,
+    #email_ver_input {
+		font-size: 19px;
+		font-size: 1.1875rem;
+		line-height: 1.4736842105
+	}
+}
+
+@media print {
+	.attrEntry > .textInput,
+    #email_ver_input {
+		font-size: 14pt;
+		line-height: 1.15
+	}
+}
+
+.attrEntry > .textInput:focus,
+#email_ver_input:focus {
+	border: 2px solid #212b32;
+	box-shadow: inset 0 0 0 2px;
+	outline: 4px solid #ffeb3b;
+	outline-offset: 0
+}
+
+.attrEntry > .textInput::-webkit-inner-spin-button,
+.attrEntry > .textInput::-webkit-outer-spin-button,
+#email_ver_input::-webkit-inner-spin-button,
+#email_ver_input::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	margin: 0
+}
+
+.attrEntry > .textInput[type=number] {
+	-moz-appearance: textfield
+}
+
+.attrEntry > .textInput--error {
+	border: 4px solid #d5281b
+}
+
+.attrEntry > .textInput--width-30 {
+	max-width: 59ex
+}
+
+.attrEntry > .textInput--width-20 {
+	max-width: 41ex
+}
+
+.attrEntry > .textInput--width-10 {
+	max-width: 23ex
+}
+
+.attrEntry > .textInput--width-5 {
+	max-width: 10.8ex
+}
+
+.attrEntry > .textInput--width-4 {
+	max-width: 9ex
+}
+
+.attrEntry > .textInput--width-3 {
+	max-width: 7.2ex
+}
+
+.attrEntry > .textInput--width-2 {
+	max-width: 5.4ex
+}
+
+.attrEntry > label,
+#email_ver_input_label {
+	font-weight: 400;
+	font-size: 16px;
+	font-size: 1rem;
+	line-height: 1.5;
+	display: block;
+	margin-bottom: 4px
+}
+
+@media (min-width:40.0625em) {
+	.attrEntry > label,
+	#email_ver_input_label {
+		font-size: 19px;
+		font-size: 1.1875rem;
+		line-height: 1.4736842105
+	}
+}
+
+@media print {
+	.attrEntry > label,
+	#email_ver_input_label {
+		font-size: 14pt;
+		line-height: 1.15
+	}
+}
+
+.attrEntry > label--xl,
+#email_ver_input_label > label--xl {
+	font-size: 32px;
+	font-size: 2rem;
+	line-height: 1.25;
+	display: block;
+	font-weight: 600;
+	margin-top: 0;
+	margin-bottom: 40px
+}
+
+@media (min-width:40.0625em) {
+	.attrEntry > label--xl,
+	#email_ver_input_label > label--xl {
+		font-size: 48px;
+		font-size: 3rem;
+		line-height: 1.1666666667
+	}
+}
+
+@media print {
+	.attrEntry > label--xl,
+	#email_ver_input_label > label--xl {
+		font-size: 32pt;
+		line-height: 1.15
+	}
+}
+
+@media (min-width:40.0625em) {
+	.attrEntry > label--xl,
+	#email_ver_input_label > label--xl {
+		margin-bottom: 48px
+	}
+}
+
+.attrEntry > label--l,
+#email_ver_input_label > label--l {
+	font-size: 24px;
+	font-size: 1.5rem;
+	line-height: 1.3333333333;
+	display: block;
+	font-weight: 600;
+	margin-top: 0;
+	margin-bottom: 16px
+}
+
+@media (min-width:40.0625em) {
+	.attrEntry > label--l,
+	#email_ver_input_label > label--l {
+		font-size: 32px;
+		font-size: 2rem;
+		line-height: 1.25
+	}
+}
+
+@media print {
+	.attrEntry > label--l,
+	#email_ver_input_label > label--l {
+		font-size: 24pt;
+		line-height: 1.05
+	}
+}
+
+@media (min-width:40.0625em) {
+	.attrEntry > label--l,
+	#email_ver_input_label > label--l {
+		margin-bottom: 24px
+	}
+}
+
+.attrEntry > label--m,
+#email_ver_input_label > label--m {
+	font-size: 20px;
+	font-size: 1.25rem;
+	line-height: 1.4;
+	display: block;
+	font-weight: 600;
+	margin-top: 0;
+	margin-bottom: 16px
+}
+
+@media (min-width:40.0625em) {
+	.attrEntry > label--m,
+	#email_ver_input_label > label--m {
+		font-size: 24px;
+		font-size: 1.5rem;
+		line-height: 1.3333333333
+	}
+}
+
+@media print {
+	.attrEntry > label--m,
+	#email_ver_input_label > label--m {
+		font-size: 18pt;
+		line-height: 1.15
+	}
+}
+
+@media (min-width:40.0625em) {
+	.attrEntry > label--m,
+	#email_ver_input_label > label--m {
+		margin-bottom: 24px
+	}
+}
+
+.attrEntry > label--s,
+#email_ver_input_label > label--s {
+	font-size: 16px;
+	font-size: 1rem;
+	line-height: 1.5;
+	display: block;
+	font-weight: 600;
+	margin-top: 0;
+	margin-bottom: 16px
+}
+
+@media (min-width:40.0625em) {
+	.attrEntry > label--s,
+	#email_ver_input_label > label--s {
+		font-size: 19px;
+		font-size: 1.1875rem;
+		line-height: 1.4736842105
+	}
+}
+
+@media print {
+	.attrEntry > label--s,
+	#email_ver_input_label > label--s {
+		font-size: 14pt;
+		line-height: 1.15
+	}
+}
+
+@media (min-width:40.0625em) {
+	.attrEntry > label--s,
+	#email_ver_input_label > label--s {
+		margin-bottom: 24px
+	}
+}
+
+.attrEntry > label-wrapper {
+	margin: 0
+}
+
+.attrEntry > label:not(.attrEntry > label--m):not(.attrEntry > label--l):not(.attrEntry > label--xl)+.nhsuk-hint {
+	margin-bottom: 8px
+}
+
+#extension_termsOfUseConsentChoice_AgreeToTermsOfUseConsentYes {
+	cursor: pointer;
+	height: 40px;
+	left: 0;
+	margin: 0;
+	opacity: 0;
+	position: absolute;
+	top: 0;
+	width: 40px;
+	z-index: 1
+}
+
+#extension_termsOfUseConsentChoice_AgreeToTermsOfUseConsentYes+.nhsuk-checkboxes__label:before {
+	background: #fff;
+	border: 2px solid #4c6272;
+	box-sizing: border-box;
+	content: "";
+	height: 40px;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 40px
+}
+
+#extension_termsOfUseConsentChoice_AgreeToTermsOfUseConsentYes+.nhsuk-checkboxes__label:after {
+	-ms-transform: rotate(-45deg);
+	-webkit-transform: rotate(-45deg);
+	background: transparent;
+	border: solid;
+	border-top-color: transparent;
+	border-width: 0 0 4px 4px;
+	content: "";
+	height: 10px;
+	left: 10px;
+	opacity: 0;
+	position: absolute;
+	top: 13px;
+	transform: rotate(-45deg);
+	width: 22px
+}
+
+#extension_termsOfUseConsentChoice_AgreeToTermsOfUseConsentYes:focus+.nhsuk-checkboxes__label:before {
+	border: 4px solid #212b32;
+	box-shadow: 0 0 0 4px #ffeb3b
+}
+
+#extension_termsOfUseConsentChoice_AgreeToTermsOfUseConsentYes:checked+.nhsuk-checkboxes__label:after {
+	opacity: 1
+}
+
+.CheckboxMultiSelect > .attrEntry {
+	font-weight: 400;
+	font-size: 16px;
+	font-size: 1rem;
+	line-height: 1.5;
+	clear: left;
+	display: block;
+	margin-bottom: 8px;
+	min-height: 40px;
+	padding: 0 0 0 40px;
+	position: relative
+}
+
+@media (min-width:40.0625em) {
+	.CheckboxMultiSelect > .attrEntry {
+		font-size: 19px;
+		font-size: 1.1875rem;
+		line-height: 1.4736842105
+	}
+}
+
+@media print {
+	.CheckboxMultiSelect > .attrEntry {
+		font-size: 14pt;
+		line-height: 1.15
+	}
+}
+
+.CheckboxMultiSelect > .attrEntry:last-child,
+.CheckboxMultiSelect > .attrEntry:last-of-type {
+	margin-bottom: 0
+}
+
+.attrEntry > label[for=email] {
+    font-weight: bold;
+}
+
+.goBackButtonParent {
+    padding: 0 0 0 20px;
+}
+
+#email_ver_input_label {
+    margin-top: 10px;
+}
+
+#email_ver_but_verify,
+#email_ver_but_resend,
+#email_ver_but_edit {
+    margin-top: 20px;
+}
+
+#email_ver_but_edit {
+	margin-left: 0;
+}
+
+#email_ver_input_label[aria-hidden=false],
+#email_ver_input[aria-hidden=false] {
+    display: block !important;
+}
+
+#errorSummary {
+	margin-left: 20px;
+  margin-bottom: 0px;
+}
+
+label[for=extension_termsOfUseConsentChoice] {
+	display: none;
+}

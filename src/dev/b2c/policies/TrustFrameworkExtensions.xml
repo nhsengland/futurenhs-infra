@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TrustFrameworkPolicy 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+  xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06" 
+  PolicySchemaVersion="0.3.0.0" 
+  TenantId="${TENANT_ID}.onmicrosoft.com" 
+  PolicyId="B2C_1A_TrustFrameworkExtensions" 
+  PublicPolicyUri="http://${TENANT_ID}.onmicrosoft.com/B2C_1A_TrustFrameworkExtensions">
+  
+  <BasePolicy>
+    <TenantId>${TENANT_ID}.onmicrosoft.com</TenantId>
+    <PolicyId>B2C_1A_TrustFrameworkBase</PolicyId>
+  </BasePolicy>
+
+  <BuildingBlocks>
+    <ClaimsSchema>
+      <!-- GENERAL Claims -->
+      <ClaimType Id="currentTime">
+        <DisplayName>Current Time</DisplayName>
+        <DataType>dateTime</DataType>
+        <AdminHelpText>Current date time in UTC.</AdminHelpText>
+        <UserHelpText>Current date time in UTC.</UserHelpText>
+      </ClaimType>
+      <ClaimType Id="extension_surveyId">
+        <DisplayName>surveyId</DisplayName>
+        <DataType>string</DataType>
+        <UserHelpText>Request survey Id</UserHelpText>
+        <UserInputType>TextBox</UserInputType>
+      </ClaimType>
+
+      <!-- ToU Process Claims -->
+      <ClaimType Id="extension_termsOfUseConsentChoice">
+        <DisplayName></DisplayName>
+        <DataType>string</DataType>
+        <UserInputType>CheckboxMultiSelect</UserInputType>
+        <Restriction>
+          <Enumeration Text=" I agree to the Terms Of Service" Value="AgreeToTermsOfUseConsentYes" SelectByDefault="false" />
+        </Restriction>
+      </ClaimType>
+      <ClaimType Id="extension_termsOfUseConsentDateTime">
+        <DisplayName>Terms of Use Consent Date Time</DisplayName>
+        <DataType>dateTime</DataType>
+        <AdminHelpText>Terms of Use Consent date time in UTC.</AdminHelpText>
+        <UserHelpText>Terms of Use Consent date time in UTC.</UserHelpText>
+      </ClaimType>
+      <ClaimType Id="termsOfUseConsentRequired">
+        <DisplayName>Terms of Use Consent Required</DisplayName>
+        <DataType>boolean</DataType>
+        <AdminHelpText>Boolean that specifies if Terms of Use Consent is required or not.</AdminHelpText>
+        <UserHelpText>Boolean that specifies if Terms of Use Consent is required or not</UserHelpText>
+      </ClaimType>
+      <ClaimType Id="extension_termsOfUseConsentVersion">
+        <DisplayName>Terms of Use Consent Version</DisplayName>
+        <DataType>string</DataType>
+        <AdminHelpText>Terms of Use Consent Version.</AdminHelpText>
+        <UserHelpText>Terms of Use Consent Version.</UserHelpText>
+      </ClaimType>
+
+      <!-- Password Expiration Claims -->
+      <!-- The last time user reset the password-->
+      <ClaimType Id="extension_passwordResetOn">
+        <DisplayName>Password reset on</DisplayName>
+        <DataType>dateTime</DataType>
+        <UserHelpText>The last time user reset the password</UserHelpText>
+      </ClaimType>
+
+      <!-- Indicates whether password reset is required, based on date comparison -->
+      <ClaimType Id="isPasswordResetOnGreaterThanNow">
+        <DisplayName>Indicates whether password reset is required</DisplayName>
+        <DataType>boolean</DataType>
+      </ClaimType>
+
+      <!-- Indicates whether password reset exists -->
+      <ClaimType Id="isPasswordResetOnPresent">
+        <DisplayName>Is password reset on presented</DisplayName>
+        <DataType>boolean</DataType>
+      </ClaimType>
+
+      <!-- Indicates whether password reset is required or not, based on date comparison and if extension_passwordResetOn is null -->
+      <ClaimType Id="skipPasswordReset">
+        <DisplayName>Skip password reset</DisplayName>
+        <DataType>boolean</DataType>
+      </ClaimType> 
+    </ClaimsSchema>
+    <ClaimsTransformations>
+      <ClaimsTransformation Id="GetCurrentDateTime" TransformationMethod="GetCurrentDateTime">
+        <OutputClaims>
+          <OutputClaim ClaimTypeReferenceId="currentTime" TransformationClaimType="currentDateTime" />
+        </OutputClaims>
+      </ClaimsTransformation>
+
+      <!-- ToU Claims Transformation -->
+      <ClaimsTransformation Id="IsTermsOfUseConsentRequiredForDateTime" TransformationMethod="IsTermsOfUseConsentRequired">
+        <InputClaims>
+          <InputClaim ClaimTypeReferenceId="extension_termsOfUseConsentDateTime" TransformationClaimType="termsOfUseConsentDateTime" />
+        </InputClaims>
+        <InputParameters>
+          <InputParameter Id="termsOfUseTextUpdateDateTime" DataType="dateTime" Value="2020-01-30T23:03:45" />
+        </InputParameters>
+        <OutputClaims>
+          <OutputClaim ClaimTypeReferenceId="termsOfUseConsentRequired" TransformationClaimType="result" />
+        </OutputClaims>
+      </ClaimsTransformation>
+
+      <ClaimsTransformation Id="GetNewUserAgreeToTermsOfUseConsentVersion" TransformationMethod="CreateStringClaim">
+        <InputParameters>
+          <InputParameter Id="value" DataType="string" Value="V1"/>
+        </InputParameters>
+        <OutputClaims>
+          <OutputClaim ClaimTypeReferenceId="extension_termsOfUseConsentVersion" TransformationClaimType="createdClaim" />
+        </OutputClaims>
+      </ClaimsTransformation>
+
+    <!-- Not used here, but this OR IsTermsOfUseConsentRequiredForDateTime check can be used -->
+      <ClaimsTransformation Id="IsTermsOfUseConsentRequiredForVersion" TransformationMethod="CompareClaimToValue">
+        <InputClaims>
+          <InputClaim ClaimTypeReferenceId="extension_termsOfUseConsentVersion" TransformationClaimType="inputClaim1" />
+        </InputClaims>
+        <InputParameters>
+          <InputParameter Id="compareTo" DataType="string" Value="V2" />
+          <InputParameter Id="operator" DataType="string" Value="not equal" />
+          <InputParameter Id="ignoreCase" DataType="string" Value="true" />
+        </InputParameters>
+        <OutputClaims>
+          <OutputClaim ClaimTypeReferenceId="termsOfUseConsentRequired" TransformationClaimType="outputClaim" />
+        </OutputClaims>
+      </ClaimsTransformation>
+
+      <!-- Password Expiration Claims Transformation -->
+      <ClaimsTransformation Id="SetPasswordResetOn" TransformationMethod="GetCurrentDateTime">
+        <OutputClaims>
+          <OutputClaim ClaimTypeReferenceId="extension_passwordResetOn" TransformationClaimType="currentDateTime" />
+        </OutputClaims>
+      </ClaimsTransformation>
+
+      <!-- Compare the dates and check if password reset is required -->
+      <ClaimsTransformation Id="ComparePasswordResetOnWithCurrentDateTime" TransformationMethod="DateTimeComparison">
+        <InputClaims>
+          <InputClaim ClaimTypeReferenceId="currentTime" TransformationClaimType="firstDateTime" />
+          <InputClaim ClaimTypeReferenceId="extension_passwordResetOn" TransformationClaimType="secondDateTime" />
+        </InputClaims>
+        <InputParameters>
+          <!-- We check if the first date (current) minus 180 day is later than second date (password reset on).
+          If yes, it means that at least 90 days passed from the time user reset the password.
+          Note: the first date must contain a value. So, we use the current datetime. Don't change the order --> 
+          <InputParameter Id="operator" DataType="string" Value="earlier than" />
+          <!--timeSpanInSeconds value should be expressed in seconds (e.g. 15780000 = 6 months) -->
+          <InputParameter Id="timeSpanInSeconds" DataType="int" Value="-15780000" />
+        </InputParameters>
+        <OutputClaims>
+          <OutputClaim ClaimTypeReferenceId="isPasswordResetOnGreaterThanNow" TransformationClaimType="result" />
+        </OutputClaims>      
+      </ClaimsTransformation> 
+
+      <!-- Check if extension_passwordResetOn is existed in user account. -->
+      <ClaimsTransformation Id="CheckIfPasswordResetOnPresent" TransformationMethod="DoesClaimExist">
+        <InputClaims>
+          <InputClaim ClaimTypeReferenceId="extension_passwordResetOn" TransformationClaimType="inputClaim" />
+        </InputClaims>					
+        <OutputClaims>
+          <OutputClaim ClaimTypeReferenceId="isPasswordResetOnPresent" TransformationClaimType="outputClaim" />
+        </OutputClaims>
+      </ClaimsTransformation>
+
+      <!-- Check if datetime comparison is true and also the PasswordResetOn is presented in the user account.
+      If both of them are true, user doesn't need to reset the password--> 
+      <ClaimsTransformation Id="CheckWhetherPasswordResetCanBeSkipped" TransformationMethod="AndClaims">
+        <InputClaims>
+          <InputClaim ClaimTypeReferenceId="isPasswordResetOnGreaterThanNow" TransformationClaimType="inputClaim1" />
+          <InputClaim ClaimTypeReferenceId="isPasswordResetOnPresent" TransformationClaimType="inputClaim2" />
+        </InputClaims>					
+        <OutputClaims>
+          <OutputClaim ClaimTypeReferenceId="skipPasswordReset" TransformationClaimType="outputClaim" />
+        </OutputClaims>
+      </ClaimsTransformation>
+      
+    </ClaimsTransformations>
+  </BuildingBlocks>
+
+  <ClaimsProviders>
+
+    <ClaimsProvider>
+      <DisplayName>Local Account SignIn</DisplayName>
+      <TechnicalProfiles>
+         <TechnicalProfile Id="login-NonInteractive">
+          <Metadata>
+            <Item Key="client_id">${PROXY_IDENTITY_EXPERIENCE_APP_ID}</Item>
+            <Item Key="IdTokenAudience">${IDENTITY_EXPERIENCE_FRAMEWORK_APP_ID}</Item>
+          </Metadata>
+          <InputClaims>
+            <InputClaim ClaimTypeReferenceId="client_id" DefaultValue="${PROXY_IDENTITY_EXPERIENCE_APP_ID}" />
+            <InputClaim ClaimTypeReferenceId="resource_id" PartnerClaimType="resource" DefaultValue="${IDENTITY_EXPERIENCE_FRAMEWORK_APP_ID}" />
+          </InputClaims>
+        </TechnicalProfile>
+        <TechnicalProfile Id="AAD-UserWriteUsingLogonEmail">
+          <InputClaimsTransformations>
+            <!--Get current date and time -->
+            <InputClaimsTransformation ReferenceId="SetPasswordResetOn" />
+          </InputClaimsTransformations>
+          <PersistedClaims>
+            <!--On sign-up, set the 'password reset on' extension attribute with the current date and time -->
+            <PersistedClaim ClaimTypeReferenceId="extension_passwordResetOn" />
+          </PersistedClaims>
+        </TechnicalProfile>
+
+        <TechnicalProfile Id="AAD-UserWritePasswordUsingObjectId">
+          <InputClaimsTransformations>
+           <!--Get current date and time -->
+           <InputClaimsTransformation ReferenceId="SetPasswordResetOn" />
+          </InputClaimsTransformations>
+          <PersistedClaims>
+            <!--Set the 'password reset on' extension attribute with the current date and time -->
+            <PersistedClaim ClaimTypeReferenceId="extension_passwordResetOn" />
+          </PersistedClaims>
+        </TechnicalProfile>
+      </TechnicalProfiles>
+    </ClaimsProvider>
+
+    <ClaimsProvider>
+      <DisplayName>Azure Active Directory</DisplayName>
+      <TechnicalProfiles>
+        <TechnicalProfile Id="AAD-Common">
+          <Metadata>
+            <Item Key="ClientId">${EXTENSION_CLIENT_ID}</Item>
+            <Item Key="ApplicationObjectId">${EXTENSION_OBJECT_ID}</Item>
+          </Metadata>
+        </TechnicalProfile>
+      </TechnicalProfiles>
+    </ClaimsProvider>
+
+  </ClaimsProviders>
+
+</TrustFrameworkPolicy>

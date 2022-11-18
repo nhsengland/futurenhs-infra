@@ -1,0 +1,276 @@
+#title {
+    margin: 20px 0 20px 0;
+}
+
+.divider,
+.create {
+    display: none !important;
+}
+
+.entry-item input {
+	font-weight: 400;
+	font-size: 16px;
+	font-size: 1rem;
+	line-height: 1.5;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
+	border: 2px solid #4c6272;
+	border-radius: 0;
+	box-sizing: border-box;
+	height: 40px;
+	margin-top: 0;
+	padding: 4px;
+	width: 60%
+}
+
+@media (min-width:40.0625em) {
+	.entry-item input {
+		font-size: 19px;
+		font-size: 1.1875rem;
+		line-height: 1.4736842105
+	}
+}
+
+@media print {
+	.entry-item input {
+		font-size: 14pt;
+		line-height: 1.15
+	}
+}
+
+.entry-item input:focus {
+	border: 2px solid #212b32;
+	box-shadow: inset 0 0 0 2px;
+	outline: 4px solid #ffeb3b;
+	outline-offset: 0
+}
+
+.entry-item input::-webkit-inner-spin-button,
+.entry-item input::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	margin: 0
+}
+
+.entry-item input[type=number] {
+	-moz-appearance: textfield
+}
+
+.entry-item input--error {
+	border: 4px solid #d5281b
+}
+
+.entry-item input--width-30 {
+	max-width: 59ex
+}
+
+.entry-item input--width-20 {
+	max-width: 41ex
+}
+
+.entry-item input--width-10 {
+	max-width: 23ex
+}
+
+.entry-item input--width-5 {
+	max-width: 10.8ex
+}
+
+.entry-item input--width-4 {
+	max-width: 9ex
+}
+
+.entry-item input--width-3 {
+	max-width: 7.2ex
+}
+
+.entry-item input--width-2 {
+	max-width: 5.4ex
+}
+
+.entry-item label {
+	font-weight: 400;
+	font-size: 16px;
+	font-size: 1rem;
+	line-height: 1.5;
+	display: block;
+	margin-bottom: 4px
+}
+
+@media (min-width:40.0625em) {
+	.entry-item label {
+		font-size: 19px;
+		font-size: 1.1875rem;
+		line-height: 1.4736842105
+	}
+}
+
+@media print {
+	.entry-item label {
+		font-size: 14pt;
+		line-height: 1.15
+	}
+}
+
+.entry-item label--xl {
+	font-size: 32px;
+	font-size: 2rem;
+	line-height: 1.25;
+	display: block;
+	font-weight: 600;
+	margin-top: 0;
+	margin-bottom: 40px
+}
+
+@media (min-width:40.0625em) {
+	.entry-item label--xl {
+		font-size: 48px;
+		font-size: 3rem;
+		line-height: 1.1666666667
+	}
+}
+
+@media print {
+	.entry-item label--xl {
+		font-size: 32pt;
+		line-height: 1.15
+	}
+}
+
+@media (min-width:40.0625em) {
+	.entry-item label--xl {
+		margin-bottom: 48px
+	}
+}
+
+.entry-item label--l {
+	font-size: 24px;
+	font-size: 1.5rem;
+	line-height: 1.3333333333;
+	display: block;
+	font-weight: 600;
+	margin-top: 0;
+	margin-bottom: 16px
+}
+
+@media (min-width:40.0625em) {
+	.entry-item label--l {
+		font-size: 32px;
+		font-size: 2rem;
+		line-height: 1.25
+	}
+}
+
+@media print {
+	.entry-item label--l {
+		font-size: 24pt;
+		line-height: 1.05
+	}
+}
+
+@media (min-width:40.0625em) {
+	.entry-item label--l {
+		margin-bottom: 24px
+	}
+}
+
+.entry-item label--m {
+	font-size: 20px;
+	font-size: 1.25rem;
+	line-height: 1.4;
+	display: block;
+	font-weight: 600;
+	margin-top: 0;
+	margin-bottom: 16px
+}
+
+@media (min-width:40.0625em) {
+	.entry-item label--m {
+		font-size: 24px;
+		font-size: 1.5rem;
+		line-height: 1.3333333333
+	}
+}
+
+@media print {
+	.entry-item label--m {
+		font-size: 18pt;
+		line-height: 1.15
+	}
+}
+
+@media (min-width:40.0625em) {
+	.entry-item label--m {
+		margin-bottom: 24px
+	}
+}
+
+.entry-item label--s {
+	font-size: 16px;
+	font-size: 1rem;
+	line-height: 1.5;
+	display: block;
+	font-weight: 600;
+	margin-top: 0;
+	margin-bottom: 16px
+}
+
+@media (min-width:40.0625em) {
+	.entry-item label--s {
+		font-size: 19px;
+		font-size: 1.1875rem;
+		line-height: 1.4736842105
+	}
+}
+
+@media print {
+	.entry-item label--s {
+		font-size: 14pt;
+		line-height: 1.15
+	}
+}
+
+@media (min-width:40.0625em) {
+	.entry-item label--s {
+		margin-bottom: 24px
+	}
+}
+
+.entry-item label[for=email] {
+    font-weight: bold;
+}
+
+.goBackButtonParent {
+    padding: 0 0 0 20px;
+}
+
+.password-label {
+    margin-top: 20px;
+}
+
+#errorSummary {
+	margin-top: 20px;
+  margin-bottom: 0px;
+}
+
+#forgotPassword {
+    display: block;
+    width: fit-content;
+    margin-top: 10px;
+}
+
+#createAccount {
+    margin-top: 0 !important;
+    margin-left: 0 !important;
+}
+
+#createAccount > a {
+    padding-left: 0;
+    margin-bottom: 20px;
+    font-size: larger;
+    text-decoration-line: underline;
+}
+
+#createAccount > p {
+	margin: 10px 0 5px 0;
+}

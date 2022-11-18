@@ -1,0 +1,305 @@
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+
+  <title>sign in</title>
+
+  <link href="https://www.nhs.uk/" rel="preconnect">
+  <link href="https://assets.nhs.uk/" rel="preconnect" crossorigin>
+
+  <link rel="stylesheet" href="https://nhsenhsaacb2c${ENV}.blob.core.windows.net/b2c/nhsuk-4.1.0.min.css"
+    type="text/css" data-preload="true">
+  <link rel="stylesheet" href="https://nhsenhsaacb2c${ENV}.blob.core.windows.net/b2c/nhsuk-is-styles.css"
+    type="text/css" data-preload="true">
+  <link rel="stylesheet" href="https://nhsenhsaacb2c${ENV}.blob.core.windows.net/b2c/signin-styles.css" type="text/css"
+    data-preload="true">
+
+  <script>
+    function setDisplay(elem, value) {
+      elem.style.display = value;
+    }
+
+    function removePlaceholder(elem) {
+      elem.setAttribute('placeholder', '')
+    }
+
+    function bundleSetDisplay(elems, value) {
+      for (let i = 0; i < elems.length; i++) {
+        setDisplay(elems[i], value);
+      }
+    }
+
+    function capitalizeFirstLabelLetter(inputElem) {
+      const label = document.querySelector('label[for="' + inputElem.id + '"]');
+      if (!label) return;
+
+      const text = label.textContent.trim();
+      label.textContent = text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+    }
+
+    function prepareFields() {
+      function createErrorSpan(baseElem, parentElem, appendBeforeSelector) {
+        const span = document.createElement('span');
+        span.classList.add('nhsuk-error-message');
+        span.classList.add(baseElem.classList[0]);
+        setDisplay(span, 'none');
+        span.textContent = baseElem.textContent;
+
+        const elToInsertBefore = (appendBeforeSelector) ? parentElem.querySelector(appendBeforeSelector) : parentElem.firstChild;
+
+        parentElem.insertBefore(span, elToInsertBefore);
+      }
+
+      const formElem = document.querySelector('form');
+      formElem.setAttribute('novalidate', true);
+      formElem.setAttribute('onkeypress', 'return event.keyCode != 13;');
+
+      const forgotPasswordElem = document.getElementById('forgotPassword');
+      const passwrodElem = document.getElementById('password');
+      const pwEntryItemElem = passwrodElem.closest('.entry-item');
+      removePlaceholder(passwrodElem);
+
+      if (forgotPasswordElem) pwEntryItemElem.appendChild(forgotPasswordElem);
+      pwEntryItemElem.id = "passwordParent";
+
+      const signInNameElem = document.getElementById('signInName');
+      const signInNameLabelElem = document.querySelector('label[for="signInName"]');
+      const emailEntryItemElem = signInNameElem.closest('.entry-item');
+      emailEntryItemElem.id = "emailParent";
+      removePlaceholder(signInNameElem);
+      signInNameLabelElem.textContent = "Sign in email";
+      signInNameElem.ariaLabel = "Sign in email";
+      signInNameElem.title = "Sign in email";
+      signInNameElem.name = "Sign in email";
+
+      const nextBtnElem = document.querySelector('#next');
+      nextBtnElem.addEventListener('click', extraNextValidation);
+
+      // Create error elements
+      const globalFieldsElem = document.querySelector('.entry');
+      const emailMissingErrorElem = document.querySelector('.emailMissingError');
+      const pwMissingErrorElem = document.querySelector('.pwMissingError');
+      const invalidEmailErrorElem = document.querySelector('.invalidEmailError');
+      const invalidRequestErrorElem = document.querySelector('.invalidRequestError');
+
+      createErrorSpan(emailMissingErrorElem, emailEntryItemElem, 'input');
+      createErrorSpan(invalidEmailErrorElem, emailEntryItemElem, 'input');
+      createErrorSpan(pwMissingErrorElem, pwEntryItemElem, 'input');
+      createErrorSpan(invalidRequestErrorElem, globalFieldsElem);
+    }
+
+    function createPasswordToggler() {
+      const passwordElem = document.querySelector('input[type=password]');
+      const button = document.createElement('button');
+
+      const id = passwordElem.id + 'Toggler';
+      button.classList.add('showPasswordToggler');
+      button.setAttribute('id', id);
+      button.textContent = 'Show';
+      button.ariaLabel = 'Show password';
+
+      function toggle() {
+        if (passwordElem.type === 'password') {
+          button.textContent = 'Hide';
+          button.ariaLabel = 'Hide Password';
+          passwordElem.type = 'text';
+        } else {
+          button.textContent = 'Show';
+          button.ariaLabel = 'Show Password';
+          passwordElem.type = 'password';
+        }
+      }
+
+      button.onclick = toggle;
+      passwordElem.insertAdjacentElement('afterend', button);
+    }
+
+    function prepareInvalidRequestError() {
+      const pageLevelError = document.querySelector('.pageLevel');
+      const observer = new MutationObserver((mutationRecord) => {
+        const pageLevelError = mutationRecord[0].target;
+
+        if (pageLevelError && pageLevelError.style.display === 'block') {
+          const errorSummaryElem = document.getElementById('errorSummary');
+          const globalFieldsElem = document.querySelector('.entry');
+          const invalidRequestErrorElems = document.getElementsByClassName('invalidRequestError');
+
+          setDisplay(pageLevelError, 'none');
+          setDisplay(errorSummaryElem, 'block');
+          bundleSetDisplay(invalidRequestErrorElems, 'block');
+          globalFieldsElem.classList.add('nhsuk-form-group--error');
+          hasErrors = true;
+        }
+      });
+      observer.observe(pageLevelError, { attributes: true, attributeFilter: ["style"] });
+    }
+
+    function handleSkipLinkClick(event) {
+      event.preventDefault();
+
+      const titleElem = document.getElementById('title');
+
+      if (titleElem) {
+        titleElem.setAttribute('tabIndex', '-1');
+        titleElem.focus();
+        titleElem.addEventListener('blur', (e) => {
+          e.preventDefault();
+          titleElem.removeAttribute('tabIndex');
+        });
+      }
+    }
+
+    function extraNextValidation() {
+      let hasErrors = false;
+      let hasEmailErrors = false;
+      const errorSummaryElem = document.getElementById('errorSummary');
+      const emailParentElem = document.getElementById('emailParent');
+      const passwordParentElem = document.getElementById('passwordParent');
+      const globalFieldsElem = document.querySelector('.entry');
+      const pageLevelError = document.querySelector('.pageLevel');
+      const itemLevelErrors = document.querySelectorAll('.itemLevel');
+      const emailMissingErrorElems = document.getElementsByClassName('emailMissingError');
+      const pwMissingErrorElems = document.getElementsByClassName('pwMissingError');
+      const invalidEmailErrorElems = document.getElementsByClassName('invalidEmailError');
+      const invalidRequestErrorElems = document.getElementsByClassName('invalidRequestError');
+
+      bundleSetDisplay([errorSummaryElem, ...emailMissingErrorElems, ...pwMissingErrorElems, ...invalidRequestErrorElems, ...invalidEmailErrorElems], 'none');
+      globalFieldsElem.classList.remove('nhsuk-form-group--error');
+
+      if (emailParentElem.querySelector('input').value === "") {
+        bundleSetDisplay(emailMissingErrorElems, 'block');
+        hasEmailErrors = true;
+        hasErrors = true;
+      } else if (emailParentElem.querySelector('.error').style.display === 'block') {
+        bundleSetDisplay(invalidEmailErrorElems, 'block');
+        hasEmailErrors = true;
+      }
+
+      if (passwordParentElem.querySelector('input').value === "") {
+        bundleSetDisplay(pwMissingErrorElems, 'block');
+        passwordParentElem.classList.add('nhsuk-form-group--error');
+        hasErrors = true;
+      } else {
+        passwordParentElem.classList.remove('nhsuk-form-group--error');
+      }
+
+      if (hasEmailErrors) {
+        emailParentElem.classList.add('nhsuk-form-group--error');
+      } else {
+        emailParentElem.classList.remove('nhsuk-form-group--error');
+      }
+
+      if (hasErrors) {
+        setDisplay(errorSummaryElem, 'block');
+      }
+
+      bundleSetDisplay(itemLevelErrors, 'none');
+    }
+
+    function runCustom() {
+      prepareFields();
+      prepareInvalidRequestError();
+      createPasswordToggler();
+    }
+
+    setTimeout(runCustom, 100);
+  </script>
+</head>
+
+<body>
+  <a class="nhsuk-skip-link" onclick="handleSkipLinkClick.call(this, event);" href="javascript:void(0);">Skip to main
+    content</a>
+  <header class="nhsuk-header" role="banner">
+    <div class="nhsuk-width-container nhsuk-header__container">
+      <div class="nhsuk-header__logo">
+        <a class="nhsuk-header__link nhsuk-header__link--service " href="${HOME_URL}" aria-label="NHS homepage">
+          <svg class="nhsuk-logo" xmlns="http://www.w3.org/2000/svg" role="presentation" focusable="false"
+            viewBox="0 0 40 16">
+            <path class="nhsuk-logo__background" d="M0 0h40v16H0z"></path>
+            <path class="nhsuk-logo__text"
+              d="M3.9 1.5h4.4l2.6 9h.1l1.8-9h3.3l-2.8 13H9l-2.7-9h-.1l-1.8 9H1.1M17.3 1.5h3.6l-1 4.9h4L25 1.5h3.5l-2.7 13h-3.5l1.1-5.6h-4.1l-1.2 5.6h-3.4M37.7 4.4c-.7-.3-1.6-.6-2.9-.6-1.4 0-2.5.2-2.5 1.3 0 1.8 5.1 1.2 5.1 5.1 0 3.6-3.3 4.5-6.4 4.5-1.3 0-2.9-.3-4-.7l.8-2.7c.7.4 2.1.7 3.2.7s2.8-.2 2.8-1.5c0-2.1-5.1-1.3-5.1-5 0-3.4 2.9-4.4 5.8-4.4 1.6 0 3.1.2 4 .6">
+            </path>
+            <image src="https://assets.nhs.uk/images/nhs-logo.png" xlink:href=""></image>
+          </svg>
+          <span class="nhsuk-header__service-name"> Innovation service </span>
+        </a>
+      </div>
+    </div>
+  </header>
+  <div class="nhsuk-width-container">
+    <div id="goBack" class="nhsuk-back-link nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0">
+      <a class="nhsuk-back-link__link" href="${HOME_URL}">
+        <svg class="nhsuk-icon nhsuk-icon__chevron-left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+          aria-hidden="true">
+          <path
+            d="M8.5 12c0-.3.1-.5.3-.7l5-5c.4-.4 1-.4 1.4 0s.4 1 0 1.4L10.9 12l4.3 4.3c.4.4.4 1 0 1.4s-1 .4-1.4 0l-5-5c-.2-.2-.3-.4-.3-.7z">
+          </path>
+        </svg>
+        Go back
+      </a>
+    </div>
+    <div class="nhsuk-grid-row">
+      <div class="nhsuk-grid-column-two-thirds">
+        <div id="errorSummary" role="alert" class="nhsuk-error-summary" style="display: none;">
+          <h2 id="error-summary-title" class="nhsuk-error-summary__title"> There is a problem </h2>
+          <div class="nhsuk-error-summary__body">
+            <ul class="nhsuk-list nhsuk-error-summary__list">
+              <li class="emailMissingError" style="display: none;">
+                <a href="#signInName">Enter your email address</a>
+              </li>
+              <li class="invalidEmailError" style="display: none;">
+                <a href="#signInName">Enter a valid email address</a>
+              </li>
+              <li class="pwMissingError" style="display: none;">
+                <a href="#password">Enter your password</a>
+              </li>
+              <li class="invalidRequestError" style="display: none;">
+                <a href=".entry">The email or password is incorrect</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h1 id="title">Sign in to the Innovation Service</h1>
+    <div class="nhsuk-grid-row">
+      <div class="nhsuk-grid-column-two-thirds">
+        <!-- AZURE -->
+        <div id="api"></div>
+        <!-- AZURE -->
+        <div id="createAccount" class="nhsuk-back-link nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0">
+          <p>Don't have an account yet?</p>
+          <a class="nhsuk-back-link__link" href="${HOME_URL}/transactional/triage-innovator-pack">
+            Create an account
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+<footer role="contentinfo">
+  <div class="nhsuk-footer" id="nhsuk-footer">
+    <div class="nhsuk-width-container">
+      <h2 class="nhsuk-u-visually-hidden">Support links</h2>
+      <ul class="nhsuk-footer__list">
+        <li class="nhsuk-footer__list-item"><a class="nhsuk-footer__list-item-link"
+            href="${HOME_URL}/accessibility-statement">Accessibility statement</a></li>
+        <li class="nhsuk-footer__list-item"><a class="nhsuk-footer__list-item-link"
+            href="${HOME_URL}/contact-us">Contact us</a></li>
+        <li class="nhsuk-footer__list-item"><a class="nhsuk-footer__list-item-link"
+            href="${HOME_URL}/transactional/policies/cookies-policy">Cookies</a></li>
+        <li class="nhsuk-footer__list-item"><a class="nhsuk-footer__list-item-link"
+            href="${HOME_URL}/privacy-policy">Privacy policy</a></li>
+        <li class="nhsuk-footer__list-item"><a class="nhsuk-footer__list-item-link"
+            href="${HOME_URL}/terms-of-use">Terms and conditions</a></li>
+      </ul>
+      <p class="nhsuk-footer__copyright">&copy; Crown copyright</p>
+    </div>
+  </div>
+</footer>
+
+</html>
