@@ -25,7 +25,7 @@ resource "azurerm_storage_blob" "b2c_files" {
   for_each               = fileset(path.module, "public/*")
   name                   = each.key
   storage_account_name   = var.storage_account_name
-  storage_container_name = azurerm_storage_container.example.name
+  storage_container_name = var.storage_container_name
   type                   = "Block"
   source                 = each.key
 }
