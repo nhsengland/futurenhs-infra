@@ -23,7 +23,7 @@
 
 resource "azurerm_storage_blob" "b2c_files" {
   for_each               = fileset(path.module, "public/*")
-  name                   = each.key
+  name                   = split("/", each.key)[1]
   storage_account_name   = var.storage_account_name
   storage_container_name = var.storage_container_name
   type                   = "Block"
