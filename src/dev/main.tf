@@ -1,11 +1,11 @@
 terraform {
   required_providers {
-      azurerm = {
+    azurerm = {
       source  = "hashicorp/azurerm"
       version = "3.21.1"
     }
 
-      azuread = {
+    azuread = {
       source  = "hashicorp/azuread"
       version = "2.28.1"
     }
@@ -21,7 +21,7 @@ resource "azurerm_resource_provider_registration" "AzureActiveDirectory" {
 provider "azurerm" {
   features {
     key_vault {
-      purge_soft_delete_on_destroy = false 
+      purge_soft_delete_on_destroy    = false
       recover_soft_deleted_key_vaults = true
     }
   }
@@ -37,354 +37,354 @@ provider "azuread" {
 #}
 
 locals {
-  sanitized_product_name                                     = lower(replace(var.product_name, "/[^A-Za-z0-9]/", ""))
-  sanitized_environment                                      = lower(replace(var.environment, "/[^A-Za-z0-9]/", ""))
-  sanitized_location                                         = lower(var.location)
+  sanitized_product_name = lower(replace(var.product_name, "/[^A-Za-z0-9]/", ""))
+  sanitized_environment  = lower(replace(var.environment, "/[^A-Za-z0-9]/", ""))
+  sanitized_location     = lower(var.location)
 
-  resource_group_name                                        = "rg-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-001"
+  resource_group_name = "rg-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-001"
 
-  forum_db_keyvault_readwrite_connection_string_reference    = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/sqldb-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-forum-connection-string)"  
-  forum_db_keyvault_readonly_connection_string_reference     = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/sqldb-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-forum-readonly-connection-string)"  
-  forum_blob_keyvault_connection_string_reference            = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/blobs-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-forum-connection-string)"
+  forum_db_keyvault_readwrite_connection_string_reference = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/sqldb-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-forum-connection-string)"
+  forum_db_keyvault_readonly_connection_string_reference  = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/sqldb-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-forum-readonly-connection-string)"
+  forum_blob_keyvault_connection_string_reference         = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/blobs-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-forum-connection-string)"
   #forum_redis_primary_keyvault_connection_string_reference   = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/redis-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-forum-primary-connection-string)"
   #forum_redis_secondary_keyvault_connection_string_reference = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/redis-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-forum-secondary-connection-string)"
 
-  files_db_keyvault_readwrite_connection_string_reference    = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/sqldb-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-files-readwrite-connection-string)"
-  files_db_keyvault_readonly_connection_string_reference     = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/sqldb-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-files-readonly-connection-string)"
-  files_blob_keyvault_connection_string_reference            = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/blobs-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-files-connection-string)"
-  files_table_keyvault_connection_string_reference           = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/table-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-files-connection-string)"
+  files_db_keyvault_readwrite_connection_string_reference = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/sqldb-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-files-readwrite-connection-string)"
+  files_db_keyvault_readonly_connection_string_reference  = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/sqldb-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-files-readonly-connection-string)"
+  files_blob_keyvault_connection_string_reference         = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/blobs-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-files-connection-string)"
+  files_table_keyvault_connection_string_reference        = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/table-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-files-connection-string)"
 
 
-  api_db_keyvault_readwrite_connection_string_reference      = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/sqldb-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-api-readwrite-connection-string)"
-  api_db_keyvault_readonly_connection_string_reference       = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/sqldb-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-api-readonly-connection-string)"
-  api_forum_keyvault_application_shared_secret_reference     = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-api-forum-app-shared-secret)"
-  api_blob_keyvault_connection_string_reference              = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/blobs-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-api-connection-string)"
-  api_govnotify_keyvault_api_key_reference                   = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-govnotify-api-key)"
+  api_db_keyvault_readwrite_connection_string_reference  = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/sqldb-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-api-readwrite-connection-string)"
+  api_db_keyvault_readonly_connection_string_reference   = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/sqldb-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-api-readonly-connection-string)"
+  api_forum_keyvault_application_shared_secret_reference = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-api-forum-app-shared-secret)"
+  api_blob_keyvault_connection_string_reference          = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/blobs-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-api-connection-string)"
+  api_govnotify_keyvault_api_key_reference               = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-govnotify-api-key)"
 
-  content_db_keyvault_readwrite_connection_string_reference  = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/sqldb-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-content-connection-string)"
-  content_blob_keyvault_connection_string_reference          = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/blobs-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-umbraco-connection-string)"
-  
-  
+  content_db_keyvault_readwrite_connection_string_reference = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/sqldb-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-content-connection-string)"
+  content_blob_keyvault_connection_string_reference         = "@Microsoft.KeyVault(SecretUri=https://kv-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}.vault.azure.net/secrets/blobs-${lower(local.sanitized_product_name)}-${lower(local.sanitized_environment)}-${lower(local.sanitized_location)}-umbraco-connection-string)"
+
+
 }
 
 
 module "resource-group" {
-  source                                                = "./resource-group"
+  source = "./resource-group"
 
-  resource_group_name                                   = local.resource_group_name
+  resource_group_name = local.resource_group_name
 
-  location                                              = var.location
+  location = var.location
 }
 
 module "storage" {
-  source                                                = "./storage"
+  source = "./storage"
 
-  resource_group_name                                   = module.resource-group.resource_group_name
+  resource_group_name = module.resource-group.resource_group_name
 
-  location                                              = var.location
-  environment                                           = var.environment
-  product_name                                          = var.product_name
+  location     = var.location
+  environment  = var.environment
+  product_name = var.product_name
 
-  key_vault_id                                          = module.key-vault.key_vault_id
+  key_vault_id = module.key-vault.key_vault_id
 
-  log_storage_account_id                                = module.logging.log_storage_account_id
+  log_storage_account_id = module.logging.log_storage_account_id
 
-  log_analytics_workspace_resource_id                   = module.logging.log_analytics_workspace_resource_id
+  log_analytics_workspace_resource_id = module.logging.log_analytics_workspace_resource_id
 }
 
 module "identities" {
-  source                                                = "./identities"
+  source = "./identities"
 
-  resource_group_name                                   = module.resource-group.resource_group_name
+  resource_group_name = module.resource-group.resource_group_name
 
-  location                                              = var.location
-  environment                                           = var.environment
-  product_name                                          = var.product_name
+  location     = var.location
+  environment  = var.environment
+  product_name = var.product_name
 }
 
 module "search" {
-  source                                                = "./search"
- 
-  resource_group_name                                   = module.resource-group.resource_group_name
+  source = "./search"
 
-  location                                              = var.location
-  environment                                           = var.environment
-  product_name                                          = var.product_name
+  resource_group_name = module.resource-group.resource_group_name
 
-  log_storage_account_id                                = module.logging.log_storage_account_id
+  location     = var.location
+  environment  = var.environment
+  product_name = var.product_name
 
-  log_analytics_workspace_resource_id                   = module.logging.log_analytics_workspace_resource_id
+  log_storage_account_id = module.logging.log_storage_account_id
 
-  forum_sql_database_name                               = module.databases.forum_database_name
-  forum_database_connection_string                      = module.databases.forum_connection_string
+  log_analytics_workspace_resource_id = module.logging.log_analytics_workspace_resource_id
+
+  forum_sql_database_name          = module.databases.forum_database_name
+  forum_database_connection_string = module.databases.forum_connection_string
 }
 
 module "key-vault" {
-  source                                                = "./key-vault"
+  source = "./key-vault"
 
   #host_agent_ip_address                                 = chomp(data.http.host_agent_ip.body)
- 
-  resource_group_name                                   = module.resource-group.resource_group_name
 
-  location                                              = var.location
-  environment                                           = var.environment
-  product_name                                          = var.product_name
+  resource_group_name = module.resource-group.resource_group_name
 
-  log_storage_account_id                                = module.logging.log_storage_account_id
+  location     = var.location
+  environment  = var.environment
+  product_name = var.product_name
 
-  log_analytics_workspace_resource_id                   = module.logging.log_analytics_workspace_resource_id
+  log_storage_account_id = module.logging.log_storage_account_id
 
-  appgw_tls_certificate_base64                          = var.appgw_tls_certificate_base64
-  appgw_tls_certificate_password                        = var.appgw_tls_certificate_password
-  appgw_tls_certificate_content_type                    = var.appgw_tls_certificate_content_type
+  log_analytics_workspace_resource_id = module.logging.log_analytics_workspace_resource_id
 
-  api_forum_application_shared_secret                   = var.api_forum_application_shared_secret
-  api_govnotify_api_key                                 = var.api_govnotify_api_key 
+  appgw_tls_certificate_base64       = var.appgw_tls_certificate_base64
+  appgw_tls_certificate_password     = var.appgw_tls_certificate_password
+  appgw_tls_certificate_content_type = var.appgw_tls_certificate_content_type
 
-  principal_id_forum_app_svc                            = module.app-services.principal_id_forum
-  principal_id_forum_staging_app_svc                    = module.app-services.principal_id_forum_staging
-  principal_id_files_app_svc                            = module.app-services.principal_id_files
-  principal_id_files_staging_app_svc                    = module.app-services.principal_id_files_staging
-  principal_id_api_app_svc                              = module.app-services.principal_id_api
-  principal_id_api_staging_app_svc                      = module.app-services.principal_id_api_staging
-  principal_id_web_app_svc                              = module.app-services.principal_id_web
-  principal_id_web_staging_app_svc                      = module.app-services.principal_id_web_staging
-  principal_id_content_app_svc                          = module.app-services.principal_id_content
-  principal_id_content_staging_app_svc                  = module.app-services.principal_id_content_staging
-  principal_id_app_configuration_svc                    = module.app-configuration.primary_principal_id
-  principal_id_app_gateway_svc                          = module.identities.principal_id_app_gateway_svc
+  api_forum_application_shared_secret = var.api_forum_application_shared_secret
+  api_govnotify_api_key               = var.api_govnotify_api_key
+
+  principal_id_forum_app_svc           = module.app-services.principal_id_forum
+  principal_id_forum_staging_app_svc   = module.app-services.principal_id_forum_staging
+  principal_id_files_app_svc           = module.app-services.principal_id_files
+  principal_id_files_staging_app_svc   = module.app-services.principal_id_files_staging
+  principal_id_api_app_svc             = module.app-services.principal_id_api
+  principal_id_api_staging_app_svc     = module.app-services.principal_id_api_staging
+  principal_id_web_app_svc             = module.app-services.principal_id_web
+  principal_id_web_staging_app_svc     = module.app-services.principal_id_web_staging
+  principal_id_content_app_svc         = module.app-services.principal_id_content
+  principal_id_content_staging_app_svc = module.app-services.principal_id_content_staging
+  principal_id_app_configuration_svc   = module.app-configuration.primary_principal_id
+  principal_id_app_gateway_svc         = module.identities.principal_id_app_gateway_svc
 
 }
 
 module "logging" {
-  source                                                = "./logging"
+  source = "./logging"
 
-  resource_group_name                                   = module.resource-group.resource_group_name
+  resource_group_name = module.resource-group.resource_group_name
 
-  location                                              = var.location
-  environment                                           = var.environment
-  product_name                                          = var.product_name
+  location     = var.location
+  environment  = var.environment
+  product_name = var.product_name
 }
 
 module "virtual-network" {
-  source                                                = "./virtual-network"
+  source = "./virtual-network"
 
-  resource_group_name                                   = module.resource-group.resource_group_name
+  resource_group_name = module.resource-group.resource_group_name
 
-  location                                              = var.location
-  environment                                           = var.environment
-  product_name                                          = var.product_name
+  location     = var.location
+  environment  = var.environment
+  product_name = var.product_name
 
-  log_storage_account_id                                = module.logging.log_storage_account_id
+  log_storage_account_id = module.logging.log_storage_account_id
 
-  log_analytics_workspace_resource_id                   = module.logging.log_analytics_workspace_resource_id
+  log_analytics_workspace_resource_id = module.logging.log_analytics_workspace_resource_id
 }
 
-module "app-insights" { 
-  source                                                = "./app-insights"
+module "app-insights" {
+  source = "./app-insights"
 
-  resource_group_name                                   = module.resource-group.resource_group_name
+  resource_group_name = module.resource-group.resource_group_name
 
-  application_fqdn                                      = var.application_fqdn
+  application_fqdn = var.application_fqdn
 
-  location                                              = var.location
-  environment                                           = var.environment
-  product_name                                          = var.product_name
-  
-  log_storage_account_id                                = module.logging.log_storage_account_id
+  location     = var.location
+  environment  = var.environment
+  product_name = var.product_name
 
-  log_analytics_workspace_resource_id                   = module.logging.log_analytics_workspace_resource_id
+  log_storage_account_id = module.logging.log_storage_account_id
+
+  log_analytics_workspace_resource_id = module.logging.log_analytics_workspace_resource_id
 }
 
-module "app-configuration" { 
-  source                                                = "./app-configuration"
+module "app-configuration" {
+  source = "./app-configuration"
 
-  resource_group_name                                   = module.resource-group.resource_group_name
+  resource_group_name = module.resource-group.resource_group_name
 
-  location                                              = var.location
-  environment                                           = var.environment
-  product_name                                          = var.product_name
+  location     = var.location
+  environment  = var.environment
+  product_name = var.product_name
 
-  key_vault_id                                          = module.key-vault.key_vault_id
+  key_vault_id = module.key-vault.key_vault_id
 
-  principal_id_forum_app_svc                            = module.app-services.principal_id_forum
-  
-  log_storage_account_id                                = module.logging.log_storage_account_id
+  principal_id_forum_app_svc = module.app-services.principal_id_forum
 
-  log_analytics_workspace_resource_id                   = module.logging.log_analytics_workspace_resource_id
-  self_register                                         = var.app_configuration_self_register           
+  log_storage_account_id = module.logging.log_storage_account_id
+
+  log_analytics_workspace_resource_id = module.logging.log_analytics_workspace_resource_id
+  self_register                       = var.app_configuration_self_register
 }
 
 module "app-gateway" {
-  source                                                = "./app-gateway"
+  source = "./app-gateway"
 
-  resource_group_name                                   = module.resource-group.resource_group_name
-  virtual_network_name                                  = module.virtual-network.virtual_network_name
-  network_watcher_name                                  = module.virtual-network.network_watcher_name
+  resource_group_name  = module.resource-group.resource_group_name
+  virtual_network_name = module.virtual-network.virtual_network_name
+  network_watcher_name = module.virtual-network.network_watcher_name
 
-  managed_identity_app_gateway                          = module.identities.managed_identity_app_gateway
+  managed_identity_app_gateway = module.identities.managed_identity_app_gateway
 
-  key_vault_certificate_https_versionless_secret_id     = module.key-vault.key_vault_certificate_https_versionless_secret_id
-  key_vault_certificate_https_name                      = module.key-vault.key_vault_certificate_https_name
+  key_vault_certificate_https_versionless_secret_id = module.key-vault.key_vault_certificate_https_versionless_secret_id
+  key_vault_certificate_https_name                  = module.key-vault.key_vault_certificate_https_name
 
-  log_storage_account_id                                = module.logging.log_storage_account_id
+  log_storage_account_id = module.logging.log_storage_account_id
 
-  log_analytics_workspace_id                            = module.logging.log_analytics_workspace_id
-  log_analytics_workspace_resource_id                   = module.logging.log_analytics_workspace_resource_id
+  log_analytics_workspace_id          = module.logging.log_analytics_workspace_id
+  log_analytics_workspace_resource_id = module.logging.log_analytics_workspace_resource_id
 
-  forum_primary_blob_fqdn                               = module.storage.forum_primary_blob_fqdn
-  forum_primary_blob_container_name                     = module.storage.forum_primary_blob_container_name
+  forum_primary_blob_fqdn           = module.storage.forum_primary_blob_fqdn
+  forum_primary_blob_container_name = module.storage.forum_primary_blob_container_name
 
-  location                                              = var.location
-  environment                                           = var.environment
-  product_name                                          = var.product_name
+  location     = var.location
+  environment  = var.environment
+  product_name = var.product_name
 }
 
 module "caching" {
-  source                                                = "./caching"
+  source = "./caching"
 
-  resource_group_name                                   = module.resource-group.resource_group_name
+  resource_group_name = module.resource-group.resource_group_name
 
-  location                                              = var.location
-  environment                                           = var.environment
-  product_name                                          = var.product_name
+  location     = var.location
+  environment  = var.environment
+  product_name = var.product_name
 
-  key_vault_id                                          = module.key-vault.key_vault_id
+  key_vault_id = module.key-vault.key_vault_id
 
-  log_storage_account_id                                = module.logging.log_storage_account_id
+  log_storage_account_id = module.logging.log_storage_account_id
 
-  log_analytics_workspace_resource_id                   = module.logging.log_analytics_workspace_resource_id
+  log_analytics_workspace_resource_id = module.logging.log_analytics_workspace_resource_id
 }
 
 module "container-registry" {
-  source                                                = "./container-registry"
-    
-  resource_group_name                                   = module.resource-group.resource_group_name
+  source = "./container-registry"
 
-  location                                              = var.location
-  environment                                           = var.environment
-  product_name                                          = var.product_name
+  resource_group_name = module.resource-group.resource_group_name
+
+  location     = var.location
+  environment  = var.environment
+  product_name = var.product_name
 }
 
 module "app-services" {
-  source                                                = "./app-services"
-  
-  application_fqdn                                      = var.application_fqdn
-  
-  resource_group_name                                   = module.resource-group.resource_group_name
+  source = "./app-services"
 
-  location                                              = var.location
-  environment                                           = var.environment
-  product_name                                          = var.product_name
+  application_fqdn = var.application_fqdn
 
-  virtual_network_name                                  = module.virtual-network.virtual_network_name
-  virtual_network_application_gateway_subnet_id         = module.app-gateway.virtual_network_application_gateway_subnet_id
-  virtual_network_security_group_id                     = module.app-gateway.virtual_network_security_group_id
+  resource_group_name = module.resource-group.resource_group_name
 
-  log_storage_account_blob_endpoint                     = module.logging.log_storage_account_blob_endpoint
-  log_storage_account_connection_string                 = module.logging.log_storage_account_connection_string
-  log_storage_account_container_name                    = module.logging.log_storage_account_appsvclogs_container_name
-  log_storage_account_id                                = module.logging.log_storage_account_id
+  location     = var.location
+  environment  = var.environment
+  product_name = var.product_name
 
-  log_analytics_workspace_resource_id                   = module.logging.log_analytics_workspace_resource_id
+  virtual_network_name                          = module.virtual-network.virtual_network_name
+  virtual_network_application_gateway_subnet_id = module.app-gateway.virtual_network_application_gateway_subnet_id
+  virtual_network_security_group_id             = module.app-gateway.virtual_network_security_group_id
 
-  forum_primary_blob_container_endpoint                 = module.storage.forum_primary_blob_container_endpoint
-  forum_primary_blob_container_resource_manager_id      = module.storage.forum_primary_blob_container_resource_manager_id
-  forum_primary_blob_container_name                     = module.storage.forum_primary_blob_container_name
+  log_storage_account_blob_endpoint     = module.logging.log_storage_account_blob_endpoint
+  log_storage_account_connection_string = module.logging.log_storage_account_connection_string
+  log_storage_account_container_name    = module.logging.log_storage_account_appsvclogs_container_name
+  log_storage_account_id                = module.logging.log_storage_account_id
 
-  forum_email_sendgrid_apikey                           = var.forum_email_sendgrid_apikey
-  forum_email_smtp_from                                 = var.forum_email_smtp_from
-  forum_email_smpt_username                             = var.forum_email_smpt_username
+  log_analytics_workspace_resource_id = module.logging.log_analytics_workspace_resource_id
 
-  forum_app_config_primary_endpoint                     = module.app-configuration.primary_endpoint
-  forum_app_config_secondary_endpoint                   = module.app-configuration.secondary_endpoint
-  forum_primary_app_configuration_id                    = module.app-configuration.primary_app_configuration_id
+  forum_primary_blob_container_endpoint            = module.storage.forum_primary_blob_container_endpoint
+  forum_primary_blob_container_resource_manager_id = module.storage.forum_primary_blob_container_resource_manager_id
+  forum_primary_blob_container_name                = module.storage.forum_primary_blob_container_name
 
-  forum_app_insights_instrumentation_key                = module.app-insights.forum_instrumentation_key
-  forum_app_insights_connection_string                  = module.app-insights.forum_connection_string
-  forum_staging_app_insights_instrumentation_key        = module.app-insights.forum_staging_instrumentation_key
-  forum_staging_app_insights_connection_string          = module.app-insights.forum_staging_connection_string
+  forum_email_sendgrid_apikey = var.forum_email_sendgrid_apikey
+  forum_email_smtp_from       = var.forum_email_smtp_from
+  forum_email_smpt_username   = var.forum_email_smpt_username
 
-  files_primary_blob_container_endpoint                 = module.storage.files_primary_blob_container_endpoint # TODO - retire once files taken out of mvcforum
-  files_primary_blob_container_name                     = module.storage.files_primary_blob_container_name     # TODO - retire once files taken out of mvcforum
+  forum_app_config_primary_endpoint   = module.app-configuration.primary_endpoint
+  forum_app_config_secondary_endpoint = module.app-configuration.secondary_endpoint
+  forum_primary_app_configuration_id  = module.app-configuration.primary_app_configuration_id
 
-  files_primary_blob_resource_manager_id                = module.storage.files_primary_blob_resource_manager_id
-  files_primary_blob_container_resource_manager_id      = module.storage.files_primary_blob_container_resource_manager_id
-  files_blob_primary_endpoint                           = module.storage.files_blob_primary_endpoint
-  files_blob_secondary_endpoint                         = module.storage.files_blob_secondary_endpoint
-  files_blob_container_name                             = module.storage.files_primary_blob_container_name
+  forum_app_insights_instrumentation_key         = module.app-insights.forum_instrumentation_key
+  forum_app_insights_connection_string           = module.app-insights.forum_connection_string
+  forum_staging_app_insights_instrumentation_key = module.app-insights.forum_staging_instrumentation_key
+  forum_staging_app_insights_connection_string   = module.app-insights.forum_staging_connection_string
 
-  files_primary_table_resource_manager_id               = module.storage.files_primary_table_resource_manager_id
-  files_table_primary_endpoint                          = module.storage.files_table_primary_endpoint
-  files_table_secondary_endpoint                        = module.storage.files_table_secondary_endpoint
+  files_primary_blob_container_endpoint = module.storage.files_primary_blob_container_endpoint # TODO - retire once files taken out of mvcforum
+  files_primary_blob_container_name     = module.storage.files_primary_blob_container_name     # TODO - retire once files taken out of mvcforum
 
-  files_app_config_primary_endpoint                     = module.app-configuration.primary_endpoint
-  files_app_config_secondary_endpoint                   = module.app-configuration.secondary_endpoint
-  files_primary_app_configuration_id                    = module.app-configuration.primary_app_configuration_id
+  files_primary_blob_resource_manager_id           = module.storage.files_primary_blob_resource_manager_id
+  files_primary_blob_container_resource_manager_id = module.storage.files_primary_blob_container_resource_manager_id
+  files_blob_primary_endpoint                      = module.storage.files_blob_primary_endpoint
+  files_blob_secondary_endpoint                    = module.storage.files_blob_secondary_endpoint
+  files_blob_container_name                        = module.storage.files_primary_blob_container_name
 
-  files_app_insights_instrumentation_key                = module.app-insights.files_instrumentation_key
-  files_app_insights_connection_string                  = module.app-insights.files_connection_string
-  files_staging_app_insights_instrumentation_key        = module.app-insights.files_staging_instrumentation_key
-  files_staging_app_insights_connection_string          = module.app-insights.files_staging_connection_string
+  files_primary_table_resource_manager_id = module.storage.files_primary_table_resource_manager_id
+  files_table_primary_endpoint            = module.storage.files_table_primary_endpoint
+  files_table_secondary_endpoint          = module.storage.files_table_secondary_endpoint
 
-  collabora_app_insights_instrumentation_key            = module.app-insights.collabora_instrumentation_key
-  collabora_app_insights_connection_string              = module.app-insights.collabora_connection_string
-  collabora_staging_app_insights_instrumentation_key    = module.app-insights.collabora_staging_instrumentation_key
-  collabora_staging_app_insights_connection_string      = module.app-insights.collabora_staging_connection_string
-  collabora_container_registry_url                      = module.container-registry.container_registry_url
-  collabora_container_registry_username                 = module.container-registry.container_registry_username
-  collabora_container_registry_password                 = module.container-registry.container_registry_password
+  files_app_config_primary_endpoint   = module.app-configuration.primary_endpoint
+  files_app_config_secondary_endpoint = module.app-configuration.secondary_endpoint
+  files_primary_app_configuration_id  = module.app-configuration.primary_app_configuration_id
 
-  api_app_config_primary_endpoint                       = module.app-configuration.primary_endpoint
-  api_app_config_secondary_endpoint                     = module.app-configuration.secondary_endpoint
-  api_primary_app_configuration_id                      = module.app-configuration.primary_app_configuration_id
+  files_app_insights_instrumentation_key         = module.app-insights.files_instrumentation_key
+  files_app_insights_connection_string           = module.app-insights.files_connection_string
+  files_staging_app_insights_instrumentation_key = module.app-insights.files_staging_instrumentation_key
+  files_staging_app_insights_connection_string   = module.app-insights.files_staging_connection_string
 
-  api_app_insights_instrumentation_key                  = module.app-insights.api_instrumentation_key
-  api_app_insights_connection_string                    = module.app-insights.api_connection_string
-  api_staging_app_insights_instrumentation_key          = module.app-insights.api_staging_instrumentation_key
-  api_staging_app_insights_connection_string            = module.app-insights.api_staging_connection_string
-  api_primary_file_blob_container_endpoint              = module.storage.api_primary_file_blob_container_endpoint
-  api_primary_image_blob_container_endpoint             = module.storage.api_primary_image_blob_container_endpoint
-  api_govnotify_registration_template_id                = var.api_govnotify_registration_template_id 
-  api_govnotify_group_registration_template_id          = var.api_govnotify_group_registration_template_id 
-  api_govnotify_group_invite_template_id                = var.api_govnotify_group_invite_template_id 
-  api_govnotify_group_member_comment_on_discussion              = var.api_govnotify_group_member_comment_on_discussion
-  api_govnotify_member_response_to_comment                      = var.api_govnotify_member_response_to_comment
-  api_govnotify_group_member_request_rejected                   = var.api_govnotify_group_member_request_rejected
-  api_govnotify_group_member_request_accepted__platform_user    = var.api_govnotify_group_member_request_accepted__platform_user
-  api_govnotify_group_member_request_rejected_platform_user     = var.api_govnotify_group_member_request_rejected_platform_user
-  api_govnotify_group_membership_request                        = var.api_govnotify_group_membership_request
-  api_azure_b2c_tenant                                          = var.web_azure_ad_b2c_tenant_name
-  api_azure_b2c_client_id                                       = var.web_azure_ad_b2c_client_id
-  api_azure_b2c_client_secret                                   = var.web_azure_ad_b2c_client_secret
-  api_azure_b2c_client_sign_in_policy                           = var.web_azure_ad_b2c_primary_user_flow
+  collabora_app_insights_instrumentation_key         = module.app-insights.collabora_instrumentation_key
+  collabora_app_insights_connection_string           = module.app-insights.collabora_connection_string
+  collabora_staging_app_insights_instrumentation_key = module.app-insights.collabora_staging_instrumentation_key
+  collabora_staging_app_insights_connection_string   = module.app-insights.collabora_staging_connection_string
+  collabora_container_registry_url                   = module.container-registry.container_registry_url
+  collabora_container_registry_username              = module.container-registry.container_registry_username
+  collabora_container_registry_password              = module.container-registry.container_registry_password
 
-  web_app_config_primary_endpoint                       = module.app-configuration.primary_endpoint
-  web_app_config_secondary_endpoint                     = module.app-configuration.secondary_endpoint
-  web_primary_app_configuration_id                      = module.app-configuration.primary_app_configuration_id
+  api_app_config_primary_endpoint   = module.app-configuration.primary_endpoint
+  api_app_config_secondary_endpoint = module.app-configuration.secondary_endpoint
+  api_primary_app_configuration_id  = module.app-configuration.primary_app_configuration_id
 
-  web_app_insights_instrumentation_key                  = module.app-insights.web_instrumentation_key
-  web_app_insights_connection_string                    = module.app-insights.web_connection_string
-  web_staging_app_insights_instrumentation_key          = module.app-insights.web_staging_instrumentation_key
-  web_staging_app_insights_connection_string            = module.app-insights.web_staging_connection_string
-  web_cookie_parser_secret                              = var.web_cookie_parser_secret
-  web_next_public_gtm_key                               = var.web_next_public_gtm_key
+  api_app_insights_instrumentation_key                       = module.app-insights.api_instrumentation_key
+  api_app_insights_connection_string                         = module.app-insights.api_connection_string
+  api_staging_app_insights_instrumentation_key               = module.app-insights.api_staging_instrumentation_key
+  api_staging_app_insights_connection_string                 = module.app-insights.api_staging_connection_string
+  api_primary_file_blob_container_endpoint                   = module.storage.api_primary_file_blob_container_endpoint
+  api_primary_image_blob_container_endpoint                  = module.storage.api_primary_image_blob_container_endpoint
+  api_govnotify_registration_template_id                     = var.api_govnotify_registration_template_id
+  api_govnotify_group_registration_template_id               = var.api_govnotify_group_registration_template_id
+  api_govnotify_group_invite_template_id                     = var.api_govnotify_group_invite_template_id
+  api_govnotify_group_member_comment_on_discussion           = var.api_govnotify_group_member_comment_on_discussion
+  api_govnotify_member_response_to_comment                   = var.api_govnotify_member_response_to_comment
+  api_govnotify_group_member_request_rejected                = var.api_govnotify_group_member_request_rejected
+  api_govnotify_group_member_request_accepted__platform_user = var.api_govnotify_group_member_request_accepted__platform_user
+  api_govnotify_group_member_request_rejected_platform_user  = var.api_govnotify_group_member_request_rejected_platform_user
+  api_govnotify_group_membership_request                     = var.api_govnotify_group_membership_request
+  api_azure_b2c_tenant                                       = var.web_azure_ad_b2c_tenant_name
+  api_azure_b2c_client_id                                    = var.web_azure_ad_b2c_client_id
+  api_azure_b2c_client_secret                                = var.web_azure_ad_b2c_client_secret
+  api_azure_b2c_client_sign_in_policy                        = var.web_azure_ad_b2c_primary_user_flow
 
-  web_nextauth_secret                                   = var.web_nextauth_secret
-  web_azure_ad_b2c_tenant_name                          = var.web_azure_ad_b2c_tenant_name
-  web_azure_ad_b2c_client_id                            = var.web_azure_ad_b2c_client_id
-  web_azure_ad_b2c_client_secret                        = var.web_azure_ad_b2c_client_secret
-  web_azure_ad_b2c_primary_user_flow                    = var.web_azure_ad_b2c_primary_user_flow
-  web_azure_ad_b2c_signup_user_flow                     = var.web_azure_ad_b2c_signup_user_flow
-  web_azure_ad_b2c_password_reset_user_flow             = var.web_azure_ad_b2c_password_reset_user_flow
-  content_app_config_primary_endpoint                   = module.app-configuration.primary_endpoint
-  content_app_config_secondary_endpoint                 = module.app-configuration.secondary_endpoint
-  content_primary_app_configuration_id                  = module.app-configuration.primary_app_configuration_id
-  
-  content_app_insights_instrumentation_key              = module.app-insights.content_instrumentation_key
-  content_app_insights_connection_string                = module.app-insights.content_connection_string
-  content_staging_app_insights_instrumentation_key      = module.app-insights.content_staging_instrumentation_key
-  content_staging_app_insights_connection_string        = module.app-insights.content_staging_connection_string
+  web_app_config_primary_endpoint   = module.app-configuration.primary_endpoint
+  web_app_config_secondary_endpoint = module.app-configuration.secondary_endpoint
+  web_primary_app_configuration_id  = module.app-configuration.primary_app_configuration_id
+
+  web_app_insights_instrumentation_key         = module.app-insights.web_instrumentation_key
+  web_app_insights_connection_string           = module.app-insights.web_connection_string
+  web_staging_app_insights_instrumentation_key = module.app-insights.web_staging_instrumentation_key
+  web_staging_app_insights_connection_string   = module.app-insights.web_staging_connection_string
+  web_cookie_parser_secret                     = var.web_cookie_parser_secret
+  web_next_public_gtm_key                      = var.web_next_public_gtm_key
+
+  web_nextauth_secret                       = var.web_nextauth_secret
+  web_azure_ad_b2c_tenant_name              = var.web_azure_ad_b2c_tenant_name
+  web_azure_ad_b2c_client_id                = var.web_azure_ad_b2c_client_id
+  web_azure_ad_b2c_client_secret            = var.web_azure_ad_b2c_client_secret
+  web_azure_ad_b2c_primary_user_flow        = var.web_azure_ad_b2c_primary_user_flow
+  web_azure_ad_b2c_signup_user_flow         = var.web_azure_ad_b2c_signup_user_flow
+  web_azure_ad_b2c_password_reset_user_flow = var.web_azure_ad_b2c_password_reset_user_flow
+  content_app_config_primary_endpoint       = module.app-configuration.primary_endpoint
+  content_app_config_secondary_endpoint     = module.app-configuration.secondary_endpoint
+  content_primary_app_configuration_id      = module.app-configuration.primary_app_configuration_id
+
+  content_app_insights_instrumentation_key         = module.app-insights.content_instrumentation_key
+  content_app_insights_connection_string           = module.app-insights.content_connection_string
+  content_staging_app_insights_instrumentation_key = module.app-insights.content_staging_instrumentation_key
+  content_staging_app_insights_connection_string   = module.app-insights.content_staging_connection_string
 
   # There is a dependency between the key vault access policies and the app services that use it to host their secrets.  Unfortunately, we have to create access policies when the vault is 
   # created (which means we need the identities of the consuming services) otherwise we run into problems where the deployment pipeline cannot manage the secrets using these terraform scripts.  
@@ -392,91 +392,93 @@ module "app-services" {
   # we have to hard code key vault references here (the app-service config must be defined with the app-service resource as azurerm does not support a separate resource for doing so)
   # rather than feeding it in from the key-vault module.  
 
-  forum_db_keyvault_readwrite_connection_string_reference                 = local.forum_db_keyvault_readwrite_connection_string_reference
-  forum_db_keyvault_readonly_connection_string_reference                  = local.forum_db_keyvault_readonly_connection_string_reference
-  forum_primary_blob_keyvault_connection_string_reference                 = local.forum_blob_keyvault_connection_string_reference
+  forum_db_keyvault_readwrite_connection_string_reference = local.forum_db_keyvault_readwrite_connection_string_reference
+  forum_db_keyvault_readonly_connection_string_reference  = local.forum_db_keyvault_readonly_connection_string_reference
+  forum_primary_blob_keyvault_connection_string_reference = local.forum_blob_keyvault_connection_string_reference
   #forum_redis_primary_keyvault_connection_string_reference               = local.forum_redis_primary_keyvault_connection_string_reference
   #forum_redis_secondary_keyvault_connection_string_reference             = local.forum_redis_secondary_keyvault_connection_string_reference
 
-  files_primary_blob_keyvault_connection_string_reference                 = local.files_blob_keyvault_connection_string_reference
-  files_db_keyvault_readwrite_connection_string_reference                 = local.files_db_keyvault_readwrite_connection_string_reference
-  files_db_keyvault_readonly_connection_string_reference                  = local.files_db_keyvault_readonly_connection_string_reference
-  files_primary_table_keyvault_connection_string_reference                = local.files_table_keyvault_connection_string_reference
-  
-  api_db_keyvault_readwrite_connection_string_reference                   = local.api_db_keyvault_readwrite_connection_string_reference
-  api_db_keyvault_readonly_connection_string_reference                    = local.api_db_keyvault_readonly_connection_string_reference
-  api_primary_blob_keyvault_connection_string_reference                   = local.api_blob_keyvault_connection_string_reference
+  files_primary_blob_keyvault_connection_string_reference  = local.files_blob_keyvault_connection_string_reference
+  files_db_keyvault_readwrite_connection_string_reference  = local.files_db_keyvault_readwrite_connection_string_reference
+  files_db_keyvault_readonly_connection_string_reference   = local.files_db_keyvault_readonly_connection_string_reference
+  files_primary_table_keyvault_connection_string_reference = local.files_table_keyvault_connection_string_reference
 
-  api_forum_keyvault_application_shared_secret_reference                  = local.api_forum_keyvault_application_shared_secret_reference
-  api_govnotify_keyvault_api_key_reference                                = local.api_govnotify_keyvault_api_key_reference
+  api_db_keyvault_readwrite_connection_string_reference = local.api_db_keyvault_readwrite_connection_string_reference
+  api_db_keyvault_readonly_connection_string_reference  = local.api_db_keyvault_readonly_connection_string_reference
+  api_primary_blob_keyvault_connection_string_reference = local.api_blob_keyvault_connection_string_reference
 
-  content_db_keyvault_readwrite_connection_string_reference               = local.content_db_keyvault_readwrite_connection_string_reference
-  content_primary_blob_keyvault_connection_string_reference               = local.content_blob_keyvault_connection_string_reference
+  api_forum_keyvault_application_shared_secret_reference = local.api_forum_keyvault_application_shared_secret_reference
+  api_govnotify_keyvault_api_key_reference               = local.api_govnotify_keyvault_api_key_reference
+
+  content_db_keyvault_readwrite_connection_string_reference = local.content_db_keyvault_readwrite_connection_string_reference
+  content_primary_blob_keyvault_connection_string_reference = local.content_blob_keyvault_connection_string_reference
 }
 
 module "databases" {
-  source                                                                  = "./databases"
+  source = "./databases"
 
-  resource_group_name                                                     = module.resource-group.resource_group_name
+  resource_group_name = module.resource-group.resource_group_name
 
-  location                                                                = var.location
-  environment                                                             = var.environment
-  product_name                                                            = var.product_name
+  location     = var.location
+  environment  = var.environment
+  product_name = var.product_name
 
-  key_vault_id                                                            = module.key-vault.key_vault_id
+  key_vault_id = module.key-vault.key_vault_id
 
-  sqlserver_admin_email                                                   = var.sqlserver_admin_email
-  sqlserver_admin_user_id                                                 = var.sqlserver_admin_user_id
-  sqlserver_admin_password                                                = var.sqlserver_admin_password
+  sqlserver_admin_email    = var.sqlserver_admin_email
+  sqlserver_admin_user_id  = var.sqlserver_admin_user_id
+  sqlserver_admin_password = var.sqlserver_admin_password
 
-  sqlserver_active_directory_administrator_login_name                     = var.sqlserver_active_directory_administrator_login_name
-  sqlserver_active_directory_administrator_objectid                       = var.sqlserver_active_directory_administrator_objectid
+  sqlserver_active_directory_administrator_login_name = var.sqlserver_active_directory_administrator_login_name
+  sqlserver_active_directory_administrator_objectid   = var.sqlserver_active_directory_administrator_objectid
 
   log_storage_account_blob_endpoint                                       = module.logging.log_storage_account_blob_endpoint
   log_storage_account_access_key                                          = module.logging.log_storage_account_access_key
   log_storage_account_id                                                  = module.logging.log_storage_account_id
   log_storage_account_sql_server_vulnerability_assessments_container_name = module.logging.log_storage_account_sql_server_vulnerability_assessments_container_name
 
-  log_analytics_workspace_resource_id                                     = module.logging.log_analytics_workspace_resource_id
+  log_analytics_workspace_resource_id = module.logging.log_analytics_workspace_resource_id
 }
 
 module "b2c" {
-  source                                                = "./b2c"
+  source = "./b2c"
 
-  resource_group_name                                   = module.resource-group.resource_group_name
-  domain_name                                           = var.b2c_domain_name
-  location                                              = var.location
-  environment                                           = var.environment
-  product_name                                          = var.product_name
-  application_fqdn                                      = var.application_fqdn
-  application_name                                      = var.b2c_application_name
-  }
-    
+  resource_group_name    = module.resource-group.resource_group_name
+  domain_name            = var.b2c_domain_name
+  location               = var.location
+  environment            = var.environment
+  product_name           = var.product_name
+  application_fqdn       = var.application_fqdn
+  application_name       = var.b2c_application_name
+  storage_account_name   = module.storage.b2c_storage_account_name
+  storage_container_name = module.storage.b2c_storage_container_name
+}
+
 #resource "azurerm_mssql_database" "forum" {
- # resourceId                                                              ="/subscriptions/d9c0a8f2-3fae-48e7-a2dd-6ffcc5c1c994/resourceGroups/rg-fnhso-dev-uksouth-001/providers/Microsoft.Sql/servers/sql-fnhso-dev-uksouth-primary/databases/sqldb-fnhso-dev-uksouth-forum"                                                               
-  #api_forum_application_shared_secret                                     = var.api_forum_application_shared_secret
- #application_fqdn                                                         = var.application_fqdn
- #location                                                                = var.location
-  #environment                                                             = var.environment
-  #product_name                                                            = var.product_name
-  #sqlserver_admin_email                                                   = var.sqlserver_admin_email
-  #sqlserver_admin_user_id                                                 = var.sqlserver_admin_user_id
-  #sqlserver_admin_password                                                = var.sqlserver_admin_password
-  #sqlserver_active_directory_administrator_login_name                     = var.sqlserver_active_directory_administrator_login_name
-  #sqlserver_active_directory_administrator_objectid                       = var.sqlserver_active_directory_administrator_objectid
-  #security_center_contact_email                                           = var.security_center_contact_email
-  #security_center_contact_phone                                           = var.security_center_contact_phone
-  #appgw_tls_certificate_base64                                            = var.appgw_tls_certificate_base64
-  #appgw_tls_certificate_password                                          = var.appgw_tls_certificate_password
-  #appgw_tls_certificate_content_type                                      = var.appgw_tls_certificate_content_type
-  #forum_email_sendgrid_apikey                                             = var.forum_email_sendgrid_apikey
-  #forum_email_smtp_from                                                   = var.forum_email_smtp_from
-  #forum_email_smpt_username                                               = var.forum_email_smpt_username
+# resourceId                                                              ="/subscriptions/d9c0a8f2-3fae-48e7-a2dd-6ffcc5c1c994/resourceGroups/rg-fnhso-dev-uksouth-001/providers/Microsoft.Sql/servers/sql-fnhso-dev-uksouth-primary/databases/sqldb-fnhso-dev-uksouth-forum"                                                               
+#api_forum_application_shared_secret                                     = var.api_forum_application_shared_secret
+#application_fqdn                                                         = var.application_fqdn
+#location                                                                = var.location
+#environment                                                             = var.environment
+#product_name                                                            = var.product_name
+#sqlserver_admin_email                                                   = var.sqlserver_admin_email
+#sqlserver_admin_user_id                                                 = var.sqlserver_admin_user_id
+#sqlserver_admin_password                                                = var.sqlserver_admin_password
+#sqlserver_active_directory_administrator_login_name                     = var.sqlserver_active_directory_administrator_login_name
+#sqlserver_active_directory_administrator_objectid                       = var.sqlserver_active_directory_administrator_objectid
+#security_center_contact_email                                           = var.security_center_contact_email
+#security_center_contact_phone                                           = var.security_center_contact_phone
+#appgw_tls_certificate_base64                                            = var.appgw_tls_certificate_base64
+#appgw_tls_certificate_password                                          = var.appgw_tls_certificate_password
+#appgw_tls_certificate_content_type                                      = var.appgw_tls_certificate_content_type
+#forum_email_sendgrid_apikey                                             = var.forum_email_sendgrid_apikey
+#forum_email_smtp_from                                                   = var.forum_email_smtp_from
+#forum_email_smpt_username                                               = var.forum_email_smpt_username
 #}
 
 #module "security_centre" {
 #  source                                                                  = "./security-centre"
-                  
+
 #  security_center_contact_email                                           = var.security_center_contact_email
 #  security_center_contact_phone                                           = var.security_center_contact_phone
 
