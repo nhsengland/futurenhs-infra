@@ -67,6 +67,14 @@ resource "azurerm_storage_account" "b2c_content" {
     versioning_enabled       = true
     change_feed_enabled      = false
     last_access_time_enabled = false
+    cors_rule {
+      allowed_headers    = ["*"]
+      allowed_methods    = ["GET", "OPTIONS"]
+      allowed_origins    = ["*"]
+      exposed_headers    = ["*"]
+      max_age_in_seconds = 3600
+    }
+
 
     # add the soft-delete policies to the storage account
 
