@@ -27,5 +27,5 @@ resource "azurerm_storage_blob" "b2c_files" {
   storage_account_name   = var.storage_account_name
   storage_container_name = var.storage_container_name
   type                   = "Block"
-  source                 = "${path.module}/${each.key}"
+  source_content         = templatefile("${path.module}/${each.key}", { ENV = var.environment })
 }
