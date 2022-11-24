@@ -80,7 +80,6 @@ resource "azurerm_app_configuration_feature" "SelfRegister" {
   configuration_store_id = azurerm_app_configuration.main.id
   description            = "Controls if users can self register on the platform"
   name                   = "SelfRegistration"
-  label                  = "SelfRegistration"
   enabled                = var.self_register
 
    depends_on = [
