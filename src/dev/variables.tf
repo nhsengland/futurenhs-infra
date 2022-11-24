@@ -185,4 +185,3 @@ variable "app_configuration_self_register" {
 variable "app_configuration_group_invite" {
   type = bool
 }
-
