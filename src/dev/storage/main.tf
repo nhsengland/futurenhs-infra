@@ -63,25 +63,25 @@ resource "azurerm_storage_account" "b2c_content" {
     type = "SystemAssigned"
   }
 
-    static_website {}
+  static_website {}
 
-  # blob_properties {
-  #   versioning_enabled       = true
-  #   change_feed_enabled      = false
-  #   last_access_time_enabled = false
-  #   cors_rule {
-  #     allowed_headers    = ["*"]
-  #     allowed_methods    = ["GET", "OPTIONS"]
-  #     allowed_origins    = ["*"]
-  #     exposed_headers    = ["*"]
-  #     max_age_in_seconds = 3600
-  #   }
+  blob_properties {
+    versioning_enabled       = true
+    change_feed_enabled      = false
+    last_access_time_enabled = false
+    cors_rule {
+      allowed_headers    = ["*"]
+      allowed_methods    = ["GET", "OPTIONS"]
+      allowed_origins    = ["*"]
+      exposed_headers    = ["*"]
+      max_age_in_seconds = 3600
+    }
 
     # add the soft-delete policies to the storage account
 
-    # delete_retention_policy {
-    #   days = 90 # 1 through 365      
-    # }
+    delete_retention_policy {
+      days = 90 # 1 through 365      
+    }
 
     # TODO - put this back in once the container soft delete is out of preview (https://docs.microsoft.com/en-us/azure/storage/blobs/soft-delete-container-overview?tabs=powershell#register-for-the-preview)
     #container_delete_retention_policy {
