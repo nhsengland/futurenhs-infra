@@ -87,6 +87,17 @@ resource "azurerm_app_configuration_feature" "SelfRegister" {
   ]
 }
 
+resource "azurerm_app_configuration_feature" "GroupInvite" {
+  configuration_store_id = azurerm_app_configuration.main.id
+  description            = "Controls if group admins can invite users to the platform"
+  name                   = "GroupInvite"
+  enabled                = var.group_invite
+
+   depends_on = [
+    azurerm_role_assignment.data-owner
+  ]
+}
+
 
 # TODO - Comment back in once the terraform state file has been fixed by importing these resources
 

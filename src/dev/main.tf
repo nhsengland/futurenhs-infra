@@ -213,6 +213,8 @@ module "app-configuration" {
 
   log_analytics_workspace_resource_id = module.logging.log_analytics_workspace_resource_id
   self_register                       = var.app_configuration_self_register
+  group_invite                       = var.app_configuration_group_invite
+
 }
 
 module "app-gateway" {

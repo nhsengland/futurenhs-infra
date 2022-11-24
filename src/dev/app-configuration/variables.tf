@@ -15,3 +15,5 @@ variable log_analytics_workspace_resource_id { type = string }
 variable key_vault_id { type = string }
 
 variable self_register { type = bool }
+
+variable group_invite { type = bool }

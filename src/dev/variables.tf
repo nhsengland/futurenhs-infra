@@ -181,3 +181,8 @@ variable "web_azure_ad_b2c_password_reset_user_flow" {
 variable "app_configuration_self_register" {
   type = bool
 }
+
+variable "app_configuration_group_invite" {
+  type = bool
+}
+
