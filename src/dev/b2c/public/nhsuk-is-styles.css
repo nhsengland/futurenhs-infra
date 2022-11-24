@@ -1,293 +1,295 @@
 .intro {
-    display: none !important;
+  display: none !important;
 }
 
 #errorSummary {
-	margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 .buttons > button {
-	font-weight: 400;
-	font-size: 16px;
-	font-size: 1rem;
-	line-height: 1.5;
-	margin-bottom: 20px;
-	-webkit-appearance: none;
-	background-color: #007f3b;
-	border: 2px solid transparent;
-	border-radius: 4px;
-	box-shadow: 0 4px 0 #00401e;
-	box-sizing: border-box;
-	color: #fff;
-	cursor: pointer;
-	display: inline-block;
-	font-weight: 600;
-	margin-top: 20px;
-	padding: 12px 16px;
-	position: relative;
-	text-align: center;
-	vertical-align: top;
-	width: auto
+  font-weight: 400;
+  font-size: 16px;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  -webkit-appearance: none;
+  background-color: #007f3b;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  box-shadow: 0 4px 0 #00401e;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 600;
+  margin-top: 20px;
+  padding: 12px 16px;
+  position: relative;
+  text-align: center;
+  vertical-align: top;
+  width: auto;
 }
 
-@media (min-width:40.0625em) {
-	.buttons > button {
-		font-size: 19px;
-		font-size: 1.1875rem;
-		line-height: 1.4736842105
-	}
+@media (min-width: 40.0625em) {
+  .buttons > button {
+    font-size: 19px;
+    font-size: 1.1875rem;
+    line-height: 1.4736842105;
+  }
 }
 
 @media print {
-	.buttons > button {
-		font-size: 14pt;
-		line-height: 1.15
-	}
+  .buttons > button {
+    font-size: 14pt;
+    line-height: 1.15;
+  }
 }
 
-@media (min-width:40.0625em) {
-	.buttons > button {
-		margin-bottom: 20px
-	}
+@media (min-width: 40.0625em) {
+  .buttons > button {
+    margin-bottom: 20px;
+  }
 }
 
-@media (max-width:40.0525em) {
-	.buttons > button {
-		padding: 8px 16px
-	}
+@media (max-width: 40.0525em) {
+  .buttons > button {
+    padding: 8px 16px;
+  }
 }
 
 .buttons > button:active,
 .buttons > button:hover,
 .buttons > button:link,
 .buttons > button:visited {
-	color: #fff;
-	text-decoration: none
+  color: #fff;
+  text-decoration: none;
 }
 
 .buttons > button::-moz-focus-inner {
-	border: 0;
-	padding: 0
+  border: 0;
+  padding: 0;
 }
 
 .buttons > button:hover {
-	background-color: #00662f
+  background-color: #00662f;
 }
 
 .buttons > button:focus {
-	background: #ffeb3b;
-	box-shadow: 0 4px 0 #212b32;
-	color: #212b32;
-	outline: 4px solid transparent
+  background: #ffeb3b;
+  box-shadow: 0 4px 0 #212b32;
+  color: #212b32;
+  outline: 4px solid transparent;
 }
 
 .buttons > button:focus:visited {
-	color: #212b32
+  color: #212b32;
 }
 
 .buttons > button:focus:visited:active {
-	color: #fff
+  color: #fff;
 }
 
 .buttons > button:active {
-	background: #00401e;
-	box-shadow: none;
-	color: #fff;
-	top: 4px
+  background: #00401e;
+  box-shadow: none;
+  color: #fff;
+  top: 4px;
 }
 
 .buttons > button:before {
-	background: transparent;
-	bottom: -6px;
-	content: "";
-	display: block;
-	left: -2px;
-	position: absolute;
-	right: -2px;
-	top: -2px
+  background: transparent;
+  bottom: -6px;
+  content: "";
+  display: block;
+  left: -2px;
+  position: absolute;
+  right: -2px;
+  top: -2px;
 }
 
 .buttons > button:active:before {
-	top: -6px
+  top: -6px;
 }
 
 .buttons > button--reverse {
-	background-color: #fff;
-	box-shadow: 0 4px 0 #212b32;
-	color: #212b32
+  background-color: #fff;
+  box-shadow: 0 4px 0 #212b32;
+  color: #212b32;
 }
 
 .buttons > button--reverse:hover {
-	background-color: #f2f2f2;
-	color: #212b32
+  background-color: #f2f2f2;
+  color: #212b32;
 }
 
 .buttons > button--reverse:focus {
-	background: #ffeb3b;
-	box-shadow: 0 4px 0 #212b32;
-	color: #212b32;
-	outline: 4px solid transparent
+  background: #ffeb3b;
+  box-shadow: 0 4px 0 #212b32;
+  color: #212b32;
+  outline: 4px solid transparent;
 }
 
 .buttons > button--reverse:active {
-	background: #212b32;
-	box-shadow: none;
-	color: #fff;
-	top: 4px
+  background: #212b32;
+  box-shadow: none;
+  color: #fff;
+  top: 4px;
 }
 
 .buttons > button--reverse:link {
-	color: #212b32
+  color: #212b32;
 }
 
 .buttons > button--reverse:link:active {
-	color: #fff
+  color: #fff;
 }
 
 .buttons > button--reverse.buttons > button--disabled,
 .buttons > button--reverse.buttons > button--disabled:focus {
-	background-color: #fff
+  background-color: #fff;
 }
 
 .buttons > button--disabled,
-.buttons > button[disabled=disabled],
+.buttons > button[disabled="disabled"],
 .buttons > button[disabled] {
-	background-color: #007f3b;
-	opacity: .5;
-	pointer-events: none
+  background-color: #007f3b;
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 .buttons > button--disabled:hover,
-.buttons > button[disabled=disabled]:hover,
+.buttons > button[disabled="disabled"]:hover,
 .buttons > button[disabled]:hover {
-	background-color: #007f3b;
-	cursor: default
+  background-color: #007f3b;
+  cursor: default;
 }
 
 .buttons > button--disabled:focus,
-.buttons > button[disabled=disabled]:focus,
+.buttons > button[disabled="disabled"]:focus,
 .buttons > button[disabled]:focus {
-	background-color: #007f3b;
-	outline: none
+  background-color: #007f3b;
+  outline: none;
 }
 
 .buttons > button--disabled:active,
-.buttons > button[disabled=disabled]:active,
+.buttons > button[disabled="disabled"]:active,
 .buttons > button[disabled]:active {
-	box-shadow: 0 4px 0 #00401e;
-	top: 0
+  box-shadow: 0 4px 0 #00401e;
+  top: 0;
 }
 
-.buttons > button--secondary[disabled=disabled],
+.buttons > button--secondary[disabled="disabled"],
 .buttons > button--secondary[disabled] {
-	background-color: #4c6272;
-	opacity: .5
+  background-color: #4c6272;
+  opacity: 0.5;
 }
 
-.buttons > button--secondary[disabled=disabled]:hover,
+.buttons > button--secondary[disabled="disabled"]:hover,
 .buttons > button--secondary[disabled]:hover {
-	background-color: #4c6272;
-	cursor: default
+  background-color: #4c6272;
+  cursor: default;
 }
 
-.buttons > button--secondary[disabled=disabled]:focus,
+.buttons > button--secondary[disabled="disabled"]:focus,
 .buttons > button--secondary[disabled]:focus {
-	outline: none
+  outline: none;
 }
 
-.buttons > button--secondary[disabled=disabled]:active,
+.buttons > button--secondary[disabled="disabled"]:active,
 .buttons > button--secondary[disabled]:active {
-	box-shadow: 0 4px 0 #263139;
-	top: 0
+  box-shadow: 0 4px 0 #263139;
+  top: 0;
 }
 
-.buttons > button--reverse[disabled=disabled],
+.buttons > button--reverse[disabled="disabled"],
 .buttons > button--reverse[disabled] {
-	background-color: #fff;
-	opacity: .5
+  background-color: #fff;
+  opacity: 0.5;
 }
 
-.buttons > button--reverse[disabled=disabled]:hover,
+.buttons > button--reverse[disabled="disabled"]:hover,
 .buttons > button--reverse[disabled]:hover {
-	background-color: #fff;
-	cursor: default
+  background-color: #fff;
+  cursor: default;
 }
 
-.buttons > button--reverse[disabled=disabled]:focus,
+.buttons > button--reverse[disabled="disabled"]:focus,
 .buttons > button--reverse[disabled]:focus {
-	outline: none
+  outline: none;
 }
 
-.buttons > button--reverse[disabled=disabled]:active,
+.buttons > button--reverse[disabled="disabled"]:active,
 .buttons > button--reverse[disabled]:active {
-	box-shadow: 0 4px 0 #212b32;
-	top: 0
+  box-shadow: 0 4px 0 #212b32;
+  top: 0;
 }
 
 .ie8 .buttons > button:focus {
-	outline: 1px dotted #212b32
+  outline: 1px dotted #212b32;
 }
 
 .showPasswordToggler:hover {
-	box-shadow: none;
-	background-color: #768692;
+  box-shadow: none;
+  background-color: #768692;
 }
 
 .showPasswordToggler {
-	box-shadow: none;
-	font-size: 1rem;
-	line-height: 0.8;
-	-webkit-appearance: none;
-	background-color: #D8DDE0;
-	box-sizing: border-box;
-	color: #212B32;
-	cursor: pointer;
-	display: inline-block;
-	margin-top: 0;
-	padding: 12px 16px;
-	position: relative;
-	text-align: center;
-	vertical-align: top;
-	font-family: Frutiger W01,Arial,sans-serif;
-	width: auto;
+  box-shadow: none;
+  font-size: 1rem;
+  line-height: 0.8;
+  -webkit-appearance: none;
+  background-color: #d8dde0;
+  box-sizing: border-box;
+  color: #212b32;
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 0;
+  padding: 12px 16px;
+  position: relative;
+  text-align: center;
+  vertical-align: top;
+  font-family: Frutiger W01, Arial, sans-serif;
+  width: auto;
 }
 
 #email_ver_but_resend,
 #email_ver_but_edit {
-	background-color: #4c6272;
-	box-shadow: 0 4px 0 #263139;
-    margin-left: 20px;
+  background-color: #4c6272;
+  box-shadow: 0 4px 0 #263139;
+  margin-left: 20px;
 }
 
 #email_ver_but_resend:hover,
 #email_ver_but_edit:hover {
-	background-color: #384853
+  background-color: #384853;
 }
 
 #email_ver_but_resend:focus,
 #email_ver_but_edit:focus {
-	background: #ffeb3b;
-	box-shadow: 0 4px 0 #212b32;
-	color: #212b32;
-	outline: 4px solid transparent
+  background: #ffeb3b;
+  box-shadow: 0 4px 0 #212b32;
+  color: #212b32;
+  outline: 4px solid transparent;
 }
 
 #email_ver_but_resend:active,
 #email_ver_but_edit:active {
-	background: #263139;
-	box-shadow: none;
-	color: #fff;
-	top: 4px
+  background: #263139;
+  box-shadow: none;
+  color: #fff;
+  top: 4px;
 }
 
-#email_ver_but_resend.buttons > button--disabled
-#email_ver_but_edit.buttons > button--disabled {
-	background-color: #4c6272
+#email_ver_but_resend.buttons
+  > button--disabled
+  #email_ver_but_edit.buttons
+  > button--disabled {
+  background-color: #4c6272;
 }
 
 #email_ver_but_resend,
 #email_ver_but_edit {
-	background-color: #4c6272;
-	box-shadow: 0 4px 0 #263139;
+  background-color: #4c6272;
+  box-shadow: 0 4px 0 #263139;
   margin-left: 20px;
 }

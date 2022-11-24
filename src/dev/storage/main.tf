@@ -75,6 +75,7 @@ resource "azurerm_storage_account" "b2c_content" {
       max_age_in_seconds = 3600
     }
 
+    static_website {}
 
     # add the soft-delete policies to the storage account
 
