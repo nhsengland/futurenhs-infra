@@ -30,7 +30,7 @@ resource "azurerm_storage_blob" "b2c_html" {
   content_type           = "text/html"
   source_content = templatefile("${path.module}/${each.key}", {
     ENV      = var.environment
-    HOME_URL = var.environment == "prod" ? "https://collaborate.future.nhs.uk" : "https://collaborate-${var.environment}.future.nhs.uk"
+    HOME_URL = var.environment == var.application_fqdn
   })
 }
 
@@ -51,8 +51,4 @@ resource "azurerm_storage_blob" "b2c_images" {
   storage_container_name = var.storage_container_name
   type                   = "Block"
   content_type           = "image/png"
-  source_content = templatefile("${path.module}/${each.key}", {
-    ENV      = var.environment
-    HOME_URL = var.environment == "prod" ? "https://collaborate.future.nhs.uk" : "https://collaborate-${var.environment}.future.nhs.uk"
-  })
 }
