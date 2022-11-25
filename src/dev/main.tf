@@ -453,7 +453,6 @@ module "b2c" {
   application_fqdn       = var.application_fqdn
   application_name       = var.b2c_application_name
   storage_account_name   = module.storage.b2c_storage_account_name
-  storage_container_name = module.storage.b2c_storage_container_name
 }
 
 #resource "azurerm_mssql_database" "forum" {
