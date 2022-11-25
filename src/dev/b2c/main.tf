@@ -51,4 +51,5 @@ resource "azurerm_storage_blob" "b2c_images" {
   storage_container_name = var.storage_container_name
   type                   = "Block"
   content_type           = "image/png"
+  source                 = "${path.module}/${each.key}"
 }
