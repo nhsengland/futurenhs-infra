@@ -67,3 +67,7 @@ output "b2c_storage_account_name" {
   value = azurerm_storage_account.b2c_content.name
 }
 
+output "b2c_storage_container_name" {
+  value = azurerm_storage_container.b2c.name
+}
+
