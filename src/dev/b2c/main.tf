@@ -43,3 +43,16 @@ resource "azurerm_storage_blob" "b2c_css" {
   content_type           = "text/css"
   source                 = "${path.module}/${each.key}"
 }
+
+resource "azurerm_storage_blob" "b2c_images" {
+  for_each               = fileset(path.module, "public/images/*")
+  name                   = split("/", each.key)[2]
+  storage_account_name   = var.storage_account_name
+  storage_container_name = var.storage_container_name
+  type                   = "Block"
+  content_type           = "image/png"
+  source_content = templatefile("${path.module}/${each.key}", {
+    ENV      = var.environment
+    HOME_URL = var.environment == "prod" ? "https://collaborate.future.nhs.uk" : "https://collaborate-${var.environment}.future.nhs.uk"
+  })
+}
