@@ -63,8 +63,6 @@ resource "azurerm_storage_account" "b2c_content" {
     type = "SystemAssigned"
   }
 
-  static_website {}
-
   blob_properties {
     versioning_enabled       = true
     change_feed_enabled      = false
