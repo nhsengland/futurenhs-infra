@@ -214,12 +214,6 @@ resource "azurerm_monitor_diagnostic_setting" "b2c_blob" {
     }
   }
 }
-resource "azurerm_storage_container" "b2c" {
-  #checkov:skip=CKV_AZURE_34:The container is used to serve public content over the iternet (avatar images etc) so shutting down public network access is not appropriate
-  name                  = "b2c"
-  storage_account_name  = azurerm_storage_account.b2c_content.name
-  container_access_type = "blob" # blob | container | private
-}
 
 # add storage container to host avatar and group images that we can serve up publically or via a CDN.
 # add the connection string to the storage account to key vault for safe keeping
