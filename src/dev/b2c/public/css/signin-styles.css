@@ -7,6 +7,29 @@
   display: none !important;
 }
 
+.c-site-header {
+  position: relative;
+  width: 100%;
+  background-color: #005eb8;
+  z-index: 10;
+}
+
+.c-site-header_content {
+  display: flex;
+  padding: 1rem 0;
+  height: 4.6875rem;
+  margin: 0 1rem;
+  width: auto;
+  max-width: 87.5rem;
+}
+
+.c-site-header_logo {
+  display: flex;
+  float: left;
+  max-width: 50%;
+  box-sizing: content-box;
+}
+
 .entry-item input {
   font-weight: 400;
   font-size: 16px;
