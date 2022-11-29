@@ -30,7 +30,7 @@ resource "azurerm_storage_blob" "b2c_html" {
   content_type           = "text/html"
   source_content = templatefile("${path.module}/${each.key}", {
     ENV      = var.environment
-    HOME_URL = var.environment == var.application_fqdn
+    HOME_URL = var.application_fqdn
   })
 }
 
