@@ -13,6 +13,7 @@
 
   <link rel="stylesheet" href="https://safnhso${ENV}uksouthb2c.blob.core.windows.net/b2c/nhsuk-4.1.0.min.css" type="text/css" data-preload="true">
   <link rel="stylesheet" href="https://safnhso${ENV}uksouthb2c.blob.core.windows.net/b2c/nhsuk-is-styles.css" type="text/css" data-preload="true">
+  <link rel="stylesheet" href="https://safnhso${ENV}uksouthb2c.blob.core.windows.net/b2c/nhsuk-fnhs-styles.css" type="text/css" data-preload="true">
   <link rel="stylesheet" href="https://safnhso${ENV}uksouthb2c.blob.core.windows.net/b2c/signup-styles.css" type="text/css" data-preload="true">
 
   <script>
@@ -365,24 +366,53 @@
 <body>
   <a class="nhsuk-skip-link" onclick="handleSkipLinkClick.call(this, event);" href="javascript:void(0);">Skip to main
     content</a>
-  <header class="nhsuk-header" role="banner">
-    <div class="nhsuk-width-container nhsuk-header__container">
-      <div class="nhsuk-header__logo">
-        <a class="nhsuk-header__link nhsuk-header__link--service " href="${HOME_URL}" aria-label="NHS homepage">
-          <svg class="nhsuk-logo" xmlns="http://www.w3.org/2000/svg" role="presentation" focusable="false"
-            viewBox="0 0 40 16">
-            <path class="nhsuk-logo__background" d="M0 0h40v16H0z"></path>
-            <path class="nhsuk-logo__text"
-              d="M3.9 1.5h4.4l2.6 9h.1l1.8-9h3.3l-2.8 13H9l-2.7-9h-.1l-1.8 9H1.1M17.3 1.5h3.6l-1 4.9h4L25 1.5h3.5l-2.7 13h-3.5l1.1-5.6h-4.1l-1.2 5.6h-3.4M37.7 4.4c-.7-.3-1.6-.6-2.9-.6-1.4 0-2.5.2-2.5 1.3 0 1.8 5.1 1.2 5.1 5.1 0 3.6-3.3 4.5-6.4 4.5-1.3 0-2.9-.3-4-.7l.8-2.7c.7.4 2.1.7 3.2.7s2.8-.2 2.8-1.5c0-2.1-5.1-1.3-5.1-5 0-3.4 2.9-4.4 5.8-4.4 1.6 0 3.1.2 4 .6">
-            </path>
-            <image src="https://assets.nhs.uk/images/nhs-logo.png" xlink:href=""></image>
-          </svg>
-          <span class="nhsuk-header__service-name"> Future NHS </span>
+    <header id="nav" class="c-site-header">
+      <div class="l-width-container c-site-header_content">
+        <a class="c-site-header_logo u-focus-item" href="${HOME_URL}">
+          <span
+            style="box-sizing:border-box;display:inline-block;overflow:hidden;width: 231px;height: 27px;background:none;opacity:1;border:0;margin:0;padding:0;position:relative;max-width:100%;align-self: center">
+            <span
+              style="box-sizing:border-box;display:block;width:initial;height:initial;background:none;opacity:1;border:0;margin:0;padding:0;max-width:100%">
+              <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="231" height="41"></svg>
+            </span>
+            <img alt="FutureNHS home page" src="https://safnhso${ENV}uksouthb2c.blob.core.windows.net/b2c/logo.png"
+              style="position:absolute;top:0;left:0;bottom:0;right:0;box-sizing:border-box;padding:0;border:none;margin:auto;display:block;width:0;height:0;min-width:100%;max-width:100%;min-height:100%;max-height:100%">
+          </span>
         </a>
       </div>
+    </header>
+  
+    <div class="l-width-container">
+      <div class="c-phase-banner">
+        <p class="c-phase-banner_tag">
+          <strong>beta</strong>
+        </p>
+        <p class="c-rich-text c-phase-banner_content">This is a new service – your <a
+            href="https://forms.office.com/r/0ENi61JEu8">feedback</a> will help us to improve it.</p>
+      </div>
     </div>
-  </header>
-  <div class="nhsuk-width-container">
+    <div class="u-bg-theme-1 tablet:u-block">
+      <div class="l-width-container">
+        <div class="l-col-container u-py-4 u-flex-row u-justify-start">
+          <div class="l-col-12 l-col-8-t">
+            <nav class="c-breadcrumb u--mt-0.5 u-fill-theme-5" aria-label="Site breadcrumb">
+              <ol class="c-breadcrumb_list">
+                <li class="c-breadcrumb_item">
+                  <a class="c-breadcrumb_link" href="${HOME_URL}">Go back</a>
+                </li>
+              </ol>
+            </nav>
+          </div>
+          <div class="u-text-right u-hidden tablet:u-block l-col-12 l-col-4-t">
+            <p class="c-rich-text u-mb-0">
+              <span class="u-text-bold">Need help?</span>
+              <a target="_blank" rel="noopener" href="http://support.future.nhs.uk">Visit our support centre</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div class="l-width-container">
     <div class="nhsuk-grid-row">
       <div class="nhsuk-grid-column-two-thirds">
         <div id="errorSummary" role="alert" class="nhsuk-error-summary" style="display: none;">
@@ -450,22 +480,43 @@
     </div>
   </div>
 </body>
-<footer role="contentinfo">
-  <div class="nhsuk-footer" id="nhsuk-footer">
-    <div class="nhsuk-width-container">
-      <h2 class="nhsuk-u-visually-hidden">Support links</h2>
-      <ul class="nhsuk-footer__list">
-        <li class="nhsuk-footer__list-item"><a class="nhsuk-footer__list-item-link"
-            href="${HOME_URL}/accessibility-statement">Accessibility statement</a></li>
-        <li class="nhsuk-footer__list-item"><a class="nhsuk-footer__list-item-link"
-            href="${HOME_URL}/contact-us">Contact us</a></li>
-        <li class="nhsuk-footer__list-item"><a class="nhsuk-footer__list-item-link"
-            href="${HOME_URL}/transactional/policies/cookies-policy">Cookies</a></li>
-        <li class="nhsuk-footer__list-item"><a class="nhsuk-footer__list-item-link"
-            href="${HOME_URL}/privacy-policy">Privacy policy</a></li>
-        <li class="nhsuk-footer__list-item"><a class="nhsuk-footer__list-item-link"
-            href="${HOME_URL}/terms-of-use">Terms and conditions</a></li>
-      </ul>
+ter class="c-site-footer">
+  <h2 class="u-sr-only">Footer Navigation</h2>
+  <div class="c-site-footer_nav">
+    <div class="l-width-container">
+      <div class="l-col-container u-flex-row u-justify-start">
+        <div class="l-col-12 l-col-10-d">
+          <nav aria-label="Footer legal links">
+            <ul role="menu" class="u-list-none u-m-0 u-p-0">
+              <li role="none" class="c-site-footer_nav-item">
+                <a role="menuitem" rel="noopener" aria-current="false"
+                  href="${HOME_URL}/transactional/policies/cookies-policy">Contact us</a>
+              </li>
+              <li role="none" class="c-site-footer_nav-item">
+                <a role="menuitem" rel="noopener" aria-current="false"
+                  href="${HOME_URL}/transactional/policies/cookies-policy">Cookies</a>
+              </li>
+              <li role="none" class="c-site-footer_nav-item">
+                <a role="menuitem" rel="noopener" aria-current="false" href="${HOME_URL}/privacy-policy">Privacy
+                  policy</a>
+              </li>
+              <li role="none" class="c-site-footer_nav-item">
+                <a role="menuitem" rel="noopener" aria-current="false" href="${HOME_URL}/terms-of-use">Terms and
+                  conditions</a>
+              </li>
+              <li role="none" class="c-site-footer_nav-item">
+                <a role="menuitem" rel="noopener" aria-current="false"
+                  href="${HOME_URL}/accessibility-statement">Accessibility statement</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div class="l-col-12 l-col-2-d">
+          <p class="c-site-footer_copyright">
+            <span>©</span> Crown copyright
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </footer>
