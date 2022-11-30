@@ -11,10 +11,14 @@
   <link href="https://www.nhs.uk/" rel="preconnect">
   <link href="https://assets.nhs.uk/" rel="preconnect" crossorigin>
 
-  <link rel="stylesheet" href="https://safnhso${ENV}uksouthb2c.blob.core.windows.net/b2c/nhsuk-4.1.0.min.css" type="text/css" data-preload="true">
-  <link rel="stylesheet" href="https://safnhso${ENV}uksouthb2c.blob.core.windows.net/b2c/nhsuk-is-styles.css" type="text/css" data-preload="true">
-  <link rel="stylesheet" href="https://safnhso${ENV}uksouthb2c.blob.core.windows.net/b2c/nhsuk-fnhs-styles.css" type="text/css" data-preload="true">
-  <link rel="stylesheet" href="https://safnhso${ENV}uksouthb2c.blob.core.windows.net/b2c/signin-styles.css" type="text/css" data-preload="true">
+  <link rel="stylesheet" href="https://safnhso${ENV}uksouthb2c.blob.core.windows.net/b2c/nhsuk-4.1.0.min.css"
+    type="text/css" data-preload="true">
+  <link rel="stylesheet" href="https://safnhso${ENV}uksouthb2c.blob.core.windows.net/b2c/nhsuk-is-styles.css"
+    type="text/css" data-preload="true">
+  <link rel="stylesheet" href="https://safnhso${ENV}uksouthb2c.blob.core.windows.net/b2c/nhsuk-fnhs-styles.css"
+    type="text/css" data-preload="true">
+  <link rel="stylesheet" href="https://safnhso${ENV}uksouthb2c.blob.core.windows.net/b2c/signin-styles.css"
+    type="text/css" data-preload="true">
 
   <script>
     function setDisplay(elem, value) {
@@ -211,15 +215,17 @@
 <body>
   <a class="nhsuk-skip-link" onclick="handleSkipLinkClick.call(this, event);" href="javascript:void(0);">Skip to main
     content</a>
-    <header id="nav" class="c-site-header">
+  <header id="nav" class="c-site-header">
     <div class="l-width-container c-site-header_content">
       <a class="c-site-header_logo u-focus-item" href="${HOME_URL}">
-        <span style="box-sizing:border-box;display:inline-block;overflow:hidden;width: 231px;height: 27px;background:none;opacity:1;border:0;margin:0;padding:0;position:relative;max-width:100%;align-self: center">
-          <span style="box-sizing:border-box;display:block;width:initial;height:initial;background:none;opacity:1;border:0;margin:0;padding:0;max-width:100%">
+        <span
+          style="box-sizing:border-box;display:inline-block;overflow:hidden;width: 231px;height: 27px;background:none;opacity:1;border:0;margin:0;padding:0;position:relative;max-width:100%;align-self: center">
+          <span
+            style="box-sizing:border-box;display:block;width:initial;height:initial;background:none;opacity:1;border:0;margin:0;padding:0;max-width:100%">
             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="231" height="41"></svg>
           </span>
           <img alt="FutureNHS home page" src="https://safnhso${ENV}uksouthb2c.blob.core.windows.net/b2c/logo.png"
-          style="position:absolute;top:0;left:0;bottom:0;right:0;box-sizing:border-box;padding:0;border:none;margin:auto;display:block;width:0;height:0;min-width:100%;max-width:100%;min-height:100%;max-height:100%">
+            style="position:absolute;top:0;left:0;bottom:0;right:0;box-sizing:border-box;padding:0;border:none;margin:auto;display:block;width:0;height:0;min-width:100%;max-width:100%;min-height:100%;max-height:100%">
         </span>
       </a>
     </div>
@@ -227,69 +233,74 @@
 
   <div class="l-width-container">
     <div class="c-phase-banner">
-    <p class="c-phase-banner_tag">
-    <strong>beta</strong>
-  </p>
-  <p class="c-rich-text c-phase-banner_content">This is a new service – your <a href="https://forms.office.com/r/0ENi61JEu8">feedback</a> will help us to improve it.</p>
-    </div>
-  </div> 
-    
-    <div class="l-col-container u-py-4 u-flex-row u-justify-start">
-      <div class="l-col-12 l-col-8-t">
-        <nav class="c-breadcrumb u--mt-0.5 u-fill-theme-5" aria-label="Site breadcrumb">
-          <ol class="c-breadcrumb_list"><li class="c-breadcrumb_item">
-            <a class="c-breadcrumb_link" href="${HOME_URL}">Go back</a>
-          </li>
-        </ol>
-      </nav>
-    </div>
-    <div class="u-text-right u-hidden tablet:u-block l-col-12 l-col-4-t">
-      <p class="c-rich-text u-mb-0">
-        <span class="u-text-bold">Need help?</span> 
-        <a target="_blank" rel="noopener" href="http://support.future.nhs.uk">Visit our support centre</a>
+      <p class="c-phase-banner_tag">
+        <strong>beta</strong>
       </p>
+      <p class="c-rich-text c-phase-banner_content">This is a new service – your <a
+          href="https://forms.office.com/r/0ENi61JEu8">feedback</a> will help us to improve it.</p>
     </div>
   </div>
+  <div class="u-bg-theme-1 tablet:u-block">
     <div class="l-width-container">
-      <div class="nhsuk-grid-column-two-thirds">
-        <div id="errorSummary" role="alert" class="nhsuk-error-summary" style="display: none;">
-          <h2 id="error-summary-title" class="nhsuk-error-summary__title"> There is a problem </h2>
-          <div class="nhsuk-error-summary__body">
-            <ul class="nhsuk-list nhsuk-error-summary__list">
-              <li class="emailMissingError" style="display: none;">
-                <a href="#signInName">Enter your email address</a>
+      <div class="l-col-container u-py-4 u-flex-row u-justify-start">
+        <div class="l-col-12 l-col-8-t">
+          <nav class="c-breadcrumb u--mt-0.5 u-fill-theme-5" aria-label="Site breadcrumb">
+            <ol class="c-breadcrumb_list">
+              <li class="c-breadcrumb_item">
+                <a class="c-breadcrumb_link" href="${HOME_URL}">Go back</a>
               </li>
-              <li class="invalidEmailError" style="display: none;">
-                <a href="#signInName">Enter a valid email address</a>
-              </li>
-              <li class="pwMissingError" style="display: none;">
-                <a href="#password">Enter your password</a>
-              </li>
-              <li class="invalidRequestError" style="display: none;">
-                <a href=".entry">The email or password is incorrect</a>
-              </li>
-            </ul>
+            </ol>
+          </nav>
+        </div>
+        <div class="u-text-right u-hidden tablet:u-block l-col-12 l-col-4-t">
+          <p class="c-rich-text u-mb-0">
+            <span class="u-text-bold">Need help?</span>
+            <a target="_blank" rel="noopener" href="http://support.future.nhs.uk">Visit our support centre</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="l-width-container">
+    <div class="nhsuk-grid-column-two-thirds">
+      <div id="errorSummary" role="alert" class="nhsuk-error-summary" style="display: none;">
+        <h2 id="error-summary-title" class="nhsuk-error-summary__title"> There is a problem </h2>
+        <div class="nhsuk-error-summary__body">
+          <ul class="nhsuk-list nhsuk-error-summary__list">
+            <li class="emailMissingError" style="display: none;">
+              <a href="#signInName">Enter your email address</a>
+            </li>
+            <li class="invalidEmailError" style="display: none;">
+              <a href="#signInName">Enter a valid email address</a>
+            </li>
+            <li class="pwMissingError" style="display: none;">
+              <a href="#password">Enter your password</a>
+            </li>
+            <li class="invalidRequestError" style="display: none;">
+              <a href=".entry">The email or password is incorrect</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="l-width-container">
+    <div class="c-page-body u-w-full tablet:u-px-4 u-py-10 tablet:u-px-0">
+      <div class="l-col-container u-flex-row u-justify-center">
+        <div class="l-col-12 l-col-8-t l-col-6-d">
+          <!-- AZURE -->
+          <div id="api"></div>
+          <!-- AZURE -->
+          <div id="createAccount" class="nhsuk-back-link nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0">
+            <p>Don't have an account yet?</p>
+            <a class="nhsuk-back-link__link" href="${HOME_URL}/auth/signin">
+              Create an account
+            </a>
           </div>
         </div>
       </div>
     </div>
-    <div class="l-width-container">
-      <div class="c-page-body u-w-full tablet:u-px-4 u-py-10 tablet:u-px-0">
-        <div class="l-col-container u-flex-row u-justify-center">
-            <div class="l-col-12 l-col-8-t l-col-6-d">  
-        <!-- AZURE -->
-        <div id="api"></div>
-        <!-- AZURE -->
-        <div id="createAccount" class="nhsuk-back-link nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0">
-          <p>Don't have an account yet?</p>
-          <a class="nhsuk-back-link__link" href="${HOME_URL}/auth/signin">
-            Create an account
-          </a>
-        </div>
-         </div>
-      </div>
-      </div>
-    </div>
+  </div>
   </div>
 </body>
 <footer class="c-site-footer">
@@ -301,25 +312,32 @@
           <nav aria-label="Footer legal links">
             <ul role="menu" class="u-list-none u-m-0 u-p-0">
               <li role="none" class="c-site-footer_nav-item">
-                <a role="menuitem" rel="noopener" aria-current="false" href="${HOME_URL}/transactional/policies/cookies-policy">Contact us</a>
+                <a role="menuitem" rel="noopener" aria-current="false"
+                  href="${HOME_URL}/transactional/policies/cookies-policy">Contact us</a>
               </li>
               <li role="none" class="c-site-footer_nav-item">
-                <a role="menuitem" rel="noopener" aria-current="false" href="${HOME_URL}/transactional/policies/cookies-policy">Cookies</a>
+                <a role="menuitem" rel="noopener" aria-current="false"
+                  href="${HOME_URL}/transactional/policies/cookies-policy">Cookies</a>
               </li>
               <li role="none" class="c-site-footer_nav-item">
-                <a role="menuitem" rel="noopener" aria-current="false" href="${HOME_URL}/privacy-policy">Privacy policy</a>
+                <a role="menuitem" rel="noopener" aria-current="false" href="${HOME_URL}/privacy-policy">Privacy
+                  policy</a>
               </li>
               <li role="none" class="c-site-footer_nav-item">
-                <a role="menuitem" rel="noopener" aria-current="false" href="${HOME_URL}/terms-of-use">Terms and conditions</a>
+                <a role="menuitem" rel="noopener" aria-current="false" href="${HOME_URL}/terms-of-use">Terms and
+                  conditions</a>
               </li>
               <li role="none" class="c-site-footer_nav-item">
-                <a role="menuitem" rel="noopener" aria-current="false" href="${HOME_URL}/accessibility-statement">Accessibility statement</a>
+                <a role="menuitem" rel="noopener" aria-current="false"
+                  href="${HOME_URL}/accessibility-statement">Accessibility statement</a>
               </li>
             </ul>
           </nav>
         </div>
-        <div class="l-col-12 l-col-2-d"><p class="c-site-footer_copyright">
-          <span>©</span> Crown copyright</p>
+        <div class="l-col-12 l-col-2-d">
+          <p class="c-site-footer_copyright">
+            <span>©</span> Crown copyright
+          </p>
         </div>
       </div>
     </div>
