@@ -250,7 +250,7 @@
       </p>
     </div>
   </div>
-    <div class="nhsuk-grid-row">
+    <div class="l-width-container">
       <div class="nhsuk-grid-column-two-thirds">
         <div id="errorSummary" role="alert" class="nhsuk-error-summary" style="display: none;">
           <h2 id="error-summary-title" class="nhsuk-error-summary__title"> There is a problem </h2>
@@ -273,7 +273,7 @@
         </div>
       </div>
     </div>
-    <div class="nhsuk-grid-row">
+    <div class="l-width-container">
       <div class="c-page-body u-w-full tablet:u-px-4 u-py-10 tablet:u-px-0">
         <div class="l-col-container u-flex-row u-justify-center">
             <div class="l-col-12 l-col-8-t l-col-6-d">  
@@ -292,23 +292,36 @@
     </div>
   </div>
 </body>
-
-<footer role="contentinfo">
-  <div class="nhsuk-footer" id="nhsuk-footer">
-    <div class="nhsuk-width-container">
-      <h2 class="nhsuk-u-visually-hidden">Support links</h2>
-      <ul class="nhsuk-footer__list">
-        <li class="nhsuk-footer__list-item"><a class="nhsuk-footer__list-item-link"
-            href="${HOME_URL}/accessibility-statement">Accessibility statement</a></li>
-        <li class="nhsuk-footer__list-item"><a class="nhsuk-footer__list-item-link"
-            href="${HOME_URL}/contact-us">Contact us</a></li>
-        <li class="nhsuk-footer__list-item"><a class="nhsuk-footer__list-item-link"
-            href="${HOME_URL}/transactional/policies/cookies-policy">Cookies</a></li>
-        <li class="nhsuk-footer__list-item"><a class="nhsuk-footer__list-item-link"
-            href="${HOME_URL}/privacy-policy">Privacy policy</a></li>
-        <li class="nhsuk-footer__list-item"><a class="nhsuk-footer__list-item-link"
-            href="${HOME_URL}/terms-of-use">Terms and conditions</a></li>
-      </ul>
+<footer class="c-site-footer">
+  <h2 class="u-sr-only">Footer Navigation</h2>
+  <div class="c-site-footer_nav">
+    <div class="l-width-container">
+      <div class="l-col-container u-flex-row u-justify-start">
+        <div class="l-col-12 l-col-10-d">
+          <nav aria-label="Footer legal links">
+            <ul role="menu" class="u-list-none u-m-0 u-p-0">
+              <li role="none" class="c-site-footer_nav-item">
+                <a role="menuitem" rel="noopener" aria-current="false" href="${HOME_URL}/transactional/policies/cookies-policy">Contact us</a>
+              </li>
+              <li role="none" class="c-site-footer_nav-item">
+                <a role="menuitem" rel="noopener" aria-current="false" href="${HOME_URL}/transactional/policies/cookies-policy">Cookies</a>
+              </li>
+              <li role="none" class="c-site-footer_nav-item">
+                <a role="menuitem" rel="noopener" aria-current="false" href="${HOME_URL}/privacy-policy">Privacy policy</a>
+              </li>
+              <li role="none" class="c-site-footer_nav-item">
+                <a role="menuitem" rel="noopener" aria-current="false" href="${HOME_URL}/terms-of-use">Terms and conditions</a>
+              </li>
+              <li role="none" class="c-site-footer_nav-item">
+                <a role="menuitem" rel="noopener" aria-current="false" href="${HOME_URL}/accessibility-statement">Accessibility statement</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div class="l-col-12 l-col-2-d"><p class="c-site-footer_copyright">
+          <span>©</span> Crown copyright</p>
+        </div>
+      </div>
     </div>
   </div>
 </footer>
