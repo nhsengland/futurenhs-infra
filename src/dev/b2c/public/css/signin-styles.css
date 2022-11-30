@@ -7,39 +7,6 @@
   display: none !important;
 }
 
-.c-site-header {
-  position: relative;
-  width: 100%;
-  background-color: #005eb8;
-  z-index: 10;
-}
-
-.c-site-header_content {
-  display: flex;
-  padding: 1rem 0;
-  height: 4.6875rem;
-  margin: 0 1rem;
-  width: auto;
-  max-width: 87.5rem;
-  align-items: center;
-}
-
-@media screen and (min-width: 960px)
-{
-.c-site-header_content {
-    min-height: 5.875rem;
-    height: auto;
-    display: flex;
-    align-items: center;
-    margin: 0 auto;
-  }
-}
-
-.c-site-header_logo {
-  display: flex;
-  float: left;
-}
-
 .entry-item input {
   font-weight: 400;
   font-size: 16px;
