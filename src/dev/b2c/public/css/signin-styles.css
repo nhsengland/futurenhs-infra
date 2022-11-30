@@ -21,12 +21,23 @@
   margin: 0 1rem;
   width: auto;
   max-width: 87.5rem;
+  align-items: center;
+}
+
+@media screen and (min-width: 960px)
+{
+.c-site-header_content {
+    min-height: 5.875rem;
+    height: auto;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+  }
 }
 
 .c-site-header_logo {
   display: flex;
   float: left;
-  align-self: end;
 }
 
 .entry-item input {
@@ -295,4 +306,8 @@
 
 #createAccount > p {
   margin: 10px 0 5px 0;
+}
+
+#okta {
+
 }
