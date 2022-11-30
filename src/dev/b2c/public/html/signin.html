@@ -213,9 +213,9 @@
     content</a>
     <header id="nav" class="c-site-header">
     <div class="l-width-container c-site-header_content">
-      <a class="c-site-header_logo u-focus-item" href="/">
-        <span style="box-sizing:border-box;display:inline-block;overflow:hidden;width: 231px;height: 27px;background:none;opacity:1;border:0;margin:0;padding:0;position:relative;max-width:100%">
-          <span style="box-sizing:border-box;display:block;width:initial;height:initial;background:none;opacity:1;border:0;margin:0;padding:0;max-width:100%;align-self: center">
+      <a class="c-site-header_logo u-focus-item" href="${HOME_URL}">
+        <span style="box-sizing:border-box;display:inline-block;overflow:hidden;width: 231px;height: 27px;background:none;opacity:1;border:0;margin:0;padding:0;position:relative;max-width:100%;align-self: center">
+          <span style="box-sizing:border-box;display:block;width:initial;height:initial;background:none;opacity:1;border:0;margin:0;padding:0;max-width:100%">
             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="231" height="41"></svg>
           </span>
           <img alt="FutureNHS home page" src="https://safnhso${ENV}uksouthb2c.blob.core.windows.net/b2c/logo.png"
@@ -228,18 +228,28 @@
   <div class="l-width-container">
     <div class="c-phase-banner">
     <p class="c-phase-banner_tag">
-    <strong>beta</strong></p><p class="c-rich-text c-phase-banner_content">This is a new service – your <a href="https://forms.office.com/r/0ENi61JEu8">feedback</a> will help us to improve it.</p></div>
-    <div id="goBack" class="nhsuk-back-link nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0">
-      <a class="nhsuk-back-link__link" href="${HOME_URL}">
-        <svg class="nhsuk-icon nhsuk-icon__chevron-left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-          aria-hidden="true">
-          <path
-            d="M8.5 12c0-.3.1-.5.3-.7l5-5c.4-.4 1-.4 1.4 0s.4 1 0 1.4L10.9 12l4.3 4.3c.4.4.4 1 0 1.4s-1 .4-1.4 0l-5-5c-.2-.2-.3-.4-.3-.7z">
-          </path>
-        </svg>
-        Go back
-      </a>
+    <strong>beta</strong>
+  </p>
+  <p class="c-rich-text c-phase-banner_content">This is a new service – your <a href="https://forms.office.com/r/0ENi61JEu8">feedback</a> will help us to improve it.</p>
     </div>
+  </div> 
+    
+    <div class="l-col-container u-py-4 u-flex-row u-justify-start">
+      <div class="l-col-12 l-col-8-t">
+        <nav class="c-breadcrumb u--mt-0.5 u-fill-theme-5" aria-label="Site breadcrumb">
+          <ol class="c-breadcrumb_list"><li class="c-breadcrumb_item">
+            <a class="c-breadcrumb_link" href="${HOME_URL}">Go back</a>
+          </li>
+        </ol>
+      </nav>
+    </div>
+    <div class="u-text-right u-hidden tablet:u-block l-col-12 l-col-4-t">
+      <p class="c-rich-text u-mb-0">
+        <span class="u-text-bold">Need help?</span> 
+        <a target="_blank" rel="noopener" href="http://support.future.nhs.uk">Visit our support centre</a>
+      </p>
+    </div>
+  </div>
     <div class="nhsuk-grid-row">
       <div class="nhsuk-grid-column-two-thirds">
         <div id="errorSummary" role="alert" class="nhsuk-error-summary" style="display: none;">
@@ -264,7 +274,9 @@
       </div>
     </div>
     <div class="nhsuk-grid-row">
-      <div class="nhsuk-grid-column-two-thirds">
+      <div class="c-page-body u-w-full tablet:u-px-4 u-py-10 tablet:u-px-0">
+        <div class="l-col-container u-flex-row u-justify-center">
+            <div class="l-col-12 l-col-8-t l-col-6-d">  
         <!-- AZURE -->
         <div id="api"></div>
         <!-- AZURE -->
@@ -274,6 +286,8 @@
             Create an account
           </a>
         </div>
+         </div>
+      </div>
       </div>
     </div>
   </div>
