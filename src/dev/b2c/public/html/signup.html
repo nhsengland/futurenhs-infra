@@ -105,7 +105,7 @@
       const attributeListElem = document.getElementById('attributeList');
       const ulElem = attributeListElem.getElementsByTagName('ul')[0];
 
-      const verifyEmailElem = emailAttrEntryElem.getElementsByClassName('verify')[0];
+      const verifyEmailElem = emailAttrEntryElem.getElementsByClassName('buttons')[0];
       attributeListElem.insertBefore(verifyEmailElem, attributeListElem.firstChild);
 
       for (let i = 0; i < ulElem.childNodes.length; i++) {
@@ -237,7 +237,6 @@
       const emailParentElem = document.getElementById('emailParent');
       const newPasswordElem = document.getElementById('newPassword');
       const reenterPasswordElem = document.getElementById('reenterPassword');
-      const checkboxLiElem = document.querySelector('.CheckboxMultiSelect');
       const passwordElems = document.getElementsByClassName('Password');
 
       const requiredFieldMissingElem = document.getElementById('requiredFieldMissing');
@@ -245,7 +244,6 @@
       const fieldIncorrectElem = document.getElementById('fieldIncorrect');
 
       const errorSummaryElem = document.getElementById('errorSummary');
-      const termsOfUseErrorElems = document.getElementsByClassName('termsOfUseError');
       const pwMissmatchErrorElems = document.getElementsByClassName('passwordMissmatchError');
       const pwComplexityErrorElems = document.getElementsByClassName('passwordComplexityError');
       const pwMissingErrorElems = document.getElementsByClassName('passwordMissingError');
@@ -353,7 +351,7 @@
 
     function runCustom() {
       prepareFields();
-      addTermsOfUse();
+      //addTermsOfUse();
       formatPasswordElems();
       formatVerificationErrors();
       prepareInvalidRequestError();
