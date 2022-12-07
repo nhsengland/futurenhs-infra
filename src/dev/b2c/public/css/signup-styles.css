@@ -6,6 +6,14 @@
     display: none !important;
 }
 
+.helpLink {
+	display:none;
+}
+
+.heading {
+	display:none;
+}
+
 .formInputList {
 	padding-left: 20px;
 }
