@@ -117,33 +117,12 @@
       ulElem.classList.add("formInputList");
       convertElemToDiv(ulElem);
 
-      // Move verify buttons again to the right place
-      // const emailParentElem = document.getElementById("emailParent");
-      // emailParentElem.appendChild(verifyEmailElem);
-
-      const errorSummaryElem = document.getElementById('errorSummary');
-      attributeVerificationElem.insertBefore(errorSummaryElem, titleElem);
-
-      // Move goBack Button
-      const goBackDivElem = document.createElement('div');
-      const goBackElem = document.getElementById('goBack');
-      goBackElem.onclick = onGoBackClick;
-      goBackDivElem.classList.add('nhsuk-back-link');
-      goBackDivElem.classList.add('goBackButtonParent');
-      goBackDivElem.appendChild(goBackElem);
-      attributeVerificationElem.insertBefore(goBackDivElem, errorSummaryElem);
-
-      // find continue button element and change text
-      const continueBtnElem = document.querySelector('#continue');
-      continueBtnElem.addEventListener('click', extraContinueValidation);
-      continueBtnElem.textContent = 'Create account';
-
       // find verify code button element and change text
-      const verifyCodeBtnElem = document.getElementById('email_ver_but_verify');
+      const verifyCodeBtnElem = document.getElementById('emailVerificationControl_but_send_code');
       verifyCodeBtnElem.textContent = 'Verify email';
 
       // find verify code button element and change text
-      const verifyEditBtnElem = document.getElementById('email_ver_but_edit');
+      const verifyEditBtnElem = document.getElementById('emailVerificationControl_but_change_claims');
       verifyEditBtnElem.textContent = 'Change email';
 
       const emailVerElem = document.getElementById('email_ver_input');
@@ -405,8 +384,10 @@
         </div>
       </div>
     </div>
+
   <div class="u-flex-grow u-relative u-bg-theme-3">
     <div class="l-width-container">
+      <h1>Create an account</h1>
       <div class="">
         <div id="errorSummary" role="alert" class="nhsuk-error-summary" style="display: none;">
           <h2 id="error-summary-title" class="nhsuk-error-summary__title"> There is a problem </h2>
@@ -434,7 +415,6 @@
             </ul>
           </div>
         </div>
-        <h1>Create an account</h1>
         <div id="passwordInstructions">
           <h2>Create a password</h2>
           <p>Your password must:</p>
