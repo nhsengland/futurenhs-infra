@@ -48,42 +48,42 @@
       elem.parentNode.replaceChild(divElem, elem);
     }
 
-    function addTermsOfUse() {
-      // find checkbox li element
-      const checkboxParentElem = document.querySelector('.CheckboxMultiSelect');
+    // function addTermsOfUse() {
+    //   // find checkbox li element
+    //   const checkboxParentElem = document.querySelector('.CheckboxMultiSelect');
 
-      // Create error element
-      const termsOfUseErrorSpan = document.createElement('span');
-      termsOfUseErrorSpan.style.display = 'none';
-      termsOfUseErrorSpan.classList.add('nhsuk-error-message');
-      termsOfUseErrorSpan.classList.add('termsOfUseError');
-      termsOfUseErrorSpan.textContent = 'You need to agree to the terms of use';
+    //   // Create error element
+    //   const termsOfUseErrorSpan = document.createElement('span');
+    //   termsOfUseErrorSpan.style.display = 'none';
+    //   termsOfUseErrorSpan.classList.add('nhsuk-error-message');
+    //   termsOfUseErrorSpan.classList.add('termsOfUseError');
+    //   termsOfUseErrorSpan.textContent = 'You need to agree to the terms of use';
 
-      checkboxParentElem.insertBefore(termsOfUseErrorSpan, checkboxParentElem.firstChild);
+    //   checkboxParentElem.insertBefore(termsOfUseErrorSpan, checkboxParentElem.firstChild);
 
-      // Add description      
-      const termsOfUseUrl = "${HOME_URL}/terms-of-use/innovator-terms-of-use";
-      const termsOfUseDescElement = document.createElement('p');
-      termsOfUseDescElement.innerHTML = "We need you to read and agree to the terms of use before creating your account. "
-        + "<a href=" + termsOfUseUrl + " target=\"_blank\" aria-label=\"Open terms of use\">Open terms of use.</a>";
+    //   // Add description      
+    //   const termsOfUseUrl = "${HOME_URL}/terms-of-use/innovator-terms-of-use";
+    //   const termsOfUseDescElement = document.createElement('p');
+    //   termsOfUseDescElement.innerHTML = "We need you to read and agree to the terms of use before creating your account. "
+    //     + "<a href=" + termsOfUseUrl + " target=\"_blank\" aria-label=\"Open terms of use\">Open terms of use.</a>";
 
-      checkboxParentElem.insertBefore(termsOfUseDescElement, termsOfUseErrorSpan);
+    //   checkboxParentElem.insertBefore(termsOfUseDescElement, termsOfUseErrorSpan);
 
-      // Add title to parent
-      const titleElement = document.createElement('h2');
-      titleElement.classList.add('termsOfUseTitle');
-      titleElement.textContent = 'Terms of use';
-      checkboxParentElem.insertBefore(titleElement, termsOfUseDescElement);
+    //   // Add title to parent
+    //   const titleElement = document.createElement('h2');
+    //   titleElement.classList.add('termsOfUseTitle');
+    //   titleElement.textContent = 'Terms of use';
+    //   checkboxParentElem.insertBefore(titleElement, termsOfUseDescElement);
 
-      // find the terms of use label element
-      const termsOfUseLabelElem = checkboxParentElem.querySelector('#api label[for="extension_termsOfUseConsentChoice_AgreeToTermsOfUseConsentYes"]');
-      termsOfUseLabelElem.classList.add('nhsuk-checkboxes__label');
-      termsOfUseLabelElem.innerHTML = 'I agree to the terms of use';
+    //   // find the terms of use label element
+    //   const termsOfUseLabelElem = checkboxParentElem.querySelector('#api label[for="extension_termsOfUseConsentChoice_AgreeToTermsOfUseConsentYes"]');
+    //   termsOfUseLabelElem.classList.add('nhsuk-checkboxes__label');
+    //   termsOfUseLabelElem.innerHTML = 'I agree to the terms of use';
 
-      // find the terms of use checkbox element
-      const termsOfUseElem = document.getElementById('extension_termsOfUseConsentChoice_AgreeToTermsOfUseConsentYes');
-      termsOfUseElem.ariaLabel = 'I agree to the terms of use';
-    }
+    //   // find the terms of use checkbox element
+    //   const termsOfUseElem = document.getElementById('extension_termsOfUseConsentChoice_AgreeToTermsOfUseConsentYes');
+    //   termsOfUseElem.ariaLabel = 'I agree to the terms of use';
+    // }
 
     function onGoBackClick() {
       document.getElementById('cancel').click();
@@ -98,7 +98,7 @@
       emailAttrEntryElem.id = "emailParent";
 
       // find verify button element and add listener
-      const emailVerButtonElem = document.querySelector('#email_ver_but_send');
+      const emailVerButtonElem = document.querySelector('#emailVerificationControl_but_send_code');
       emailVerButtonElem.addEventListener('click', extraEmailVerValidation);
 
       // Convert attributeList ul & li to div because of accessibility
