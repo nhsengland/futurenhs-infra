@@ -21,10 +21,6 @@
       elem.style.display = value;
     }
 
-    function removePlaceholder(elem) {
-      elem.setAttribute('placeholder', '')
-    }
-
     function bundleSetDisplay(elems, value) {
       for (let i = 0; i < elems.length; i++) {
         setDisplay(elems[i], value);
@@ -92,7 +88,7 @@
     function prepareFields() {
       // find email elem and remove placeholder 
       const emailElem = document.getElementById('email');
-      removePlaceholder(emailElem);
+      //removePlaceholder(emailElem);
       capitalizeFirstLabelLetter(emailElem);
       const emailAttrEntryElem = emailElem.closest('.attrEntry');
       emailAttrEntryElem.id = "emailParent";
@@ -124,10 +120,6 @@
       // find verify code button element and change text
       const verifyEditBtnElem = document.getElementById('emailVerificationControl_but_change_claims');
       verifyEditBtnElem.textContent = 'Change email';
-
-      const emailVerElem = document.getElementById('email_ver_input');
-      removePlaceholder(emailVerElem);
-      capitalizeFirstLabelLetter(emailVerElem);
 
       // find password elem and append instructions
       const passwordElem = document.querySelector('.Password');
@@ -168,7 +160,7 @@
       const passwordElems = document.querySelectorAll('input[type=password]');
       for (let i = 0; i < passwordElems.length; i++) {
         createPasswordToggler(passwordElems[i]);
-        removePlaceholder(passwordElems[i]);
+        //removePlaceholder(passwordElems[i]);
         capitalizeFirstLabelLetter(passwordElems[i]);
       }
     }
