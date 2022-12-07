@@ -125,10 +125,6 @@
       const passwordElem = document.querySelector('.Password');
       const passwordInstructionsElem = document.getElementById('passwordInstructions');
       passwordElem.insertBefore(passwordInstructionsElem, passwordElem.firstChild);
-
-      const surveyElem = document.getElementById('extension_surveyId');
-      const surveyLiElem = surveyElem.closest('.TextBox');
-      surveyLiElem.style.display = 'none';
     }
 
     function createPasswordToggler(passwordElem) {
