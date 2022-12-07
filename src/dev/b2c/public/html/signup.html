@@ -105,8 +105,8 @@
       const attributeListElem = document.getElementById('attributeList');
       const ulElem = attributeListElem.getElementsByTagName('ul')[0];
 
-      const verifyEmailElem = emailAttrEntryElem.getElementsByClassName('buttons')[0];
-      attributeListElem.insertBefore(verifyEmailElem, attributeListElem.firstChild);
+      // const verifyEmailElem = emailAttrEntryElem.getElementsByClassName('buttons')[0];
+      // attributeListElem.insertBefore(verifyEmailElem, attributeListElem.firstChild);
 
       for (let i = 0; i < ulElem.childNodes.length; i++) {
         if (ulElem.childNodes[i].tagName && ulElem.childNodes[i].tagName.toLowerCase() === 'li') {
@@ -118,8 +118,8 @@
       convertElemToDiv(ulElem);
 
       // Move verify buttons again to the right place
-      const emailParentElem = document.getElementById("emailParent");
-      emailParentElem.appendChild(verifyEmailElem);
+      // const emailParentElem = document.getElementById("emailParent");
+      // emailParentElem.appendChild(verifyEmailElem);
 
       // Move title and errorSummary
       const attributeVerificationElem = document.getElementById('attributeVerification');
