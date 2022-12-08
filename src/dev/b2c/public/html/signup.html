@@ -125,6 +125,11 @@
       const passwordElem = document.querySelector('.Password');
       const passwordInstructionsElem = document.getElementById('passwordInstructions');
       passwordElem.insertBefore(passwordInstructionsElem, passwordElem.firstChild);
+
+      // find continue button element and change text
+      const continueBtnElem = document.querySelector('#continue');
+      continueBtnElem.addEventListener('click', extraContinueValidation);
+      continueBtnElem.textContent = 'Create account';
     }
 
     function createPasswordToggler(passwordElem) {
