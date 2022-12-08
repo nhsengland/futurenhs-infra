@@ -227,15 +227,6 @@
         ...emailAlreadyExistsErrorElems
       ], 'none');
 
-      if (!document.getElementById('extension_termsOfUseConsentChoice_AgreeToTermsOfUseConsentYes').checked) {
-        bundleSetDisplay(termsOfUseErrorElems, 'block');
-        checkboxLiElem.classList.add('nhsuk-form-group--error');
-        hasErrors = true;
-      } else {
-        bundleSetDisplay(termsOfUseErrorElems, 'none');
-        checkboxLiElem.classList.remove('nhsuk-form-group--error');
-      }
-
       if (newPasswordElem.value === "" && reenterPasswordElem.value === "") {
         bundleSetDisplay(pwMissingErrorElems, 'block');
         hasErrors = true;
