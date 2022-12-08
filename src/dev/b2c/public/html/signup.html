@@ -162,7 +162,7 @@
     }
 
     function formatVerificationErrors() {
-      const emailVerifyElem = document.querySelector('.verify');
+      const emailVerifyElem = document.querySelector('.VerificationCode');
       const emailInfoElem = document.getElementById('email_info');
       const emailFailRetryElem = document.getElementById('email_fail_retry');
       const emailFailNoRetryElem = document.getElementById('email_fail_no_retry');
@@ -373,10 +373,10 @@
       </div>
     </div>
 
-  <div class="u-flex-grow u-relative u-bg-theme-3">
-    <div class="l-width-container">
-      <h1>Create an account</h1>
-      <div class="">
+    <div class="u-flex u-flex-grow">
+      <div class="c-page-body u-w-full tablet:u-px-4 u-py-10 tablet:u-px-0">
+        <div class="l-col-container u-flex-row u-justify-center">
+          <div class="l-col-12 l-col-8-t l-col-6-d">
         <div id="errorSummary" role="alert" class="nhsuk-error-summary" style="display: none;">
           <h2 id="error-summary-title" class="nhsuk-error-summary__title"> There is a problem </h2>
           <div class="nhsuk-error-summary__body">
@@ -422,13 +422,15 @@
             Enter a valid password
           </span>
         </div>
-
+        <h1 id="title">Create an account</h1>     
         <!-- AZURE -->
         <div id="api"></div>
         <!-- AZURE -->
       </div>
+
     </div>
   </div>
+</div>
 </body>
 <footer class="c-site-footer">
   <h2 class="u-sr-only">Footer Navigation</h2>
@@ -440,11 +442,11 @@
             <ul role="menu" class="u-list-none u-m-0 u-p-0">
               <li role="none" class="c-site-footer_nav-item">
                 <a role="menuitem" rel="noopener" aria-current="false"
-                  href="${HOME_URL}/transactional/policies/cookies-policy">Contact us</a>
+                  href="${HOME_URL}/contact-us">Contact us</a>
               </li>
               <li role="none" class="c-site-footer_nav-item">
                 <a role="menuitem" rel="noopener" aria-current="false"
-                  href="${HOME_URL}/transactional/policies/cookies-policy">Cookies</a>
+                  href="${HOME_URL}/cookies-policy">Cookies</a>
               </li>
               <li role="none" class="c-site-footer_nav-item">
                 <a role="menuitem" rel="noopener" aria-current="false" href="${HOME_URL}/privacy-policy">Privacy
