@@ -7,6 +7,10 @@
   display: none !important;
 }
 
+.formInputList > div {
+  margin: 1rem 0;
+}
+
 .entry-item input {
   font-weight: 400;
   font-size: 16px;
